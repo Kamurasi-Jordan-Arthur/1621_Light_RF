@@ -1,7 +1,7 @@
 gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_eusart.o: \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk/platform/service/iostream/src/sl_iostream_eusart.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc/sl_gcc_preinclude.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_status.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h \
@@ -56,9 +56,9 @@ gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_eusart.o: \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc/dmadrv.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc/ecode.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_ldma.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/dmadrv_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/dmadrv_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_power_manager_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_power_manager_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_common.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h \
@@ -71,7 +71,7 @@ gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_eusart.o: \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_bus.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/emlib_core_debug_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/emlib_core_debug_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_cmu_compat.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_gpio.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/sli_em_cmu.h \
@@ -81,7 +81,7 @@ gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_eusart.o: \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_atomic.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core.h
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc/sl_gcc_preinclude.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_status.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h:
@@ -136,9 +136,9 @@ gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_eusart.o: \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc/dmadrv.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc/ecode.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_ldma.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/dmadrv_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/dmadrv_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_power_manager_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_power_manager_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_common.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h:
@@ -151,7 +151,7 @@ gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_eusart.o: \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_bus.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/emlib_core_debug_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/emlib_core_debug_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_cmu_compat.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_gpio.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/sli_em_cmu.h:

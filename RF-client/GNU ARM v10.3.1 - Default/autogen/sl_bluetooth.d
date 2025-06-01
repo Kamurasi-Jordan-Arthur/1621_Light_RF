@@ -6,15 +6,15 @@ autogen/sl_bluetooth.o: ../autogen/sl_bluetooth.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/Core/Include/cmsis_gcc.h \
  ../autogen/sl_bluetooth.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_power_manager_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_power_manager_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_status.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_enum.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_config.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_connection_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_connection_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_stack_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_ll_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api.h \
@@ -74,15 +74,15 @@ autogen/sl_bluetooth.o: ../autogen/sl_bluetooth.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/CMSIS/Core/Include/cmsis_gcc.h:
 ../autogen/sl_bluetooth.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_power_manager_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_power_manager_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_status.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_enum.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_config.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_connection_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_connection_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_stack_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_ll_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api.h:

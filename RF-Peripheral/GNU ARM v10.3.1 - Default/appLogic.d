@@ -1,6 +1,6 @@
 appLogic.o: ../appLogic.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc/sl_gcc_preinclude.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_simple_button_instances.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_simple_button_instances.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/driver/button/inc/sl_simple_button.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/driver/button/inc/sl_button.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_common.h \
@@ -53,43 +53,43 @@ appLogic.o: ../appLogic.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_bus.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/emlib_core_debug_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/emlib_core_debug_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_enum.h \
  ../app.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_iostream_init_eusart_instances.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_iostream_init_eusart_instances.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream_uart.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc/dmadrv.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc/ecode.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_ldma.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/dmadrv_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/dmadrv_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_power_manager_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_power_manager_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h \
  ../appLogic.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/gatt_db.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/gatt_db.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sli_bt_gattdb_def.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_bluetooth.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_bluetooth_config.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_bluetooth_connection_config.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_bluetooth_advertiser_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_bluetooth.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_bluetooth_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_bluetooth_connection_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_bluetooth_advertiser_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_stack_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_ll_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bgapi.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api_compatibility.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//app/common/util/app_assert/app_assert.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/app_assert_config.h
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/app_assert_config.h
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc/sl_gcc_preinclude.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_simple_button_instances.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_simple_button_instances.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/driver/button/inc/sl_simple_button.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/driver/button/inc/sl_button.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_common.h:
@@ -142,38 +142,38 @@ appLogic.o: ../appLogic.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_bus.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/emlib_core_debug_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/emlib_core_debug_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_enum.h:
 ../app.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_iostream_init_eusart_instances.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_iostream_init_eusart_instances.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream_uart.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc/dmadrv.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc/ecode.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_ldma.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/dmadrv_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/dmadrv_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_power_manager_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_power_manager_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h:
 ../appLogic.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/gatt_db.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/gatt_db.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sli_bt_gattdb_def.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_bluetooth.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_bluetooth_config.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_bluetooth_connection_config.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_bluetooth_advertiser_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_bluetooth.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_bluetooth_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_bluetooth_connection_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_bluetooth_advertiser_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_stack_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_ll_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bgapi.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api_compatibility.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//app/common/util/app_assert/app_assert.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/app_assert_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/app_assert_config.h:

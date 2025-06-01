@@ -50,10 +50,10 @@ gecko_sdk_4.4.6/platform/radio/rail_lib/plugin/rail_util_power_manager_init/sl_r
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_assert_error_codes.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/rail_util_power_manager_init/sl_rail_util_power_manager_init.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_rail_util_power_manager_init_config.h
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_rail_util_power_manager_init_config.h
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc/sl_gcc_preinclude.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_types.h:
@@ -104,7 +104,7 @@ gecko_sdk_4.4.6/platform/radio/rail_lib/plugin/rail_util_power_manager_init/sl_r
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_assert_error_codes.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk/platform/radio/rail_lib/plugin/rail_util_power_manager_init/sl_rail_util_power_manager_init.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_rail_util_power_manager_init_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_rail_util_power_manager_init_config.h:

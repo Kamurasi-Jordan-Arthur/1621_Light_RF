@@ -46,7 +46,7 @@ gecko_sdk_4.4.6/platform/security/sl_component/sl_psa_driver/src/sli_cryptoacc_t
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_psa_driver/inc/sli_cryptoacc_transparent_types.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_cryptoacc_library/include/sx_hash.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_cryptoacc_library/include/compiler_extentions.h \
@@ -57,16 +57,16 @@ gecko_sdk_4.4.6/platform/security/sl_component/sl_psa_driver/src/sli_cryptoacc_t
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_driver_common.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_types.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/build_info.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_mbedtls_config.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_mbedtls_config_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_mbedtls_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_mbedtls_config_autogen.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_omnipresent.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_acceleration.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_mbedtls_device_config.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_mbedtls_config_transform_autogen.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/psa_crypto_config.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_psa_config_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_mbedtls_device_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_mbedtls_config_transform_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/psa_crypto_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_psa_config_autogen.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_psa_acceleration.h \
- /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_psa_builtin_config_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_psa_builtin_config_autogen.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/config_psa.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_legacy.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_adjust_config_synonyms.h \
@@ -173,7 +173,7 @@ gecko_sdk_4.4.6/platform/security/sl_component/sl_psa_driver/src/sli_cryptoacc_t
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_psa_driver/inc/sli_cryptoacc_transparent_types.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_cryptoacc_library/include/sx_hash.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_cryptoacc_library/include/compiler_extentions.h:
@@ -184,16 +184,16 @@ gecko_sdk_4.4.6/platform/security/sl_component/sl_psa_driver/src/sli_cryptoacc_t
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_driver_common.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_types.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/build_info.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_mbedtls_config.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_mbedtls_config_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_mbedtls_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_mbedtls_config_autogen.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_omnipresent.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_acceleration.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/sl_mbedtls_device_config.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_mbedtls_config_transform_autogen.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/config/psa_crypto_config.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_psa_config_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/sl_mbedtls_device_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_mbedtls_config_transform_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/config/psa_crypto_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_psa_config_autogen.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_psa_acceleration.h:
-/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/Project\ files/autogen/sli_psa_builtin_config_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-Peripheral/autogen/sli_psa_builtin_config_autogen.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/config_psa.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_legacy.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_adjust_config_synonyms.h:

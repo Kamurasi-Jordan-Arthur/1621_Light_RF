@@ -1,10 +1,10 @@
 gecko_sdk_4.4.6/hardware/driver/configuration_over_swo/src/sl_cos.o: \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk/hardware/driver/configuration_over_swo/src/sl_cos.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc/sl_gcc_preinclude.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//hardware/driver/configuration_over_swo/inc/sl_cos.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_enum.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_rail_util_pti_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_rail_util_pti_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_types.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/chip/efr32/efr32xg2x/rail_chip_specific.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_features.h \
@@ -56,10 +56,10 @@ gecko_sdk_4.4.6/hardware/driver/configuration_over_swo/src/sl_cos.o: \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_status.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/driver/debug/inc/sl_debug_swo.h
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/toolchain/inc/sl_gcc_preinclude.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//hardware/driver/configuration_over_swo/inc/sl_cos.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_enum.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_rail_util_pti_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_rail_util_pti_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_types.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/chip/efr32/efr32xg2x/rail_chip_specific.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_features.h:

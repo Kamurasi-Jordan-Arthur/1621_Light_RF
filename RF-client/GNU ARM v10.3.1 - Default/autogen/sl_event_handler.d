@@ -47,7 +47,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_common.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_system.h \
@@ -56,7 +56,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/emlib_core_debug_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/emlib_core_debug_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/device_init/inc/sl_device_init_nvic.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_status.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//hardware/board/inc/sl_board_init.h \
@@ -70,7 +70,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_types.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/chip/efr32/efr32xg2x/rail_chip_specific.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_features.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_rail_util_pa_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_rail_util_pa_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h \
@@ -81,11 +81,11 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//app/common/util/app_log/app_log.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_iostream_handles.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_iostream_init_usart_instances.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_iostream_handles.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_iostream_init_usart_instances.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_power_manager_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_power_manager_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream_uart.h \
@@ -93,11 +93,11 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc/dmadrv.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc/ecode.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_ldma.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/dmadrv_config.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/app_log_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/dmadrv_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/app_log_config.h \
  ../autogen/sl_bluetooth.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_config.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_connection_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_connection_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_stack_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_ll_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api.h \
@@ -120,7 +120,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  ../autogen/sl_cli_instances.h ../autogen/sl_component_catalog.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli_types.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_cli_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_cli_config.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli_command.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli_arguments.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto.h \
@@ -128,16 +128,16 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/private_access.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/build_info.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/build_info.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_mbedtls_config.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_mbedtls_config_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_mbedtls_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_mbedtls_config_autogen.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_omnipresent.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_acceleration.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_mbedtls_device_config.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_mbedtls_config_transform_autogen.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/psa_crypto_config.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_psa_config_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_mbedtls_device_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_mbedtls_config_transform_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/psa_crypto_config.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_psa_config_autogen.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_psa_acceleration.h \
- /home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_psa_builtin_config_autogen.h \
+ /mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_psa_builtin_config_autogen.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/config_psa.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_legacy.h \
  /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_adjust_config_synonyms.h \
@@ -244,7 +244,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_prs_signals.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_dma_descriptor.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_ldmaxbar_defines.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_common.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_system.h:
@@ -253,7 +253,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_assert.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/emlib_core_debug_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/emlib_core_debug_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/device_init/inc/sl_device_init_nvic.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_status.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//hardware/board/inc/sl_board_init.h:
@@ -267,7 +267,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_types.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/chip/efr32/efr32xg2x/rail_chip_specific.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/common/rail_features.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_rail_util_pa_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_rail_util_pa_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h:
@@ -278,11 +278,11 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/sleeptimer/inc/sl_sleeptimer.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//app/common/util/app_log/app_log.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_iostream_handles.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_iostream_init_usart_instances.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sl_component_catalog.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_iostream_handles.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_iostream_init_usart_instances.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/power_manager/inc/sl_power_manager.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_power_manager_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_power_manager_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/common/inc/sl_slist.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_core_generic.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/iostream/inc/sl_iostream_uart.h:
@@ -290,11 +290,11 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/dmadrv/inc/dmadrv.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emdrv/common/inc/ecode.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/emlib/inc/em_ldma.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/dmadrv_config.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/app_log_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/dmadrv_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/app_log_config.h:
 ../autogen/sl_bluetooth.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_config.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_bluetooth_connection_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_bluetooth_connection_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_stack_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_ll_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//protocol/bluetooth/inc/sl_bt_api.h:
@@ -318,7 +318,7 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 ../autogen/sl_component_catalog.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli_types.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_cli_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_cli_config.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli_command.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/service/cli/inc/sl_cli_arguments.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto.h:
@@ -326,16 +326,16 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/private_access.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/build_info.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/build_info.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_mbedtls_config.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_mbedtls_config_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_mbedtls_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_mbedtls_config_autogen.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_omnipresent.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_mbedtls_acceleration.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/sl_mbedtls_device_config.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_mbedtls_config_transform_autogen.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/config/psa_crypto_config.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_psa_config_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/sl_mbedtls_device_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_mbedtls_config_transform_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/config/psa_crypto_config.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_psa_config_autogen.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//platform/security/sl_component/sl_mbedtls_support/config/sli_psa_acceleration.h:
-/home/jordan/SimplicityStudio/v5_workspace/bt_SPC50_client/autogen/sli_psa_builtin_config_autogen.h:
+/mnt/863003B03003A5F1/kamurasi.jordan@students.mak.ac.ug9UD7QQ6GE1/My\ devs/My\ Applications/ANFA\ ENGINERRING/Light\ switch/project/RF-client/autogen/sli_psa_builtin_config_autogen.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/mbedtls/config_psa.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_legacy.h:
 /home/jordan/SimplicityStudio/SDKs/gecko_sdk//util/third_party/mbedtls/include/psa/crypto_adjust_config_synonyms.h:

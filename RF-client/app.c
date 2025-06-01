@@ -260,6 +260,8 @@ void sl_bt_on_event(sl_bt_msg_t* evt)
 //  uint8_t *char_value;
   uint16_t addr_value;
   uint8_t table_index;
+  static uint8_t count = 0U;
+
 //  int8_t rssi;
 
   // Handle stack events
@@ -544,7 +546,6 @@ void sl_bt_on_event(sl_bt_msg_t* evt)
     // -------------------------------
     // This event is generated when a characteristic value was received e.g. an indication
     case sl_bt_evt_gatt_characteristic_value_id:
-      static uint8_t count = 0U;
       table_index = find_index_by_connection_handle(evt->data.evt_gatt_characteristic_value.connection);
       if (table_index == TABLE_INDEX_INVALID) {
           app_log_info("Un-Registered connection.\n");
@@ -613,7 +614,7 @@ void sl_bt_on_event(sl_bt_msg_t* evt)
       }else if(evt->data.evt_gatt_characteristic_value.characteristic == conn_properties[table_index].status_characteristic_handle ){
           conn_properties[table_index].status = evt->data.evt_gatt_characteristic_value.value.data[0] ;
           app_log_info("Status_value received: %d",conn_properties[table_index].status);
-          count++
+          count++;
 
       }else if(evt->data.evt_gatt_characteristic_value.characteristic == conn_properties[table_index].send_characteristic_handle){
 //          conn_properties[table_index].status = evt->data.evt_gatt_characteristic_value.value.data[0] ;
