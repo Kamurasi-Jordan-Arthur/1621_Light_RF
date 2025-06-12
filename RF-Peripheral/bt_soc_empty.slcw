@@ -1,7 +1,0 @@
----
-label: "bt_soc_empty"
-quality: "unknown"
-project:
-- id: "main"
-  path: "bt_SPC50_Peripheral.slcp"
-  output: "."
