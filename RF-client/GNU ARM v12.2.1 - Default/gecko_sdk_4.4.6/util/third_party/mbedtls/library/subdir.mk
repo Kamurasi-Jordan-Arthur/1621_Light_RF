@@ -1,0 +1,224 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/cipher.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/cipher_wrap.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/constant_time.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/platform.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/platform_util.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_aead.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_cipher.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_client.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_driver_wrappers_no_static.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_ecp.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_ffdh.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_hash.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_mac.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_pake.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_rsa.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_se.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_slot_management.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_storage.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_util.c \
+/home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/threading.c 
+
+OBJS += \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher_wrap.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/constant_time.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform_util.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_aead.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_cipher.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_client.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_driver_wrappers_no_static.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ecp.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ffdh.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_hash.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_mac.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_pake.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_rsa.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_se.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_slot_management.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_storage.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_util.o \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/threading.o 
+
+C_DEPS += \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher_wrap.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/constant_time.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform_util.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_aead.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_cipher.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_client.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_driver_wrappers_no_static.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ecp.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ffdh.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_hash.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_mac.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_pake.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_rsa.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_se.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_slot_management.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_storage.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_util.d \
+./gecko_sdk_4.4.6/util/third_party/mbedtls/library/threading.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/cipher.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher_wrap.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/cipher_wrap.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/cipher_wrap.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/constant_time.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/constant_time.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/constant_time.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/platform.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform_util.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/platform_util.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/platform_util.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_aead.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_aead.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_aead.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_cipher.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_cipher.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_cipher.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_client.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_client.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_client.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_driver_wrappers_no_static.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_driver_wrappers_no_static.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_driver_wrappers_no_static.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ecp.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_ecp.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ecp.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ffdh.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_ffdh.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_ffdh.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_hash.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_hash.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_hash.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_mac.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_mac.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_mac.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_pake.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_pake.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_pake.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_rsa.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_rsa.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_rsa.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_se.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_se.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_se.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_slot_management.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_slot_management.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_slot_management.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_storage.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_crypto_storage.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_crypto_storage.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_util.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/psa_util.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/psa_util.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+gecko_sdk_4.4.6/util/third_party/mbedtls/library/threading.o: /home/jordan/SimplicityStudio/SDKs/gecko_sdk/util/third_party/mbedtls/library/threading.c gecko_sdk_4.4.6/util/third_party/mbedtls/library/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU ARM C Compiler'
+	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m33 -mthumb -std=c99 -O2 -Wall -ffunction-sections -fdata-sections -mfpu=fpv5-sp-d16 -mfloat-abi=softfp -c -fmessage-length=0 -MMD -MP -MF"gecko_sdk_4.4.6/util/third_party/mbedtls/library/threading.d" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+

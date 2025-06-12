@@ -1,0 +1,6 @@
+---
+label: "bt_soc_blinky"
+project:
+- id: "main"
+  path: "1621_Light_RF-Client.slcp"
+  output: "."
