@@ -1,0 +1,6 @@
+---
+label: "SM-intergration"
+project:
+- id: "main"
+  path: "Peripheral-Re-designed.slcp"
+  output: "."

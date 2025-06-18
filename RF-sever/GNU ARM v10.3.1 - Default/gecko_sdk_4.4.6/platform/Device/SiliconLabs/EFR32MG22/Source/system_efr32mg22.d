@@ -46,7 +46,7 @@ gecko_sdk_4.4.6/platform/Device/SiliconLabs/EFR32MG22/Source/system_efr32mg22.o:
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h:
@@ -93,4 +93,4 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h:

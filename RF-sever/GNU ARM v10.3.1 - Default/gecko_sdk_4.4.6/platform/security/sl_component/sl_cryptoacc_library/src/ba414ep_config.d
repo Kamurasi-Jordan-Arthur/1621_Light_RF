@@ -49,7 +49,7 @@ gecko_sdk_4.4.6/platform/security/sl_component/sl_cryptoacc_library/src/ba414ep_
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_cryptoacc_library\include\compiler_extentions.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_cryptoacc_library\include\cryptolib_types.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_cryptoacc_library\include\sx_memcpy.h \
@@ -113,7 +113,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_cryptoacc_library\include\compiler_extentions.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_cryptoacc_library\include\cryptolib_types.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_cryptoacc_library\include\sx_memcpy.h:

@@ -6,16 +6,16 @@ autogen/sl_bluetooth.o: ../autogen/sl_bluetooth.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_gcc.h \
  ../autogen/sl_bluetooth.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_power_manager_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_power_manager_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bluetooth_config.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bluetooth_connection_config.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bluetooth_advertiser_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bluetooth_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bluetooth_connection_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bluetooth_advertiser_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h \
@@ -25,7 +25,7 @@ autogen/sl_bluetooth.o: ../autogen/sl_bluetooth.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_init.h \
  ../autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\bluetooth\common\in_place_ota_dfu\sl_bt_in_place_ota_dfu.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bt_in_place_ota_dfu_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bt_in_place_ota_dfu_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\bluetooth\common\gatt_service_device_information\sl_gatt_service_device_information.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h \
@@ -78,16 +78,16 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\inc
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_gcc.h:
 ../autogen/sl_bluetooth.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_power_manager_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_power_manager_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bluetooth_config.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bluetooth_connection_config.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bluetooth_advertiser_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bluetooth_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bluetooth_connection_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bluetooth_advertiser_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h:
@@ -97,7 +97,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_init.h:
 ../autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\bluetooth\common\in_place_ota_dfu\sl_bt_in_place_ota_dfu.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_bt_in_place_ota_dfu_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_bt_in_place_ota_dfu_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\bluetooth\common\gatt_service_device_information\sl_gatt_service_device_information.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h:

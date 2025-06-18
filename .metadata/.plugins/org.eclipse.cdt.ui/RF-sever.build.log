@@ -1,0 +1,6 @@
+18:18:23 **** Incremental Build of configuration GNU ARM v10.3.1 - Default for project RF-sever ****
+make -j4 all 
+make: Nothing to be done for 'all'.
+
+18:18:25 Build Finished. 0 errors, 0 warnings. (took 1s.718ms)
+

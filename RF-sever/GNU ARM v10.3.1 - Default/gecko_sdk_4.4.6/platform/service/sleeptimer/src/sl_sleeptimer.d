@@ -46,7 +46,7 @@ gecko_sdk_4.4.6/platform/service/sleeptimer/src/sl_sleeptimer.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h \
@@ -54,10 +54,10 @@ gecko_sdk_4.4.6/platform/service/sleeptimer/src/sl_sleeptimer.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/service/sleeptimer/src/sli_sleeptimer_hal.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sli_sleeptimer.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_sleeptimer_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_sleeptimer_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_atomic.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_power_manager_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_power_manager_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sli_power_manager.h \
@@ -108,7 +108,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:
@@ -116,10 +116,10 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h:
 C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/service/sleeptimer/src/sli_sleeptimer_hal.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sli_sleeptimer.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_sleeptimer_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_sleeptimer_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_atomic.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_power_manager_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_power_manager_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sli_power_manager.h:

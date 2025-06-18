@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<MSolutions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.silabs.com/ss/Solution.ecore">
+  <solution name="SM-intergration" label="SM-intergration">
+    <SolutionModuleReferences id="slc.workspace.data"/>
+    <property key="solution.activeDebugGroup" value="Default"/>
+    <project builtin="true" name="Peripheral-Re-designed" location="../../Peripheral-Re-designed"/>
+    <configuration name="Default">
+      <project builtin="true" name="Peripheral-Re-designed"/>
+    </configuration>
+    <SDMDefinition id="slc.workspace.data">
+      <project name="Peripheral-Re-designed" location="C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed"/>
+    </SDMDefinition>
+  </solution>
+</MSolutions>

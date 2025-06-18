@@ -46,7 +46,7 @@ gecko_sdk_4.4.6/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_bus.h \
@@ -54,7 +54,7 @@ gecko_sdk_4.4.6/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/emlib_core_debug_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/emlib_core_debug_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu_compat.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h \
@@ -64,7 +64,7 @@ gecko_sdk_4.4.6/platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\common\rail_types.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\common\rail_features.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_rail_util_pa_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_rail_util_pa_config.h \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h \
@@ -117,7 +117,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_bus.h:
@@ -125,7 +125,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_c
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/emlib_core_debug_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/emlib_core_debug_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu_compat.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h:
@@ -135,7 +135,7 @@ C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/radio/rail_lib
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\common\rail_types.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\chip\efr32\efr32xg2x\rail_chip_specific.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\common\rail_features.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_rail_util_pa_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_rail_util_pa_config.h:
 C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.h:
 C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/sl_rail_util_pa_curves.h:
 C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/radio/rail_lib/plugin/pa-conversions/pa_curve_types_efr32.h:

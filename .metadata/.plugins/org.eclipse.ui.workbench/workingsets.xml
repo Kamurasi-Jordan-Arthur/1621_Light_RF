@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="com.silabs.ss.framework.ide.project.ui.solution" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750074689949_8" label="SM-intergration" name="SM-intergration">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/Peripheral-Re-designed" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750056018208_0" label="Window Working Set" name="Aggregate for window 1750056018208"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750074690069_9" label="Solutions" name="Solutions">
+<workingSet IMemento.internal.id="SM-intergration"/>
+</workingSet>
+</workingSetManager>

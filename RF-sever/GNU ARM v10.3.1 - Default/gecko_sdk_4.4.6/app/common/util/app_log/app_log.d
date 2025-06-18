@@ -47,27 +47,27 @@ gecko_sdk_4.4.6/app/common/util/app_log/app_log.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/app/common/util/app_log/app_log.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_iostream_handles.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_iostream_init_eusart_instances.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_iostream_handles.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_iostream_init_eusart_instances.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream_uart.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\dmadrv\inc\dmadrv.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\common\inc\ecode.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_ldma.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/dmadrv_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/dmadrv_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_power_manager_config.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_power_manager_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
- C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/app_log_config.h
+ C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/app_log_config.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
@@ -115,24 +115,24 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22_ldmaxbar_defines.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_component_catalog.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:
 C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/app/common/util/app_log/app_log.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_iostream_handles.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\autogen/sl_iostream_init_eusart_instances.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_iostream_handles.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\autogen/sl_iostream_init_eusart_instances.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream_uart.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\dmadrv\inc\dmadrv.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\common\inc\ecode.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_ldma.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/dmadrv_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/dmadrv_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/sl_power_manager_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/sl_power_manager_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
-C:\Users\user\SimplicityStudio\v5_workspace_2\RF-sever\config/app_log_config.h:
+C:\Users\user\SimplicityStudio\v5_workspace\RF-sever\config/app_log_config.h:
