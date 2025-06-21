@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value=""/>
+		<item key="selection" value="led_bink_callback"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="_SIG"/>
+			<item value="led_bink_callback"/>
+			<item value="ad_decay_callback"/>
 			<item value="%u"/>
-			<item value="notify_flag_change"/>
-			<item value="sl_bt_evt_gatt_server_attribute_value"/>
-			<item value="attribute"/>
-			<item value="evt_gatt_characteristic_value"/>
-			<item value="sl_bt_evt_gatt_server_attribute_value_id"/>
-			<item value="203302313191"/>
-			<item value="sl_bt_evt_gatt_server_characteristic_status_id"/>
-			<item value="send_notification"/>
-			<item value="parse_data"/>
-			<item value="event-&gt;data.evt_gatt_characteristic_value.value.data[2]"/>
-			<item value="event-&gt;data.evt_gatt_characteristic_value.value.data[1]"/>
-			<item value="parse"/>
-			<item value="Unkown"/>
+			<item value="0x7F"/>
+			<item value="0x80"/>
+			<item value="0x08"/>
+			<item value="gatt_ser"/>
+			<item value="gatt_rea"/>
+			<item value="sl_bt_system_reset"/>
+			<item value="btEvt"/>
+			<item value="current"/>
+			<item value="            sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG &amp; ~(1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);"/>
+			<item value="service_InAdvertisement"/>
+			<item value="evt_scanner_legacy_advertisement_report"/>
+			<item value="data.evt_scanner_legacy_advertisement_report"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

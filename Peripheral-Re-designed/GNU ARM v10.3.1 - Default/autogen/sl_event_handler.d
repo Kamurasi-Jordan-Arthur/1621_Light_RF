@@ -105,7 +105,6 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  ../autogen/sl_bluetooth.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h \
- C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h \
@@ -307,7 +306,6 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\common\util\app_tim
 ../autogen/sl_bluetooth.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h:
-C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h:

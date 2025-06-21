@@ -17,7 +17,10 @@ main.o: ../main.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bgapi.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h \
- ../app.h
+ C:\qp\qpc/include/qpc.h C:\qp\qpc/ports/qep-only/qp_port.h \
+ C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/qp_config.h \
+ C:\qp\qpc/include/qp.h C:\qp\qpc/include/qsafe.h \
+ C:\qp\qpc/include/qs_dummy.h ../app.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\system\inc\sl_system_init.h:
@@ -36,4 +39,10 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\system
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bgapi.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h:
+C:\qp\qpc/include/qpc.h:
+C:\qp\qpc/ports/qep-only/qp_port.h:
+C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/qp_config.h:
+C:\qp\qpc/include/qp.h:
+C:\qp\qpc/include/qsafe.h:
+C:\qp\qpc/include/qs_dummy.h:
 ../app.h:

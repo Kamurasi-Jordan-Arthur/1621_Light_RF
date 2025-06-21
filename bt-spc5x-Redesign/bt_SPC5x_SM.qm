@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model version="7.0.1" links="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
+ <framework name="qpc"/>
+ <package name="SMs" stereotype="0x02">
+  <class name="bt_SPC51" superclass="qpc::QMsm">
+   <attribute name="sc" type="sl_status_t" visibility="0x02" properties="0x00">
+    <documentation>status return of run bt commands</documentation>
+   </attribute>
+   <attribute name="advertising_set_handle" type="uint8_t" visibility="0x02" properties="0x00">
+    <code>0xff;</code>
+   </attribute>
+   <attribute name="address" type="bd_addr" visibility="0x02" properties="0x00"/>
+   <attribute name="address_type" type="uint8_t" visibility="0x02" properties="0x00"/>
+   <attribute name="system_id[8]" type="uint8_t" visibility="0x02" properties="0x00"/>
+   <operation name="ctor" type="void" visibility="0x00" properties="0x00">
+    <code>//remoteSM *me = &amp;remote_inst;
+QMsm_ctor(&amp;me-&gt;super, Q_STATE_CAST(&amp;bt_SPC51_initial));</code>
+   </operation>
+   <statechart properties="0x00">
+    <initial target="../1">
+     <action>(void)par; // unused parameter
+me-&gt;advertising_set_handle = 0xff;
+</action>
+     <initial_glyph conn="20,8,5,0,8,3">
+      <action box="4,-4,29,6"/>
+     </initial_glyph>
+    </initial>
+    <state name="INITIALIZING">
+     <tran trig="sl_bt_evt_system_boot_id" target="../../2">
+      <action>//Stack verion display
+app_log_info(&quot;Stack version: %u.%u.%u\r\r\n&quot;,
+           event-&gt;data.evt_system_boot.major,
+           event-&gt;data.evt_system_boot.minor,
+           event-&gt;data.evt_system_boot.patch);
+
+
+/* Print Bluetooth address */
+app_log_info(&quot;Bluetooth %s address: %02X:%02X:%02X:%02X:%02X:%02X\r\n&quot;,
+                 me-&gt;address_type ? &quot;static random&quot; : &quot;public device&quot;,
+                 me-&gt;address.addr[5],
+                 me-&gt;address.addr[4],
+                 me-&gt;address.addr[3],
+                 me-&gt;address.addr[2],
+                 me-&gt;address.addr[1],
+                 me-&gt;address.addr[0]);
+    // Pad and reverse unique ID to get System ID.
+    me-&gt;system_id[0] = me-&gt;address.addr[5];
+    me-&gt;system_id[1] = me-&gt;address.addr[4];
+    me-&gt;system_id[2] = me-&gt;address.addr[3];
+    me-&gt;system_id[3] = 0xFF;
+    me-&gt;system_id[4] = 0xFE;
+    me-&gt;system_id[5] = me-&gt;address.addr[2];
+    me-&gt;system_id[6] = me-&gt;address.addr[1];
+    me-&gt;system_id[7] = me-&gt;address.addr[0];
+
+me-&gt;sc = sl_bt_gatt_server_write_attribute_value(gattdb_system_id,
+                                             0,
+                                             sizeof(me-&gt;system_id),
+                                             me-&gt;system_id);
+app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_displayonly);
+app_assert_status(me-&gt;sc);
+
+//Delete any preivious bonding on start up if any
+me-&gt;sc = sl_bt_sm_delete_bondings();
+app_assert_status(me-&gt;sc);
+
+app_log_info(&quot;All bonding deleted.\n&quot;);
+
+///set defualt connection parameters
+me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
+                                           CONN_INTERVAL_MAX,
+                                           CONN_RESPONDER_LATENCY,
+                                           CONN_TIMEOUT,
+                                           CONN_MIN_CE_LENGTH,
+                                           CONN_MAX_CE_LENGTH);
+
+app_assert_status(me-&gt;sc);
+
+
+me-&gt;sc = sl_bt_advertiser_create_set(&amp;me-&gt;advertising_set_handle);
+app_assert_status(me-&gt;sc);
+
+// Generate data for advertising
+me-&gt;sc = sl_bt_legacy_advertiser_generate_data(me-&gt;advertising_set_handle,
+                                         sl_bt_advertiser_general_discoverable);
+app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_advertiser_set_timing(
+                                me-&gt;advertising_set_handle,
+                                1600U, 2400U, // min &amp; max interval (ms * 1.6)
+                                0U, 0U);    // duration, max events
+app_assert_status(me-&gt;sc);
+
+
+//sc = sl_bt_advertiser_set_channel_map(advertising_set_handle, (uint8_t)0x01);  // Only channel 37
+// Start advertising and enable connections.
+
+
+
+</action>
+      <tran_glyph conn="22,16,3,0,-1,6">
+       <action box="-26,3,23,2"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="22,11,11,7"/>
+    </state>
+    <state name="OPERRATIONAL">
+     <initial target="../2">
+      <initial_glyph conn="33,31,5,0,-13,5">
+       <action box="0,-2,10,2"/>
+      </initial_glyph>
+     </initial>
+     <tran trig="sl_bt_evt_gatt_server_attribute_value_id">
+      <action>send_notification();</action>
+      <tran_glyph conn="70,67,2,-1,-3,-24">
+       <action box="-16,-5,30,2"/>
+      </tran_glyph>
+     </tran>
+     <state name="ADVERTISING">
+      <entry>me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
+                                 sl_bt_legacy_advertiser_connectable);
+app_assert_status(me-&gt;sc);
+
+app_log_info(&quot;Advertising....\n&quot;);
+
+
+sl_simple_button_enable(&amp;sl_button_btn0);
+
+app_button_press_enable();
+
+//after that restrict new connections
+me-&gt;sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);
+app_assert_status(me-&gt;sc);  </entry>
+      <exit>
+app_button_press_disable();</exit>
+      <tran trig="sl_bt_evt_connection_opened_id" target="../../3">
+       <action>app_log_info(&quot;Connection Opened....\n&quot;);
+
+
+
+
+me-&gt;sc = sl_sleeptimer_stop_timer(&amp;newConnectionTimer);
+
+if(me-&gt;sc == SL_STATUS_OK){
+    app_log_info(&quot;New device connection timer halted...\n&quot;);
+    sl_led_turn_off(&amp;sl_led_led0);
+    blink_count = 0U;
+}
+
+
+if (event-&gt;data.evt_connection_opened.bond_handle == SL_BT_INVALID_BOND_HANDLE) {
+
+    me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
+    app_assert_status(me-&gt;sc);
+}else{
+     app_log_info(&quot;Already Bonded...\n&quot;);
+
+}
+
+
+</action>
+       <tran_glyph conn="31,48,1,3,24">
+        <action box="0,-2,26,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="sl_bt_evt_sm_bonded_id">
+       <action>app_log_info(&quot;Bonded....\n&quot;);
+
+</action>
+       <tran_glyph conn="31,46,1,-1,-2,2,-6">
+        <action box="-22,-2,24,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="sl_bt_evt_connection_closed_id">
+       <action>app_log_info(&quot;Connection Closed....\n&quot;);
+</action>
+       <tran_glyph conn="31,51,1,-1,-2,3,-6">
+        <action box="-23,-2,28,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="sl_bt_evt_gatt_server_characteristic_status_id">
+       <action>if (event-&gt;data.evt_gatt_server_characteristic_status.status_flags == sl_bt_gatt_server_client_config) {
+  if (event-&gt;data.evt_gatt_server_characteristic_status.client_config_flags == sl_bt_gatt_server_notification) {
+      // Notifications have been enabled by the client
+      notify_flag_change();
+  }
+}</action>
+       <tran_glyph conn="15,57,2,-1,-2,5">
+        <action box="-13,0,36,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph color="1" node="11,36,20,21">
+       <entry box="0,3,6,2"/>
+       <exit box="0,5,6,2"/>
+      </state_glyph>
+     </state>
+     <state name="MANAGING_CONNECTION">
+      <tran trig="sl_bt_evt_connection_parameters_id">
+       <action>switch (event-&gt;data.evt_connection_parameters.security_mode)
+    {
+    case sl_bt_connection_mode1_level1:
+      app_log_info(&quot;No Security\n&quot;);
+      break;
+    case sl_bt_connection_mode1_level2:
+      app_log_info(&quot;Unauthenticated pairing with encryption (Just Works)\n&quot;);
+      break;
+    case sl_bt_connection_mode1_level3:
+      app_log_info(&quot;Authenticated pairing with encryption (Legacy Pairing)\n&quot;);
+      break;
+    case sl_bt_connection_mode1_level4:
+      app_log_info(&quot;Authenticated Secure Connections pairing with encryption (BT 4.2 LE Secure Pairing)\n&quot;);
+      break;
+    default:
+      break;
+    }</action>
+       <choice>
+        <guard brief="AtleastConfidetiality">event-&gt;data.evt_connection_parameters.security_mode == sl_bt_connection_mode1_level1 </guard>
+        <choice_glyph conn="62,44,5,-1,9">
+         <action box="2,-3,17,2"/>
+        </choice_glyph>
+       </choice>
+       <choice target="../../../2">
+        <guard brief="else">else</guard>
+        <choice_glyph conn="62,44,5,1,-31">
+         <action box="-13,-2,13,3"/>
+        </choice_glyph>
+       </choice>
+       <tran_glyph conn="55,40,3,-1,7,4">
+        <action box="-8,-3,30,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="sl_bt_evt_sm_passkey_display_id">
+       <action>app_log_info(&quot;PK: %06lu\n&quot;, event-&gt;data.evt_sm_passkey_display.passkey);
+</action>
+       <tran_glyph conn="81,52,1,-1,-3">
+        <action box="0,0,28,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="sl_bt_evt_sm_bonding_failed_id" target="../../2">
+       <action>//failed bonding close the connection.
+me-&gt;sc = sl_bt_connection_close(
+              event-&gt;data.evt_sm_bonding_failed.connection);
+app_assert_status(me-&gt;sc);
+
+app_log_info(&quot;Bonding Failed....\n&quot;);
+app_log_info(&quot;Closing connection....\n&quot;);</action>
+       <tran_glyph conn="55,55,3,1,-24">
+        <action box="-24,-3,27,2"/>
+       </tran_glyph>
+      </tran>
+      <tran trig="sl_bt_evt_sm_confirm_bonding_id">
+       <action>me-&gt;sc = sl_bt_sm_bonding_confirm(event-&gt;data.evt_sm_confirm_bonding.connection, 1U);
+app_assert_status(me-&gt;sc);
+app_log_info(&quot;Remote bonding reqeust confirmed.\n&quot;);</action>
+       <tran_glyph conn="81,48,1,-1,-8">
+        <action box="1,-1,27,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph color="3" node="55,33,26,25"/>
+     </state>
+     <state_glyph node="2,22,90,45"/>
+    </state>
+    <state_diagram size="121,81"/>
+   </statechart>
+  </class>
+  <directory name="./Scr">
+   <file name="bt_SPC51_SM.c">
+    <text>#include &quot;em_common.h&quot;
+#include &quot;app_assert.h&quot;
+#include &quot;sl_sleeptimer.h&quot;
+
+#include &quot;sl_bluetooth.h&quot;
+#include &quot;gatt_db.h&quot;
+
+
+#include &quot;app_button_press.h&quot;
+#include &quot;sl_simple_button.h&quot;
+#include &quot;sl_simple_button_instances.h&quot;
+
+#include &quot;sl_simple_led.h&quot;
+#include &quot;sl_simple_led_instances.h&quot;
+
+#include &quot;app.h&quot;
+#include &quot;app.h&quot;
+#include &quot;qpc.h&quot;
+
+#include &quot;bt_SPC51_SM.h&quot;
+
+
+$define(SMs::bt_SPC51_inst)
+
+//static ToastOven l_oven; // the only instance of the ToastOven class
+
+// global-scope definitions -----------------------------------------
+QMsm * const QMsm_bt_SPC51_p = &amp;bt_SPC51_inst.super; // the opaque pointer
+
+$define(SMs::bt_SPC51)
+//$define(SMs::remoteSM_ctor)</text>
+   </file>
+  </directory>
+  <directory name="./Inc">
+   <file name="bt_SPC51_SM.h">
+    <text>#ifndef remoteSM_H_
+#define remoteSM_H_
+
+//extern QHsm * const the_oven; 
+
+//$declare(SMs::INITIAL_FLAG_CONFIG)
+$declare(SMs)
+
+//$declare(SMs::bt_SPC51)
+//$declare(SMs::remoteSM_ctor)
+
+extern QMsm * const QMsm_bt_SPC51_p; // opaque pointer to the remoteSM HSM
+
+#endif // HISTORY_H_</text>
+   </file>
+  </directory>
+  <attribute name="bt_SPC51_inst" type="bt_SPC51" visibility="0x01" properties="0x00"/>
+  <attribute name="INITIAL_FLAG_CONFIG" type="" visibility="0x03" properties="0x00">
+   <code>0b00101010</code>
+  </attribute>
+  <attribute name="CONN_INTERVAL_MIN" type="uint8_t" visibility="0x03" properties="0x00">
+   <code>80U</code>
+  </attribute>
+  <attribute name="CONN_INTERVAL_MAX" type="" visibility="0x03" properties="0x00">
+   <code>80U</code>
+  </attribute>
+  <attribute name="CONN_RESPONDER_LATENCY" type="" visibility="0x03" properties="0x00">
+   <code>2U</code>
+  </attribute>
+  <attribute name="CONN_TIMEOUT" type="" visibility="0x03" properties="0x00">
+   <code>100U</code>
+  </attribute>
+  <attribute name="CONN_MIN_CE_LENGTH" type="" visibility="0x03" properties="0x00">
+   <code>0U</code>
+  </attribute>
+  <attribute name="CONN_MAX_CE_LENGTH" type="" visibility="0x03" properties="0x00">
+   <code>0xffff</code>
+  </attribute>
+ </package>
+</model>

@@ -22,7 +22,6 @@ gecko_sdk_4.4.6/protocol/bluetooth/src/sl_bt_stack_init.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h \
- C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\bgstack\ll\inc\sl_btctrl_linklayer.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sli_bt_gattdb_def.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sli_bt_config_defs.h \
@@ -49,7 +48,6 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h:
-C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\bgstack\ll\inc\sl_btctrl_linklayer.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sli_bt_gattdb_def.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sli_bt_config_defs.h:

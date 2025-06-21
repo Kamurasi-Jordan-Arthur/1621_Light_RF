@@ -72,7 +72,6 @@ app.o: ../app.c \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_bluetooth.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h \
- C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h \
@@ -93,11 +92,12 @@ app.o: ../app.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_simple_led.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_led.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_simple_led_instances.h \
- ../app.h C:\qp\qpc/include/qpc.h C:\qp\qpc/ports/qep-only/qp_port.h \
+ C:\qp\qpc/include/qpc.h C:\qp\qpc/ports/qep-only/qp_port.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/qp_config.h \
  C:\qp\qpc/include/qp.h C:\qp\qpc/include/qsafe.h \
  C:\qp\qpc/include/qs_dummy.h \
- C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/bt_SPC51_SM.h
+ C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/remote.h \
+ ../app.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
@@ -171,7 +171,6 @@ C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/app_lo
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_bluetooth.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h:
-C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h:
@@ -192,11 +191,11 @@ C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_si
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_simple_led.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_led.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_simple_led_instances.h:
-../app.h:
 C:\qp\qpc/include/qpc.h:
 C:\qp\qpc/ports/qep-only/qp_port.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/qp_config.h:
 C:\qp\qpc/include/qp.h:
 C:\qp\qpc/include/qsafe.h:
 C:\qp\qpc/include/qs_dummy.h:
-C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/bt_SPC51_SM.h:
+C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed/Inc/remote.h:
+../app.h:

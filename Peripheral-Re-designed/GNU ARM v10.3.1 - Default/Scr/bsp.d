@@ -76,7 +76,6 @@ Scr/bsp.o: ../Scr/bsp.c \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_bluetooth.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h \
  C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h \
- C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h \
@@ -161,7 +160,6 @@ C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/app_lo
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\autogen/sl_bluetooth.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_config.h:
 C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_connection_config.h:
-C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed\config/sl_bluetooth_advertiser_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h:
