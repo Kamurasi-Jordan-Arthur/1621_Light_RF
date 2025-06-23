@@ -123,6 +123,7 @@ SL_WEAK void app_process_action(void)
   sl_status_t sc;
 
   if (blink_expired){
+      blink_expired = false;
       sc = sl_sleeptimer_stop_timer(&appTimer);
       app_assert_status(sc);
       app_log_info("blink_expired.\n");
@@ -440,7 +441,8 @@ void app_button_press_cb(uint8_t button, uint8_t duration){
   button_pressed = true;
   buttonEvt.duration = duration;
   buttonEvt.keyId = button;
+
 //  switch (duration) { }
 ////    Make sure the button press handled correctly
-//    app_button_press_disable();
+  app_button_press_disable();
 }

@@ -47,16 +47,16 @@
 #define INITIAL_FLAG_CONFIG 0b00100110
 
 //${SMs::CONN_INTERVAL_MIN} ..................................................
-#define CONN_INTERVAL_MIN 80U
+#define CONN_INTERVAL_MIN 160U
 
 //${SMs::CONN_INTERVAL_MAX} ..................................................
-#define CONN_INTERVAL_MAX 80U
+#define CONN_INTERVAL_MAX 300U
 
 //${SMs::CONN_RESPONDER_LATENCY} .............................................
-#define CONN_RESPONDER_LATENCY 2U
+#define CONN_RESPONDER_LATENCY 0U
 
 //${SMs::CONN_TIMEOUT} .......................................................
-#define CONN_TIMEOUT 100U
+#define CONN_TIMEOUT 500U
 
 //${SMs::CONN_MIN_CE_LENGTH} .................................................
 #define CONN_MIN_CE_LENGTH 0U
@@ -128,6 +128,9 @@ extern QMState const bt_remote_Service_discovery_s;
 QState bt_remote_characteristic_discovery  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_characteristic_discovery_e(bt_remote * const me);
 extern QMState const bt_remote_characteristic_discovery_s;
+QState bt_remote_notification_getting  (bt_remote * const me, QEvt const * const e);
+QState bt_remote_notification_getting_e(bt_remote * const me);
+extern QMState const bt_remote_notification_getting_s;
 QState bt_remote_running  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_running_e(bt_remote * const me);
 QState bt_remote_running_x(bt_remote * const me);

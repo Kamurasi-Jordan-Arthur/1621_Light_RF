@@ -143,9 +143,9 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 
 void notify_flag_change(void){
 //  (void) connection;
-  sl_status_t sc;
-  size_t data_len;
-  uint8_t data[5U];
+//  sl_status_t sc;
+//  size_t data_len;
+//  uint8_t data[5U];
 
   switch (event->data.evt_gatt_server_characteristic_status.characteristic){
     case gattdb_Led_config:
@@ -163,19 +163,21 @@ void notify_flag_change(void){
       break;
 
   }
+
 //   Read status characteristic stored in local GATT database.
-  sc = sl_bt_gatt_server_read_attribute_value(event->data.evt_gatt_server_characteristic_status.characteristic,
-                                              0,
-                                              (size_t)sizeof(data),
-                                              &data_len,
-                                              data);
-  app_assert_status(sc);
-  // alert the send of data
-  sc = sl_bt_gatt_server_send_notification(event->data.evt_gatt_server_characteristic_status.connection,
-                                           event->data.evt_gatt_server_characteristic_status.characteristic,
-                                           data_len,
-                                           data);
-  app_assert_status(sc);
+
+//  sc = sl_bt_gatt_server_read_attribute_value(event->data.evt_gatt_server_characteristic_status.characteristic,
+//                                              0,
+//                                              (size_t)sizeof(data),
+//                                              &data_len,
+//                                              data);
+//  app_assert_status(sc);
+//  // alert the send of data
+//  sc = sl_bt_gatt_server_send_notification(event->data.evt_gatt_server_characteristic_status.connection,
+//                                           event->data.evt_gatt_server_characteristic_status.characteristic,
+//                                           data_len,
+//                                           data);
+//  app_assert_status(sc);
 
 
 
@@ -279,6 +281,7 @@ void send_notification(void){
        if(!parse_data()){
            return;
        }
+       break;
        /* no break */
        // Intentional fall through
 

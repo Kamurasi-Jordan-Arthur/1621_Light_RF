@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="led_bink_callback"/>
+		<item key="selection" value=""/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="led_bink_callback"/>
-			<item value="ad_decay_callback"/>
-			<item value="%u"/>
-			<item value="0x7F"/>
-			<item value="0x80"/>
-			<item value="0x08"/>
-			<item value="gatt_ser"/>
-			<item value="gatt_rea"/>
-			<item value="sl_bt_system_reset"/>
-			<item value="btEvt"/>
-			<item value="current"/>
-			<item value="            sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG &amp; ~(1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);"/>
-			<item value="service_InAdvertisement"/>
-			<item value="evt_scanner_legacy_advertisement_report"/>
-			<item value="data.evt_scanner_legacy_advertisement_report"/>
+			<item value="_SIG"/>
+			<item value="Close"/>
+			<item value="sl_bt_connection_open"/>
+			<item value="increase_se"/>
+			<item value="app_button"/>
+			<item value="delete"/>
+			<item value="ver"/>
+			<item value="led_config notification enabled"/>
+			<item value="read_"/>
+			<item value="read_attr"/>
+			<item value="flag_cha"/>
+			<item value="flag_change"/>
+			<item value="flag_chabge"/>
+			<item value="send_notifi"/>
+			<item value="bt_advertiser_sto"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
+			<item value="led_service_UUID"/>
+			<item value="sl_led_toggle"/>
+			<item value="me-&gt;current_led"/>
+			<item value="blinkTimerCallback"/>
+			<item value="appTimer"/>
 			<item value="evt_gatt_server_attribute_value"/>
 			<item value="(event-&gt;data.evt_gatt_characteristic_value.value.data[2])"/>
 			<item value="(event-&gt;data.evt_gatt_characteristic_value.value.data[1])"/>
