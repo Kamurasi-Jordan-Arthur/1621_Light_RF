@@ -188,17 +188,17 @@ if(me-&gt;sc == SL_STATUS_OK){
          <action box="28,3,10,2"/>
         </choice_glyph>
        </choice>
-       <choice>
+       <choice target="../..">
         <guard>else</guard>
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
 
-me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
-                                 sl_bt_legacy_advertiser_connectable);
-app_assert_status(me-&gt;sc);
+//me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
+//                                 sl_bt_legacy_advertiser_connectable);
+//app_assert_status(me-&gt;sc);
 
-app_log_info(&quot;advertising....\n&quot;);</action>
-        <choice_glyph conn="12,43,5,-1,-5,6">
-         <action box="-6,2,10,2"/>
+//app_log_info(&quot;advertising....\n&quot;);</action>
+        <choice_glyph conn="12,43,5,3,-9,2,2">
+         <action box="-10,3,10,2"/>
         </choice_glyph>
        </choice>
        <tran_glyph conn="30,43,1,-1,-18">
@@ -224,7 +224,9 @@ app_log_info(&quot;advertising....\n&quot;);</action>
       </state_glyph>
      </state>
      <state name="MANAGING_CONNECTION">
-      <entry>app_button_press_disable();
+      <entry>app_log_info(&quot;Managing New connection....\n&quot;);
+
+app_button_press_disable();
 
 me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
 app_assert_status(me-&gt;sc);

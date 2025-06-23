@@ -9,9 +9,9 @@
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="SMs::bt_remote::SM">0,0,558,518,*</item>
+  <item id="SMs::bt_remote::SM">0,0,546,518,*</item>
   <item id="SMs::./Scr::remote.c">0,0,574,518</item>
-  <item id="SMs::./Inc::remote.h">0,0,596,300</item>
+  <item id="SMs::./Inc::remote.h">-400,0,596,300</item>
  </group>
  <group name="search">
   <item name="options">2032128</item>

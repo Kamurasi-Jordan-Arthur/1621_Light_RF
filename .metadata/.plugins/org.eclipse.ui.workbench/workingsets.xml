@@ -10,10 +10,11 @@
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750312775128_3" label="Window Working Set" name="Aggregate for window 1750312775128"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750313339165_4" label="Window Working Set" name="Aggregate for window 1750313339165"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750315125984_5" label="Window Working Set" name="Aggregate for window 1750315125984"/>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750329875438_8" label="Solutions" name="Solutions">
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750331803172_9" label="Window Working Set" name="Aggregate for window 1750331803172"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750513315466_8" label="Window Working Set" name="Aggregate for window 1750513315464"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750676328369_9" label="Solutions" name="Solutions">
 <workingSet IMemento.internal.id="Central-Re-designed"/>
 <workingSet IMemento.internal.id="SM-intergration"/>
 </workingSet>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750331803172_9" label="Window Working Set" name="Aggregate for window 1750331803172"/>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750513315466_8" label="Window Working Set" name="Aggregate for window 1750513315464"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1750676393091_10" label="Window Working Set" name="Aggregate for window 1750676393091"/>
 </workingSetManager>

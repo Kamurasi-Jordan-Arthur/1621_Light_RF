@@ -1,0 +1,6 @@
+---
+label: "Central-Re-designed"
+project:
+- id: "main"
+  path: "bt-spc5x-Redesign.slcp"
+  output: "."

@@ -347,12 +347,22 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             else {
                 app_log_info("Already Bonded.\n");
 
-                me->sc = sl_bt_legacy_advertiser_start(me->advertising_set_handle,
-                                                 sl_bt_legacy_advertiser_connectable);
-                app_assert_status(me->sc);
+                //me->sc = sl_bt_legacy_advertiser_start(me->advertising_set_handle,
+                //                                 sl_bt_legacy_advertiser_connectable);
+                //app_assert_status(me->sc);
 
-                app_log_info("advertising....\n");
-                status_ = QM_HANDLED();
+                //app_log_info("advertising....\n");
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[2];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_ADVERTISING_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_ADVERTISING_e), // entry
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
             }
             break;
         }
@@ -389,6 +399,8 @@ QMState const bt_SPC51_MANAGING_CONNECTION_s = {
 };
 //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECTION}
 QState bt_SPC51_MANAGING_CONNECTION_e(bt_SPC51 * const me) {
+    app_log_info("Managing New connection....\n");
+
     app_button_press_disable();
 
     me->sc = sl_bt_sm_increase_security(event->data.evt_connection_opened.connection);
