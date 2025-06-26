@@ -128,6 +128,18 @@ SL_WEAK void app_process_action(void)
       app_assert_status(sc);
       app_log_info("blink_expired.\n");
 
+      sc = sl_sleeptimer_restart_timer_ms(
+        &appTimer,
+        RUNNING_TIMEOUT,
+        scanTimerCallback,
+        NULL,
+        0U,
+        0U);
+      app_assert_status(sc);
+
+      app_log_info("Running Window extended.\n");
+
+
   }
 
   if(button_pressed){
@@ -139,7 +151,7 @@ SL_WEAK void app_process_action(void)
   }
 
   if(scan_timer_expired){
-      app_log_info("scan_timer_expired.\n");
+      app_log_info("Timer_expired.\n");
       scan_timer_expired = false;
       static const QEvt timeout = QEVT_INITIALIZER(TIMEOUT_ID);
       QASM_DISPATCH(QMsm_bt_remote_p, &timeout, (void)0U);
@@ -183,14 +195,12 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 //          event->data.evt_gatt_server_characteristic_status.connection);
 //
 //      break;
-//    case sl_bt_evt_gatt_characteristic_value_id:
-//      if(event->data.evt_gatt_characteristic_value.characteristic == me->led_conf_characteristic_handle){
-//          memcpy(event->data.evt_gatt_characteristic_value.value.data,
-//                 me->led_conf,
-//                 event->data.evt_gatt_characteristic_value.value.len);
-//      }
-//
-//      sl_bt_gatt_server_notify_all(characteristic, value_len, value)
+//    case sl_bt_evt_connection_closed_id:
+//      bd_addr peer_address;
+//      uint8_t address_type;
+//      event->data.evt_connection_closed.reason;
+//      SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED
+//      sl_bt_connection_set_default_parameters
 //      break;
 //
 //  }
@@ -275,7 +285,7 @@ void blinkTimerCallback(sl_sleeptimer_timer_handle_t *handle, void *data){
 
   if(blink_count > (uint8_t)0U){
 
-      if(sl_led_get_state(&sl_led_led0)){
+      if(!sl_led_get_state(&sl_led_led0)){
           sl_led_toggle(&sl_led_led0);
           blink_count--;
       }else{

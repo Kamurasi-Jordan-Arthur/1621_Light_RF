@@ -35,7 +35,7 @@
 // <o SHORT_BUTTON_PRESS_DURATION> Duration of Short button presses
 // <i> Default: 250
 // <i> Any button press shorter than this value will be considered SHORT_BUTTON_PRESS.
-#define SHORT_BUTTON_PRESS_DURATION   500
+#define SHORT_BUTTON_PRESS_DURATION   250
 
 // <o MEDIUM_BUTTON_PRESS_DURATION> Duration of MEDIUM button presses
 // <i> Default: 1000

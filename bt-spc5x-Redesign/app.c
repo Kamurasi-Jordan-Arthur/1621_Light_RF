@@ -63,6 +63,10 @@ static QEvt btEvt;
  *****************************************************************************/
 SL_WEAK void app_init(void)
 {
+  sl_status_t sc;
+  sc = sl_iostream_set_default(sl_iostream_vcom_handle);
+  app_assert_status(sc);
+
 
   bt_SPC51_ctor((bt_SPC51 *)QMsm_bt_SPC51_p);
 //  bt_SPC51_ctor((remoteSM *)QMsm_bt_SPC51_p);  // bt_SPC51_SM "constructor" invokes QMsm_ctor()

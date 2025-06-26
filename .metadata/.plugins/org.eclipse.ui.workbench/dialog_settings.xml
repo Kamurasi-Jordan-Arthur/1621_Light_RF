@@ -7,4 +7,6 @@
 			<item value="org.eclipse.debug.ui"/>
 		</list>
 	</section>
+	<section name="PreferencesImportWizard">
+	</section>
 </section>

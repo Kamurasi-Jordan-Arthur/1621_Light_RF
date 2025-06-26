@@ -218,6 +218,9 @@ QMState const bt_SPC51_OPERRATIONAL_s = {
 //${SMs::bt_SPC51::SM::OPERRATIONAL::initial}
 QState bt_SPC51_OPERRATIONAL_i(bt_SPC51 * const me) {
     //${SMs::bt_SPC51::SM::OPERRATIONAL::initial}
+    //after that restrict new connections
+    me->sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U << 4)), sl_bt_sm_io_capability_displayonly);
+    app_assert_status(me->sc);
     static struct {
         QMState const *target;
         QActionHandler act[2];
@@ -294,14 +297,10 @@ QState bt_SPC51_ADVERTISING_e(bt_SPC51 * const me) {
 
     app_log_info("Advertising....\n");
 
-
     sl_simple_button_enable(&sl_button_btn0);
 
     app_button_press_enable();
 
-    //after that restrict new connections
-    me->sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U << 4)), sl_bt_sm_io_capability_displayonly);
-    app_assert_status(me->sc);
     return QM_ENTRY(&bt_SPC51_ADVERTISING_s);
 }
 //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING}
@@ -324,7 +323,8 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             }
 
 
-
+            //me->sc = sl_bt_sm_increase_security(event->data.evt_connection_opened.connection);
+            //app_assert_status(me->sc);
 
 
             //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_connec~::[Newdevice]}
@@ -346,7 +346,8 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_connec~::[else]}
             else {
                 app_log_info("Already Bonded.\n");
-
+                me->sc = sl_bt_sm_increase_security(event->data.evt_connection_opened.connection);
+                app_assert_status(me->sc);
                 //me->sc = sl_bt_legacy_advertiser_start(me->advertising_set_handle,
                 //                                 sl_bt_legacy_advertiser_connectable);
                 //app_assert_status(me->sc);
@@ -416,7 +417,8 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_passkey_display_id}
         case sl_bt_evt_sm_passkey_display_id: {
             app_log_info("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
-
+            //sl_iostream_write(sl_iostream_vcom_handle, &(event->data.evt_sm_passkey_display.passkey), (size_t)6U);
+            printf("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
             status_ = QM_HANDLED();
             break;
         }

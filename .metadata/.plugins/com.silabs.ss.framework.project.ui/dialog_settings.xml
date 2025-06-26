@@ -3,10 +3,11 @@
 	<section name="com.silabs.ss.framework.ide.project.core.cdtMbsProjectType">
 		<item key="importOption" value="LINK"/>
 		<list key="fileLocationHistory">
+			<item value="C:\Users\user\SimplicityStudio\v5_workspace\bt-spc5x-Redesign"/>
 			<item value="C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed"/>
 		</list>
 		<list key="fileLocations">
-			<item value="C:\Users\user\SimplicityStudio\v5_workspace\Peripheral-Re-designed"/>
+			<item value="C:\Users\user\SimplicityStudio\v5_workspace\bt-spc5x-Redesign"/>
 		</list>
 	</section>
 </section>

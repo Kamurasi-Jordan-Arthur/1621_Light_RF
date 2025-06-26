@@ -108,6 +108,9 @@ app_assert_status(me-&gt;sc);
     </state>
     <state name="OPERRATIONAL">
      <initial target="../4">
+      <action>//after that restrict new connections
+me-&gt;sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);
+app_assert_status(me-&gt;sc);</action>
       <initial_glyph conn="40,33,5,0,-20,3">
        <action box="0,-2,10,2"/>
       </initial_glyph>
@@ -154,14 +157,10 @@ app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Advertising....\n&quot;);
 
-
 sl_simple_button_enable(&amp;sl_button_btn0);
 
 app_button_press_enable();
-
-//after that restrict new connections
-me-&gt;sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);
-app_assert_status(me-&gt;sc);  </entry>
+</entry>
       <tran trig="sl_bt_evt_connection_opened_id">
        <action>app_log_info(&quot;Connection Opened....\n&quot;);
 
@@ -177,7 +176,8 @@ if(me-&gt;sc == SL_STATUS_OK){
 }
 
 
-
+//me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
+//app_assert_status(me-&gt;sc);
 
 </action>
        <choice target="../../../5">
@@ -191,7 +191,8 @@ if(me-&gt;sc == SL_STATUS_OK){
        <choice target="../..">
         <guard>else</guard>
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
-
+me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
+app_assert_status(me-&gt;sc);
 //me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
 //                                 sl_bt_legacy_advertiser_connectable);
 //app_assert_status(me-&gt;sc);
@@ -234,7 +235,8 @@ app_assert_status(me-&gt;sc);
 </entry>
       <tran trig="sl_bt_evt_sm_passkey_display_id">
        <action>app_log_info(&quot;PK: %06lu\n&quot;, event-&gt;data.evt_sm_passkey_display.passkey);
-</action>
+//sl_iostream_write(sl_iostream_vcom_handle, &amp;(event-&gt;data.evt_sm_passkey_display.passkey), (size_t)6U);
+printf(&quot;PK: %06lu\n&quot;, event-&gt;data.evt_sm_passkey_display.passkey);</action>
        <tran_glyph conn="75,52,1,-1,-9">
         <action box="0,0,28,2"/>
        </tran_glyph>
