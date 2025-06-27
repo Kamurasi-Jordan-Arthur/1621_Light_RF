@@ -285,7 +285,7 @@ void blinkTimerCallback(sl_sleeptimer_timer_handle_t *handle, void *data){
 
   if(blink_count > (uint8_t)0U){
 
-      if(!sl_led_get_state(&sl_led_led0)){
+      if(sl_led_get_state(&sl_led_led0)){
           sl_led_toggle(&sl_led_led0);
           blink_count--;
       }else{

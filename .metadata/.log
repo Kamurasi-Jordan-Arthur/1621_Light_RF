@@ -1119,3 +1119,781 @@ Asset com.silabs.ss.platform.internal.content.core.asset.model.impl.AssetImpl@53
 
 !ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:20:43.508
 !MESSAGE Servlet registered: /rest/ucedit/action/configsready
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:05.888
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-remote-Redesign\.uceditor for bt-remote-Redesign with component LE Power Control
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:06.566
+!MESSAGE Initial cmsis parsing: {sl_bt_power_control_config.h=Start Parse Offset: 6232
+End Parse Offset: 6232
+Parsing Error: null
+Parsing Error offset: -1
+fContainWizard: true
+}
+
+!ENTRY com.silabs.ss.tool.uc.editor 4 0 2025-06-26 16:21:06.613
+!MESSAGE Could not load pintool device data within 30 second timeframe. Marker manager not connected to component editor -- device errors will not show up.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:16.939
+!MESSAGE Client mentioned sockets are all ready: counting down latch
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:17.734
+!MESSAGE CMSIS Parse success for sl_bt_power_control_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:17.783
+!MESSAGE preparing cmsis websocket update: {"configurables":{"removed":[],"updated":[{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"1","header":"sl_bt_power_control_config.h","label":"Activate or deactivate the power control functionality","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_ACTIVATE_POWER_CONTROL","type":"conf","desc":"Default: 1\r\nSetting value to 1 activates the power control feature, and golden RSSI range parameters shall be applied.\r\nSetting value to 0 deactivates the power control feature. The golden RSSI range parameters are ignored."},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on 1M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_1M","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on 1M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on 1M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_1M","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on 1M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on 2M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_2M","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on 2M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on 2M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_2M","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on 2M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on Coded PHY with coding scheme S=8","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_CODED_S8","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on Coded PHY (S=8) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on Coded PHY with coding scheme S=8","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_CODED_S8","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on Coded PHY (S=8) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on Coded PHY with coding scheme S=2","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_CODED_S2","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on Coded PHY (S=2) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on Coded PHY with coding scheme S=2","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_CODED_S2","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on Coded PHY (S=2) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","min":0,"initial":"0","header":"sl_bt_power_control_config.h","label":"The maximum transmit power level to use.","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_DEFAULT_MAX_POWER_LEVEL","type":"conf","desc":"Default: SL_BT_USE_MAX_POWER_LEVEL_SUPPORTED_BY_RADIO\r\nDefine the maximum transmit power level to use instead of the maximum supported by the radio.\r\nIf the configured power level is higher what the radio supports, then the maximum\r\nsupported level shall be used. Unit: deci-dBm."},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","min":0,"initial":"0","header":"sl_bt_power_control_config.h","label":"The minimum transmit power level to use.","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_DEFAULT_MIN_POWER_LEVEL","type":"conf","desc":"Default: SL_BT_USE_MIN_POWER_LEVEL_SUPPORTED_BY_RADIO\r\nDefine the minimum transmit power level to use instead of the minimum supported by the radio.\r\nIf the configured power level is lower what the radio supports, then the minimum\r\nsupported level shall be used. Unit: deci-dBm."},{"header":"sl_bt_power_control_config.h","label":"Bluetooth LE Power Control Configuration","id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","type":"cat","conf_class":"cmsis"}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","header":"sl_bt_power_control_config.h","wsType":"config_update","conf_class":"cmsis"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:17.784
+!MESSAGE latch unlocked: cmsis socket response sending
+
+!ENTRY com.silabs.ss.tool.installer.core 1 0 2025-06-26 16:21:18.895
+!MESSAGE isInternalNetwork: false
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:25.330
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-26 16:21:25.641
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.apack.core 1 0 2025-06-26 16:21:32.581
+!MESSAGE AdapterPack USB adapter pack has setupcheck function type 
+
+!ENTRY com.silabs.ss.platform.content.core 4 0 2025-06-26 16:23:31.350
+!MESSAGE Asset Loading Errors:
+Asset com.silabs.ss.platform.internal.content.core.asset.model.impl.AssetImpl@5d8d944 (version: null, changelog: null, path: /aem/www.silabs.com/documents/public/data-sheets/siwx917-ncp-datasheet.pdf, diskSizeKB: 0.0, downloadSizeKB: 0.0, directory: false, category: null, label: null, description: null, priority: 0, keywords: null) is missing required properties.  Ignoring...
+
+
+!ENTRY com.silabs.ss.tool.uc.editor 4 0 2025-06-26 16:51:05.991
+!MESSAGE UcEditorController: onWebSocketError CALLED cause=null
+
+!ENTRY com.silabs.ss.tool.uc.editor 1 0 2025-06-26 16:51:06.053
+!MESSAGE UcEditorController: onWebSocketClose CALLED statusCode=1006 reason=Session Closed
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:15:47.104
+!MESSAGE Client mentioned sockets are all ready: counting down latch
+
+!ENTRY com.silabs.ss.tool.uc.editor 1 0 2025-06-27 06:19:54.121
+!MESSAGE UcEditorController: onWebSocketClose CALLED statusCode=1001 reason=null
+!SESSION 2025-06-27 06:47:44.326 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.3
+java.vendor=Amazon.com Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.silabs.ss.platform.rcp.core 2 0 2025-06-27 06:48:07.336
+!MESSAGE Logging bundle not found: com.silabs.ss.logger, logging not initialized.
+
+!ENTRY com.silabs.ss.platform.jetty.server 1 0 2025-06-27 06:48:52.272
+!MESSAGE Jetty listening on: http://127.0.0.1:50867/
+
+!ENTRY com.silabs.ss.platform.jetty.server 1 0 2025-06-27 06:48:54.200
+!MESSAGE ContentServer started at: 127.0.0.1, 50867
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:48:54.432
+!MESSAGE com.silabs.ss.tool.launcher.product found! Writing main studio shared file
+
+!ENTRY com.silabs.ss.platform.descriptor.core 2 0 2025-06-27 06:49:01.160
+!MESSAGE re-registering property: com.silabs.ss.platform.api.descriptor.core.model.impl.MPropertyImpl@d6a929b (id: universalConfig.compSelProjInstanceId, name: compSelProjInstanceId, label: null, description: specific id for this instance of a project) (propertyScope: ) (id: universalConfig.compSelProjInstanceId, type: String, defaultValueLiteral: null)
+
+!ENTRY com.silabs.ss.platform.content.core 4 0 2025-06-27 06:49:03.518
+!MESSAGE Asset Loading Errors:
+Asset com.silabs.ss.platform.internal.content.core.asset.model.impl.AssetImpl@67be43e1 (version: null, changelog: null, path: /aem/www.silabs.com/documents/public/data-sheets/siwx917-ncp-datasheet.pdf, diskSizeKB: 0.0, downloadSizeKB: 0.0, directory: false, category: null, label: null, description: null, priority: 0, keywords: null) is missing required properties.  Ignoring...
+
+
+!ENTRY com.silabs.ss.platform.rcp.core 2 0 2025-06-27 06:49:40.786
+!MESSAGE Invalid discovery key: null
+
+!ENTRY com.silabs.ss.tool.uc.editor 1 0 2025-06-27 06:49:41.380
+!MESSAGE Inside PrimaryWebsocketCommunicator constructor
+
+!ENTRY com.silabs.ss.tool.uc.editor 1 0 2025-06-27 06:49:41.382
+!MESSAGE Websocket on server side linked to /ws/ucedit/filechanges
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:41.388
+!MESSAGE Servlet registered: /rest/ucedit/metadata
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:41.391
+!MESSAGE Servlet registered: /rest/ucedit/action/opensource
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:41.399
+!MESSAGE Servlet registered: /rest/ucedit/action/cmsisedit
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:41.401
+!MESSAGE sockets ready servlet being set up
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:41.405
+!MESSAGE Servlet registered: /rest/ucedit/action/socketsready
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:41.408
+!MESSAGE sockets ready servlet is ready
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:41.414
+!MESSAGE Servlet registered: /rest/ucedit/action/configsready
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:57.314
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-remote-Redesign\.uceditor for bt-remote-Redesign with component LE Power Control
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:49:58.089
+!MESSAGE Initial cmsis parsing: {sl_bt_power_control_config.h=Start Parse Offset: 6232
+End Parse Offset: 6232
+Parsing Error: null
+Parsing Error offset: -1
+fContainWizard: true
+}
+
+!ENTRY com.silabs.ss.tool.uc.editor 4 0 2025-06-27 06:49:58.136
+!MESSAGE Could not load pintool device data within 30 second timeframe. Marker manager not connected to component editor -- device errors will not show up.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:50:11.185
+!MESSAGE Client mentioned sockets are all ready: counting down latch
+
+!ENTRY com.silabs.ss.tool.installer.core 1 0 2025-06-27 06:50:12.297
+!MESSAGE isInternalNetwork: false
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:50:12.545
+!MESSAGE CMSIS Parse success for sl_bt_power_control_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:50:12.604
+!MESSAGE preparing cmsis websocket update: {"configurables":{"removed":[],"updated":[{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"1","header":"sl_bt_power_control_config.h","label":"Activate or deactivate the power control functionality","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_ACTIVATE_POWER_CONTROL","type":"conf","desc":"Default: 1\r\nSetting value to 1 activates the power control feature, and golden RSSI range parameters shall be applied.\r\nSetting value to 0 deactivates the power control feature. The golden RSSI range parameters are ignored."},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on 1M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_1M","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on 1M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on 1M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_1M","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on 1M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on 2M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_2M","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on 2M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on 2M PHY","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_2M","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on 2M PHY of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on Coded PHY with coding scheme S=8","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_CODED_S8","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on Coded PHY (S=8) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on Coded PHY with coding scheme S=8","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_CODED_S8","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on Coded PHY (S=8) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"-30","header":"sl_bt_power_control_config.h","label":"The lower bound of RSSI golden range on Coded PHY with coding scheme S=2","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MIN_CODED_S2","type":"conf","desc":"Default: -60\r\nDefine the lower bound of RSSI golden range which the RSSI on Coded PHY (S=2) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","initial":"0","header":"sl_bt_power_control_config.h","label":"The upper bound of RSSI golden range on Coded PHY with coding scheme S=2","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_GOLDEN_RSSI_MAX_CODED_S2","type":"conf","desc":"Default: -40\r\nDefine the upper bound of RSSI golden range which the RSSI on Coded PHY (S=2) of a\r\nBluetooth connection is preferred to remain in. Unit: dBm"},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","min":0,"initial":"0","header":"sl_bt_power_control_config.h","label":"The maximum transmit power level to use.","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_DEFAULT_MAX_POWER_LEVEL","type":"conf","desc":"Default: SL_BT_USE_MAX_POWER_LEVEL_SUPPORTED_BY_RADIO\r\nDefine the maximum transmit power level to use instead of the maximum supported by the radio.\r\nIf the configured power level is higher what the radio supports, then the maximum\r\nsupported level shall be used. Unit: deci-dBm."},{"parent_category_id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","conf_type":"spinner","min":0,"initial":"0","header":"sl_bt_power_control_config.h","label":"The minimum transmit power level to use.","id":"CMSIS_$sl_bt_power_control_config.h$_SL_BT_DEFAULT_MIN_POWER_LEVEL","type":"conf","desc":"Default: SL_BT_USE_MIN_POWER_LEVEL_SUPPORTED_BY_RADIO\r\nDefine the minimum transmit power level to use instead of the minimum supported by the radio.\r\nIf the configured power level is lower what the radio supports, then the minimum\r\nsupported level shall be used. Unit: deci-dBm."},{"header":"sl_bt_power_control_config.h","label":"Bluetooth LE Power Control Configuration","id":"CMSIS_$sl_bt_power_control_config.h$_Bluetooth LE Power Control Configuration","type":"cat","conf_class":"cmsis"}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","header":"sl_bt_power_control_config.h","wsType":"config_update","conf_class":"cmsis"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:50:12.605
+!MESSAGE latch unlocked: cmsis socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:50:18.251
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 06:50:18.630
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.apack.core 1 0 2025-06-27 06:50:26.971
+!MESSAGE AdapterPack USB adapter pack has setupcheck function type 
+
+!ENTRY com.silabs.ss.platform.content.core 4 0 2025-06-27 06:51:11.729
+!MESSAGE Asset Loading Errors:
+Asset com.silabs.ss.platform.internal.content.core.asset.model.impl.AssetImpl@667d5e66 (version: null, changelog: null, path: /aem/www.silabs.com/documents/public/data-sheets/siwx917-ncp-datasheet.pdf, diskSizeKB: 0.0, downloadSizeKB: 0.0, directory: false, category: null, label: null, description: null, priority: 0, keywords: null) is missing required properties.  Ignoring...
+
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 07:02:14.497
+!MESSAGE Resource Changed: Reparsing L/bt-remote-Redesign/config/sl_bt_power_control_config.h for cmsis
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 07:02:14.527
+!MESSAGE A Cmsis Reparse was triggered for sl_bt_power_control_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 07:02:14.557
+!MESSAGE CMSIS Parse success for sl_bt_power_control_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 07:02:14.561
+!MESSAGE preparing cmsis websocket update: {"configurables":{"removed":[],"updated":[]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","header":"sl_bt_power_control_config.h","wsType":"config_update","conf_class":"cmsis"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 07:02:14.561
+!MESSAGE latch unlocked: cmsis socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 07:02:14.851
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/bluetooth_feature_power_control","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 2 0 2025-06-27 07:15:33.510
+!MESSAGE Invalid discovery key: null
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:53:17.843
+!MESSAGE Resource Changed: Reparsing L/bt-remote-Redesign/config/sl_bt_power_control_config.h for cmsis
+
+!ENTRY com.silabs.ss.tool.uc.editor 1 0 2025-06-27 08:55:40.221
+!MESSAGE UcEditorController: onWebSocketClose CALLED statusCode=1001 reason=null
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:40.594
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-remote-Redesign\.uceditor for bt-remote-Redesign with component SWO Debug
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:40.685
+!MESSAGE Initial cmsis parsing: {sl_debug_swo_config.h=Start Parse Offset: 3368
+End Parse Offset: 3368
+Parsing Error: null
+Parsing Error offset: -1
+fContainWizard: true
+}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:40.694
+!MESSAGE PinTool annotations detected. Loading ABDevice
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:40.706
+!MESSAGE CMSIS Parse success for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:40.714
+!MESSAGE preparing cmsis websocket update: {"configurables":{"removed":[],"updated":[{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"spinner","initial":"875000","header":"sl_debug_swo_config.h","label":"SWO Frequency","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_FREQ","type":"conf","desc":"Must be 875 kHz for communication with Silicon Labs debuggers\r\nDefault: 875000"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"check","initial":false,"header":"sl_debug_swo_config.h","label":"Enable interrupt event trace","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_IRQ","type":"conf","desc":"Default: 0"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"check","initial":false,"header":"sl_debug_swo_config.h","label":"Enable Program Counter samples","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_PC","type":"conf","desc":"Default: 0"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"combo","initial":"15360","header":"sl_debug_swo_config.h","label":"SWO debug sample intervals","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_INTERVAL","type":"conf","combo_options":["64","128","192","256","320","384","448","512","576","640","704","768","832","896","960","1024","2048","3072","4096","5102","6144","7168","8192","9216","10240","11264","12288","13312","14336","15360"],"desc":"Must be 64, 128, 192, [ n * 64 ], 1024, 2048, 3072, [ n * 1024 ] , 15360\r\nDefault: 15360"},{"header":"sl_debug_swo_config.h","label":"SWO Configuration","id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","type":"cat","conf_class":"cmsis"}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","header":"sl_debug_swo_config.h","wsType":"config_update","conf_class":"cmsis"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:42.588
+!MESSAGE latch unlocked: cmsis socket response sending
+
+!ENTRY com.silabs.ss.platform.descriptor.core 4 0 2025-06-27 08:55:47.575
+!MESSAGE could not resolve type String
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:52.779
+!MESSAGE Selected peripheral modification -- listeners updating
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:52.805
+!MESSAGE registering configuration tool pintool editor listeners for SL_DEBUG on module GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:52.820
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":[],"updated":[{"label":"SL_DEBUG","id":"SL_DEBUG_REQUIREMENT","type":"cat","conf_class":"pintool"},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","initial":"None","label":"Selected Module","id":"SL_DEBUG","type":"conf","combo_options":[{"label":"None","value":"None"}]}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:52.865
+!MESSAGE Allowed modules (event detection): GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 08:55:52.872
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":[],"updated":[{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","initial":"GPIO","label":"Selected Module","id":"SL_DEBUG","type":"conf","combo_options":[{"label":"None","value":"None"},{"label":"GPIO","value":"GPIO"}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","label":"GPIO","id":"PINTOOL_CATEGORY_GPIO_GPIO","type":"cat"},{"parent_category_id":"PINTOOL_CATEGORY_GPIO_GPIO","conf_type":"string","readonly":false,"rawprop":"peripheral.name","initial":"","label":"Custom Peripheral Name","id":"GPIO.$PROP.peripheral.name","type":"conf"},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu0","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU0","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU0","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA05 (button1)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu3","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU3","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU3","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PB01","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu6","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU6","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU6","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC00","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu7","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU7","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU7","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC05","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swclk","rawprop":"$NO_PROP_ID","initial":{"label":"PA01","value":0},"label":"SWCLK","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWCLK","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA01","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swdio","rawprop":"$NO_PROP_ID","initial":{"label":"PA02","value":0},"label":"SWDIO","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWDIO","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA02","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swv","rawprop":"$NO_PROP_ID","initial":{"label":"PA03","value":0},"label":"SWV","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWV","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tdi","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TDI","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDI","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA04 (button2)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tdo","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TDO","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDO","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.thmsw_en","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"THMSW_EN","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.THMSW_EN","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC00","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.traceclk","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TRACECLK","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACECLK","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA04 (button2)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tracedata0","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TRACEDATA0","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACEDATA0","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.apack.ip 2 0 2025-06-27 09:01:43.913
+!MESSAGE No network interfaces found.
+
+!ENTRY com.silabs.ss.platform.rcp.core 2 0 2025-06-27 09:28:20.046
+!MESSAGE Invalid discovery key: null
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.264
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-remote-Redesign\.uceditor for bt-remote-Redesign with component SWO Debug
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.522
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-remote-Redesign\.uceditor for bt-remote-Redesign with component SWO Debug
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.629
+!MESSAGE Initial cmsis parsing: {sl_debug_swo_config.h=Start Parse Offset: 3368
+End Parse Offset: 3368
+Parsing Error: null
+Parsing Error offset: -1
+fContainWizard: true
+}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.633
+!MESSAGE PinTool annotations detected. Loading ABDevice
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.648
+!MESSAGE Selected peripheral modification -- listeners updating
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.649
+!MESSAGE CMSIS Parse success for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.651
+!MESSAGE registering configuration tool pintool editor listeners for SL_DEBUG on module GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.657
+!MESSAGE preparing cmsis websocket update: {"configurables":{"removed":[],"updated":[{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"spinner","initial":"875000","header":"sl_debug_swo_config.h","label":"SWO Frequency","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_FREQ","type":"conf","desc":"Must be 875 kHz for communication with Silicon Labs debuggers\r\nDefault: 875000"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"check","initial":false,"header":"sl_debug_swo_config.h","label":"Enable interrupt event trace","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_IRQ","type":"conf","desc":"Default: 0"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"check","initial":false,"header":"sl_debug_swo_config.h","label":"Enable Program Counter samples","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_PC","type":"conf","desc":"Default: 0"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"combo","initial":"15360","header":"sl_debug_swo_config.h","label":"SWO debug sample intervals","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_INTERVAL","type":"conf","combo_options":["64","128","192","256","320","384","448","512","576","640","704","768","832","896","960","1024","2048","3072","4096","5102","6144","7168","8192","9216","10240","11264","12288","13312","14336","15360"],"desc":"Must be 64, 128, 192, [ n * 64 ], 1024, 2048, 3072, [ n * 1024 ] , 15360\r\nDefault: 15360"},{"header":"sl_debug_swo_config.h","label":"SWO Configuration","id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","type":"cat","conf_class":"cmsis"}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","header":"sl_debug_swo_config.h","wsType":"config_update","conf_class":"cmsis"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:33.681
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":[],"updated":[{"label":"SL_DEBUG","id":"SL_DEBUG_REQUIREMENT","type":"cat","conf_class":"pintool"},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","initial":"GPIO","label":"Selected Module","id":"SL_DEBUG","type":"conf","combo_options":[{"label":"None","value":"None"},{"label":"GPIO","value":"GPIO"}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","label":"GPIO","id":"PINTOOL_CATEGORY_GPIO_GPIO","type":"cat"},{"parent_category_id":"PINTOOL_CATEGORY_GPIO_GPIO","conf_type":"string","readonly":false,"rawprop":"peripheral.name","initial":"","label":"Custom Peripheral Name","id":"GPIO.$PROP.peripheral.name","type":"conf"},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu0","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU0","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU0","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA05 (button1)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu3","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU3","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU3","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PB01","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu6","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU6","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU6","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC00","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu7","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU7","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU7","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC05","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swclk","rawprop":"$NO_PROP_ID","initial":{"label":"PA01","value":0},"label":"SWCLK","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWCLK","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA01","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swdio","rawprop":"$NO_PROP_ID","initial":{"label":"PA02","value":0},"label":"SWDIO","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWDIO","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA02","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swv","rawprop":"$NO_PROP_ID","initial":{"label":"PA03","value":0},"label":"SWV","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWV","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tdi","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TDI","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDI","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA04 (button2)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tdo","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TDO","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDO","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.thmsw_en","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"THMSW_EN","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.THMSW_EN","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC00","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.traceclk","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TRACECLK","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACECLK","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA04 (button2)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tracedata0","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TRACEDATA0","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACEDATA0","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.090
+!MESSAGE Client mentioned sockets are all ready: counting down latch
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.103
+!MESSAGE latch unlocked: cmsis socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.106
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.108
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.108
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.129
+!MESSAGE New pintool options detected -- resending existing problem markers for handling.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.130
+!MESSAGE New pintool options detected -- resending existing problem markers for handling.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.134
+!MESSAGE New pintool options detected -- resending existing problem markers for handling.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.437
+!MESSAGE Visible Signals Modified (event detection): SWV
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.438
+!MESSAGE registering configuration tool pintool editor listeners for SL_DEBUG on module GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.444
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":["GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU0","GPIO.$PIN.$NO_PROP_ID.$ROUTE.THMSW_EN","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU3","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU6","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU7","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDI","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACECLK","GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWCLK","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDO","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACEDATA0","GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWDIO"],"updated":[]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.445
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.463
+!MESSAGE Visible Signals Modified (event detection): SWV
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.463
+!MESSAGE registering configuration tool pintool editor listeners for SL_DEBUG on module GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.472
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":["GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU0","GPIO.$PIN.$NO_PROP_ID.$ROUTE.THMSW_EN","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU3","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU6","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU7","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDI","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACECLK","GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWCLK","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDO","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACEDATA0","GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWDIO"],"updated":[]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.473
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:03:36.651
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-remote-Redesign_2Fbt-remote-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.tool.uc.editor 1 0 2025-06-27 13:04:13.769
+!MESSAGE UcEditorController: onWebSocketClose CALLED statusCode=1001 reason=null
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:41.067
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-spc5x-Redesign\.uceditor for bt-spc5x-Redesign with component SWO Debug
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:41.570
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-spc5x-Redesign\.uceditor for bt-spc5x-Redesign with component SWO Debug
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:41.645
+!MESSAGE Initial cmsis parsing: {sl_debug_swo_config.h=Start Parse Offset: 3368
+End Parse Offset: 3368
+Parsing Error: null
+Parsing Error offset: -1
+fContainWizard: true
+}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:41.648
+!MESSAGE PinTool annotations detected. Loading ABDevice
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:41.670
+!MESSAGE CMSIS Parse success for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:41.675
+!MESSAGE preparing cmsis websocket update: {"configurables":{"removed":[],"updated":[{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"spinner","initial":"875000","header":"sl_debug_swo_config.h","label":"SWO Frequency","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_FREQ","type":"conf","desc":"Must be 875 kHz for communication with Silicon Labs debuggers\r\nDefault: 875000"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"check","initial":false,"header":"sl_debug_swo_config.h","label":"Enable interrupt event trace","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_IRQ","type":"conf","desc":"Default: 0"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"check","initial":false,"header":"sl_debug_swo_config.h","label":"Enable Program Counter samples","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_PC","type":"conf","desc":"Default: 0"},{"parent_category_id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","conf_type":"combo","initial":"15360","header":"sl_debug_swo_config.h","label":"SWO debug sample intervals","id":"CMSIS_$sl_debug_swo_config.h$_SL_DEBUG_SWO_SAMPLE_INTERVAL","type":"conf","combo_options":["64","128","192","256","320","384","448","512","576","640","704","768","832","896","960","1024","2048","3072","4096","5102","6144","7168","8192","9216","10240","11264","12288","13312","14336","15360"],"desc":"Must be 64, 128, 192, [ n * 64 ], 1024, 2048, 3072, [ n * 1024 ] , 15360\r\nDefault: 15360"},{"header":"sl_debug_swo_config.h","label":"SWO Configuration","id":"CMSIS_$sl_debug_swo_config.h$_SWO Configuration","type":"cat","conf_class":"cmsis"}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","header":"sl_debug_swo_config.h","wsType":"config_update","conf_class":"cmsis"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:43.788
+!MESSAGE Client mentioned sockets are all ready: counting down latch
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:43.811
+!MESSAGE latch unlocked: cmsis socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:44.246
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.634
+!MESSAGE Selected peripheral modification -- listeners updating
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.637
+!MESSAGE registering configuration tool pintool editor listeners for SL_DEBUG on module GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.643
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":[],"updated":[{"label":"SL_DEBUG","id":"SL_DEBUG_REQUIREMENT","type":"cat","conf_class":"pintool"},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","initial":"None","label":"Selected Module","id":"SL_DEBUG","type":"conf","combo_options":[{"label":"None","value":"None"}]}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.644
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.649
+!MESSAGE New pintool options detected -- resending existing problem markers for handling.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.738
+!MESSAGE Allowed modules (event detection): GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.743
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":[],"updated":[{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","initial":"GPIO","label":"Selected Module","id":"SL_DEBUG","type":"conf","combo_options":[{"label":"None","value":"None"},{"label":"GPIO","value":"GPIO"}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","label":"GPIO","id":"PINTOOL_CATEGORY_GPIO_GPIO","type":"cat"},{"parent_category_id":"PINTOOL_CATEGORY_GPIO_GPIO","conf_type":"string","readonly":false,"rawprop":"peripheral.name","initial":"","label":"Custom Peripheral Name","id":"GPIO.$PROP.peripheral.name","type":"conf"},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu0","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU0","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU0","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA05 (button1)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu3","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU3","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU3","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PB01","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu6","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU6","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU6","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC00","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.em4wu7","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"EM4WU7","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU7","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC05","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swclk","rawprop":"$NO_PROP_ID","initial":{"label":"PA01","value":0},"label":"SWCLK","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWCLK","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA01","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swdio","rawprop":"$NO_PROP_ID","initial":{"label":"PA02","value":0},"label":"SWDIO","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWDIO","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA02","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.swv","rawprop":"$NO_PROP_ID","initial":{"label":"PA03","value":0},"label":"SWV","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWV","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tdi","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TDI","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDI","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA04 (button2)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tdo","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TDO","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDO","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.thmsw_en","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"THMSW_EN","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.THMSW_EN","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PC00","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.traceclk","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TRACECLK","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACECLK","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA04 (button2)","value":0}]},{"parent_category_id":"SL_DEBUG_REQUIREMENT","conf_type":"combo","visible":"portio.gpio.enable.tracedata0","rawprop":"$NO_PROP_ID","initial":{"label":"None","value":-1},"label":"TRACEDATA0","id":"GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACEDATA0","type":"conf","combo_options":[{"label":"None","value":-1},{"label":"PA03","value":0}]}]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.744
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.748
+!MESSAGE New pintool options detected -- resending existing problem markers for handling.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.766
+!MESSAGE Visible Signals Modified (event detection): SWV
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.767
+!MESSAGE registering configuration tool pintool editor listeners for SL_DEBUG on module GPIO
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.771
+!MESSAGE Preparing Websocket Pintool Update: {"configurables":{"removed":["GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU0","GPIO.$PIN.$NO_PROP_ID.$ROUTE.THMSW_EN","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU3","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU6","GPIO.$PIN.$NO_PROP_ID.$ROUTE.EM4WU7","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDI","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACECLK","GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWCLK","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TDO","GPIO.$PIN.$NO_PROP_ID.$ROUTE.TRACEDATA0","GPIO.$PIN.$NO_PROP_ID.$ROUTE.SWDIO"],"updated":[]},"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","wsType":"config_update","conf_class":"pintool"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.772
+!MESSAGE latch unlocked: pintool socket response sending
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.841
+!MESSAGE Saving document for L/bt-spc5x-Redesign/config/sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:46.950
+!MESSAGE Resource Changed: Reparsing L/bt-spc5x-Redesign/config/sl_debug_swo_config.h for cmsis
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:47.075
+!MESSAGE A Cmsis Reparse was triggered for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:47.077
+!MESSAGE A Cmsis Reparse updated but did not alert client -- change came from editor and 'force' was false. Starting a parsing job that updates context model but client will not be alerted.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:47.128
+!MESSAGE CMSIS Parse success for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:47.327
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:47.540
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:49.170
+!MESSAGE Saving document for L/bt-spc5x-Redesign/config/sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:49.221
+!MESSAGE Resource Changed: Reparsing L/bt-spc5x-Redesign/config/sl_debug_swo_config.h for cmsis
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:49.240
+!MESSAGE A Cmsis Reparse was triggered for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:49.241
+!MESSAGE A Cmsis Reparse updated but did not alert client -- change came from editor and 'force' was false. Starting a parsing job that updates context model but client will not be alerted.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:49.250
+!MESSAGE CMSIS Parse success for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:49.504
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 13:07:49.696
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:26.280
+!MESSAGE editor file home calculation for Studio resulted in C:\Users\user\SimplicityStudio\v5_workspace\bt-spc5x-Redesign\.uceditor for bt-spc5x-Redesign with component SWO Debug
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.118
+!MESSAGE Saving document for L/bt-spc5x-Redesign/config/sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.290
+!MESSAGE Resource Changed: Reparsing L/bt-spc5x-Redesign/config/sl_debug_swo_config.h for cmsis
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.471
+!MESSAGE A Cmsis Reparse was triggered for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.472
+!MESSAGE A Cmsis Reparse updated but did not alert client -- change came from editor and 'force' was false. Starting a parsing job that updates context model but client will not be alerted.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.615
+!MESSAGE CMSIS Parse success for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.759
+!MESSAGE Saving document for L/bt-spc5x-Redesign/config/sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.777
+!MESSAGE Resource Changed: Reparsing L/bt-spc5x-Redesign/config/sl_debug_swo_config.h for cmsis
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.788
+!MESSAGE A Cmsis Reparse was triggered for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.790
+!MESSAGE A Cmsis Reparse updated but did not alert client -- change came from editor and 'force' was false. Starting a parsing job that updates context model but client will not be alerted.
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:28.802
+!MESSAGE CMSIS Parse success for sl_debug_swo_config.h
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:30.205
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:30.760
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:30.988
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 14:43:31.285
+!MESSAGE Clear CMSIS Issues WS call: {"clientId":"project/file_3A_2FC_3A_2FUsers_2Fuser_2FSimplicityStudio_2Fv5_workspace_2Fbt-spc5x-Redesign_2Fbt-spc5x-Redesign.slcp/component/debug_swo","ids":[],"wsType":"clear_issues"}
+
+!ENTRY com.silabs.ss.tool.uc.editor 1 0 2025-06-27 14:43:35.860
+!MESSAGE UcEditorController: onWebSocketClose CALLED statusCode=1001 reason=null
+
+!ENTRY com.silabs.ss.platform.rcp.core 2 0 2025-06-27 15:16:59.331
+!MESSAGE Could not disable AEM data on the adapter: 000440294414
+
+!ENTRY com.silabs.ss.platform.rcp.core 2 0 2025-06-27 15:17:00.204
+!MESSAGE Invalid discovery key: null
+!SESSION 2025-06-27 17:38:11.868 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.3
+java.vendor=Amazon.com Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.silabs.ss.platform.rcp.core 2 0 2025-06-27 17:38:32.190
+!MESSAGE Logging bundle not found: com.silabs.ss.logger, logging not initialized.
+
+!ENTRY com.silabs.ss.platform.jetty.server 1 0 2025-06-27 17:39:37.101
+!MESSAGE Jetty listening on: http://127.0.0.1:64687/
+
+!ENTRY com.silabs.ss.platform.jetty.server 1 0 2025-06-27 17:39:39.300
+!MESSAGE ContentServer started at: 127.0.0.1, 64687
+
+!ENTRY com.silabs.ss.platform.rcp.core 1 0 2025-06-27 17:39:39.516
+!MESSAGE com.silabs.ss.tool.launcher.product found! Writing main studio shared file
+
+!ENTRY com.silabs.ss.platform.descriptor.core 2 0 2025-06-27 17:39:45.871
+!MESSAGE re-registering property: com.silabs.ss.platform.api.descriptor.core.model.impl.MPropertyImpl@d6a929b (id: universalConfig.compSelProjInstanceId, name: compSelProjInstanceId, label: null, description: specific id for this instance of a project) (propertyScope: ) (id: universalConfig.compSelProjInstanceId, type: String, defaultValueLiteral: null)
+
+!ENTRY com.silabs.ss.platform.content.core 4 0 2025-06-27 17:39:49.984
+!MESSAGE Asset Loading Errors:
+Asset com.silabs.ss.platform.internal.content.core.asset.model.impl.AssetImpl@70b3839c (version: null, changelog: null, path: /aem/www.silabs.com/documents/public/data-sheets/siwx917-ncp-datasheet.pdf, diskSizeKB: 0.0, downloadSizeKB: 0.0, directory: false, category: null, label: null, description: null, priority: 0, keywords: null) is missing required properties.  Ignoring...
+
+
+!ENTRY com.silabs.ss.platform.content.core 4 0 2025-06-27 17:39:51.256
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.ServiceException: Exception in org.apache.felix.scr.impl.manager.SingleComponentManager.getService()
+	at org.eclipse.osgi.internal.serviceregistry.ServiceFactoryUse.factoryGetService(ServiceFactoryUse.java:230)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceFactoryUse.getService(ServiceFactoryUse.java:118)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceConsumer$2.getService(ServiceConsumer.java:48)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistrationImpl.getService(ServiceRegistrationImpl.java:547)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistry.getService(ServiceRegistry.java:533)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.getService(BundleContextImpl.java:655)
+	at com.silabs.ss.platform.internal.gitrepo.GitRepoUtility.assetService(GitRepoUtility.java:325)
+	at com.silabs.ss.platform.internal.gitrepo.GitRepoUtility.parseAssetFile(GitRepoUtility.java:191)
+	at com.silabs.ss.platform.internal.repos.manager.TemplatesGitRepoDetector.quickScan(TemplatesGitRepoDetector.java:44)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseDetector.doDetectDescriptors(BaseDetector.java:71)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseDetector.detectDescriptors(BaseDetector.java:57)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.detectDescriptors(BaseRegistry.java:701)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.detectDescriptors(BaseRegistry.java:663)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.scanForNewDescriptors(BaseRegistry.java:640)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.autoDetectDescriptors(BaseRegistry.java:624)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.loadInternalDescriptors(BaseRegistry.java:573)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.lambda$13(BaseRegistry.java:550)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseDatabaseRegistry.invokeBatchOperation(BaseDatabaseRegistry.java:260)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.doEnsureSync(BaseRegistry.java:546)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.ensureSync(BaseRegistry.java:524)
+	at com.silabs.ss.platform.api.descriptor.core.manager.BaseDescriptorManager.ensureSync(BaseDescriptorManager.java:278)
+	at com.silabs.ss.platform.api.descriptor.core.manager.BaseDescriptorManager.getAllDescriptors(BaseDescriptorManager.java:324)
+	at com.silabs.ss.platform.internal.repos.manager.RepoManager.getByType(RepoManager.java:349)
+	at com.silabs.ss.tool.internal.installer.core.SDKRepoUtility.initClonedPackages(SDKRepoUtility.java:389)
+	at com.silabs.ss.tool.internal.installer.core.SDKRepoUtility.getClonedPackages(SDKRepoUtility.java:76)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.loadInstalledPackages(PackageService.java:884)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.getInstalledPackages(PackageService.java:222)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.getInstalledPackages(PackageService.java:135)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.getUserInstalledLocations(PackageService.java:111)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.tryAdvance(Spliterators.java:1002)
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:292)
+	at java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)
+	at java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:161)
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:298)
+	at java.base/java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)
+	at com.silabs.ss.tool.internal.installer.core.registry.RegistryPackageInstallerPlugin.getPluginDescriptors(RegistryPackageInstallerPlugin.java:106)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.lambda$17(BaseRegistry.java:619)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.autoDetectDescriptors(BaseRegistry.java:619)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.loadInternalDescriptors(BaseRegistry.java:573)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.lambda$13(BaseRegistry.java:550)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseDatabaseRegistry.invokeBatchOperation(BaseDatabaseRegistry.java:260)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.doEnsureSync(BaseRegistry.java:546)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.ensureSync(BaseRegistry.java:524)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseDatabaseRegistry.getAllDescriptors(BaseDatabaseRegistry.java:500)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.loadInstalledPackages(PackageService.java:881)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.getInstalledPackages(PackageService.java:222)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.getInstalledPackages(PackageService.java:135)
+	at com.silabs.ss.tool.internal.installer.core.PackageService.getUserInstalledPackageIds(PackageService.java:124)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+	at com.silabs.ss.tool.internal.installer.core.registry.RegistryPackageInstallerPlugin.getKnownPackageIds(RegistryPackageInstallerPlugin.java:163)
+	at com.silabs.ss.tool.internal.installer.core.registry.RegistryPackageInstallerPlugin.loadRegistry(RegistryPackageInstallerPlugin.java:142)
+	at com.silabs.ss.platform.api.descriptor.core.registry.BaseRegistry.loadFromPrefs(BaseRegistry.java:222)
+	at com.silabs.ss.platform.api.descriptor.core.manager.BaseDescriptorManager.doLoadFromPrefs(BaseDescriptorManager.java:201)
+	at com.silabs.ss.platform.api.descriptor.core.manager.BaseManager.doLoadFromPrefs(BaseManager.java:372)
+	at com.silabs.ss.platform.api.descriptor.core.manager.BaseDescriptorManager.loadFromPrefs(BaseDescriptorManager.java:194)
+	at com.silabs.ss.platform.api.descriptor.core.manager.BaseDescriptorManager.loadPrefs(BaseDescriptorManager.java:186)
+	at com.silabs.ss.platform.api.descriptor.core.manager.BaseDescriptorManager.postInit(BaseDescriptorManager.java:90)
+	at com.silabs.ss.platform.api.sdk.core.SDK$SingletonHolder.<clinit>(SDK.java:36)
+	at com.silabs.ss.platform.api.sdk.core.SDK.manager(SDK.java:45)
+	at com.silabs.ss.platform.api.launcher.ui.LaunchContextManager.registerSDKListener(LaunchContextManager.java:407)
+	at com.silabs.ss.platform.api.launcher.ui.LaunchContextManager.<init>(LaunchContextManager.java:94)
+	at com.silabs.ss.platform.api.launcher.ui.LaunchContextManager.instance(LaunchContextManager.java:103)
+	at com.silabs.ss.tool.launcher.internal.ui.viewers.LaunchableCache.<init>(LaunchableCache.java:24)
+	at com.silabs.ss.tool.launcher.internal.ui.viewers.LaunchableCache.instance(LaunchableCache.java:31)
+	at com.silabs.ss.tool.launcher.internal.ui.Activator.setupLaunchContextListeners(Activator.java:85)
+	at com.silabs.ss.tool.launcher.internal.ui.Activator.start(Activator.java:77)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:813)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:805)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:762)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1032)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:371)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:605)
+	at org.eclipse.osgi.container.Module.start(Module.java:468)
+	at org.eclipse.osgi.framework.util.SecureAction.start(SecureAction.java:513)
+	at org.eclipse.osgi.internal.hooks.EclipseLazyStarter.postFindLocalClass(EclipseLazyStarter.java:117)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:570)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:335)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:397)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:488)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:416)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:168)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.loadClass(EquinoxBundle.java:622)
+	at org.eclipse.core.internal.registry.osgi.RegistryStrategyOSGI.createExecutableExtension(RegistryStrategyOSGI.java:196)
+	at org.eclipse.core.internal.registry.ExtensionRegistry.createExecutableExtension(ExtensionRegistry.java:920)
+	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:246)
+	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:63)
+	at org.eclipse.ui.internal.util.Util.safeLoadExecutableExtension(Util.java:496)
+	at org.eclipse.ui.internal.menus.DynamicMenuContributionItem.createContributionItem(DynamicMenuContributionItem.java:164)
+	at org.eclipse.ui.internal.menus.DynamicMenuContributionItem.getContributionItem(DynamicMenuContributionItem.java:158)
+	at org.eclipse.ui.internal.menus.DynamicMenuContributionItem.fill(DynamicMenuContributionItem.java:144)
+	at org.eclipse.jface.action.MenuManager.doItemFill(MenuManager.java:729)
+	at org.eclipse.jface.action.MenuManager.update(MenuManager.java:806)
+	at org.eclipse.jface.action.MenuManager.update(MenuManager.java:673)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.scheduleManagerUpdate(MenuManagerRenderer.java:1227)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.processContents(MenuManagerRenderer.java:655)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.subscribeTopicChildAdded(MenuManagerRenderer.java:325)
+	at jdk.internal.reflect.GeneratedMethodAccessor27.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:236)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:133)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4779)
+	at org.eclipse.e4.ui.workbench.swt.DisplayUISynchronize.syncExec(DisplayUISynchronize.java:34)
+	at org.eclipse.e4.ui.internal.di.UIEventObjectSupplier$UIEventHandler.handleEvent(UIEventObjectSupplier.java:64)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:205)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:203)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:151)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:133)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:75)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:44)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:55)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:63)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:424)
+	at org.eclipse.emf.ecore.util.EcoreEList.dispatchNotification(EcoreEList.java:249)
+	at org.eclipse.emf.common.notify.impl.NotifyingListImpl.addUnique(NotifyingListImpl.java:356)
+	at org.eclipse.emf.common.util.AbstractEList.add(AbstractEList.java:340)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ContributionRecord.mergeIntoModel(ContributionRecord.java:253)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.processAddition(MenuManagerRenderer.java:551)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.generateContributions(MenuManagerRenderer.java:531)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.processContributions(MenuManagerRenderer.java:499)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.processContributions(MenuManagerRenderer.java:502)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.createWidget(MenuManagerRenderer.java:417)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:995)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:659)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$1.run(PartRenderingEngine.java:544)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:528)
+	at org.eclipse.ui.internal.WorkbenchWindow.setup(WorkbenchWindow.java:857)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:995)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalInject(InjectorImpl.java:140)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:96)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.inject(ContextInjectionFactory.java:83)
+	at org.eclipse.ui.internal.Workbench.createWorkbenchWindow(Workbench.java:1493)
+	at org.eclipse.ui.internal.Workbench.openWorkbenchWindow(Workbench.java:2496)
+	at org.eclipse.ui.internal.Workbench.getWorkbenchPage(Workbench.java:1967)
+	at org.eclipse.ui.internal.Workbench.setReference(Workbench.java:2012)
+	at org.eclipse.ui.internal.Workbench.lambda$10(Workbench.java:1903)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.lambda$0(UIEventHandler.java:38)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:236)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:133)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4779)
+	at org.eclipse.e4.ui.workbench.swt.DisplayUISynchronize.syncExec(DisplayUISynchronize.java:34)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.handleEvent(UIEventHandler.java:38)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:205)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:203)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:151)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:133)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:75)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:44)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:55)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:63)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:424)
+	at org.eclipse.e4.ui.model.application.ui.basic.impl.PartImpl.setContext(PartImpl.java:469)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:634)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$1.run(PartRenderingEngine.java:544)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:528)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ElementReferenceRenderer.createWidget(ElementReferenceRenderer.java:73)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:995)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:659)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer.showTab(StackRenderer.java:1209)
+	at org.eclipse.e4.ui.workbench.renderers.swt.LazyStackRenderer.postProcess(LazyStackRenderer.java:116)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:677)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:72)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SashRenderer.processContents(SashRenderer.java:150)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:673)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:72)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SashRenderer.processContents(SashRenderer.java:150)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:673)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:72)
+	at org.eclipse.e4.ui.workbench.renderers.swt.PerspectiveRenderer.processContents(PerspectiveRenderer.java:51)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:673)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.PerspectiveStackRenderer.showTab(PerspectiveStackRenderer.java:82)
+	at org.eclipse.e4.ui.workbench.renderers.swt.LazyStackRenderer.postProcess(LazyStackRenderer.java:116)
+	at org.eclipse.e4.ui.workbench.renderers.swt.PerspectiveStackRenderer.postProcess(PerspectiveStackRenderer.java:64)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:677)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:72)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SashRenderer.processContents(SashRenderer.java:150)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:673)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:72)
+	at org.eclipse.e4.ui.workbench.renderers.swt.WBWRenderer.processContents(WBWRenderer.java:658)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:673)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1083)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:647)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:554)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at com.silabs.ss.platform.internal.product.Application.start(Application.java:38)
+	at com.silabs.ss.tool.launcher.internal.product.StudioV5Application.start(StudioV5Application.java:28)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+Caused by: java.lang.IllegalStateException: Could not obtain lock
+	at org.apache.felix.scr.impl.manager.AbstractComponentManager.obtainLock(AbstractComponentManager.java:242)
+	at org.apache.felix.scr.impl.manager.AbstractComponentManager.obtainStateLock(AbstractComponentManager.java:289)
+	at org.apache.felix.scr.impl.manager.SingleComponentManager.getService(SingleComponentManager.java:906)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceFactoryUse$1.run(ServiceFactoryUse.java:220)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:318)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceFactoryUse.factoryGetService(ServiceFactoryUse.java:217)
+	... 257 more

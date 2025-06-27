@@ -134,6 +134,14 @@ QState bt_remote_INITIALIZING(bt_remote * const me, QEvt const * const e) {
             //                                           CONN_MAX_CE_LENGTH);
             //app_assert_status(me->sc);
 
+            me->sc = sl_bt_connection_set_default_parameters(6U,
+                                                      12U,
+                                                       0U,
+                                                       100U,
+                                                       CONN_MIN_CE_LENGTH,
+                                                       CONN_MAX_CE_LENGTH);
+            app_assert_status(me->sc);
+
             me->sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_noinputnooutput);
             app_assert_status(me->sc);
 

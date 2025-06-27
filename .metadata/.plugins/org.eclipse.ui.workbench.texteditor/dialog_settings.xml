@@ -9,6 +9,9 @@
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
 			<item value="_SIG"/>
+			<item value="blink_expired"/>
+			<item value="sl_led_"/>
+			<item value="running"/>
 			<item value="Reset conection parameters"/>
 			<item value="ection_get_remote_address"/>
 			<item value="sl_bt_connection_get_remote_address"/>
@@ -20,9 +23,6 @@
 			<item value="app_button"/>
 			<item value="delete"/>
 			<item value="ver"/>
-			<item value="led_config notification enabled"/>
-			<item value="read_"/>
-			<item value="read_attr"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
@@ -37,8 +37,8 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1052"/>
-		<item key="DIALOG_Y_ORIGIN" value="315"/>
+		<item key="DIALOG_X_ORIGIN" value="992"/>
+		<item key="DIALOG_Y_ORIGIN" value="275"/>
 		<item key="DIALOG_WIDTH" value="322"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>

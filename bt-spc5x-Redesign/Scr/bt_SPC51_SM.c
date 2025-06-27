@@ -175,7 +175,7 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
 
             me->sc = sl_bt_advertiser_set_timing(
                                             me->advertising_set_handle,
-                                            1600U, 2400U, // min & max interval (ms * 1.6)
+                                            800U, 900U, // min & max interval (ms * 1.6)
                                             0U, 0U);    // duration, max events
             app_assert_status(me->sc);
 

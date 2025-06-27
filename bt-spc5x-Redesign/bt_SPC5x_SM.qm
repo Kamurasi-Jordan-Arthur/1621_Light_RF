@@ -89,7 +89,7 @@ app_assert_status(me-&gt;sc);
 
 me-&gt;sc = sl_bt_advertiser_set_timing(
                                 me-&gt;advertising_set_handle,
-                                1600U, 2400U, // min &amp; max interval (ms * 1.6)
+                                800U, 900U, // min &amp; max interval (ms * 1.6)
                                 0U, 0U);    // duration, max events
 app_assert_status(me-&gt;sc);
 
