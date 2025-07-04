@@ -86,7 +86,7 @@ static QEvt btEvt;
 //App-logic_indicators
 static bool blink_expired = false;
 static bool scan_timer_expired = false;
-static bool button_pressed = false;
+bool button_pressed = false;
 
 //led blinking count
 uint8_t blink_count;
@@ -148,6 +148,11 @@ SL_WEAK void app_process_action(void)
 
       QASM_DISPATCH(QMsm_bt_remote_p, &buttonEvt.super, (void)0U);
 
+      //because we have no event Queue hence
+//      if (button_pressed){
+//          QASM_DISPATCH(QMsm_bt_remote_p, &buttonEvt.super, (void)0U);
+//          button_pressed = false;
+//      }
   }
 
   if(scan_timer_expired){

@@ -74,10 +74,10 @@
 #define CHARACTERISTIC_HANDLE_INVALID (uint16_t)0x00u
 
 //${SMs::SCAN_TIMEOUT} .......................................................
-#define SCAN_TIMEOUT (1U * 10U * 1000U)
+#define SCAN_TIMEOUT (1U * 5U * 1000U)
 
 //${SMs::CONNECTION_TIMEOUT} .................................................
-#define CONNECTION_TIMEOUT (1U * 5U * 1000U)
+#define CONNECTION_TIMEOUT (1U * 3U * 1000U)
 
 //${SMs::MAX_LED_INDEX} ......................................................
 #define MAX_LED_INDEX (uint8_t)3U
@@ -143,6 +143,9 @@ extern QMState const bt_remote_characteristic_discovery_s;
 QState bt_remote_notification_getting  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_notification_getting_e(bt_remote * const me);
 extern QMState const bt_remote_notification_getting_s;
+QState bt_remote_read_Led_conf  (bt_remote * const me, QEvt const * const e);
+QState bt_remote_read_Led_conf_e(bt_remote * const me);
+extern QMState const bt_remote_read_Led_conf_s;
 QState bt_remote_openning  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_openning_e(bt_remote * const me);
 QState bt_remote_openning_x(bt_remote * const me);

@@ -27,4 +27,5 @@
 <workingSet IMemento.internal.id="SM-intergration"/>
 <workingSet IMemento.internal.id="Central-Re-designed"/>
 </workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1751633493030_14" label="Window Working Set" name="Aggregate for window 1751633493030"/>
 </workingSetManager>

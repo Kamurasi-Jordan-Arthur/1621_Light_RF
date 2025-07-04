@@ -34,7 +34,7 @@
 //typedef struct sl_sleeptimer_timer_handle sl_sleeptimer_timer_handle_t;
 
 //time interval for each blink
-#define BLINK_TIMEOUT (1u * 1u * 125u)
+#define BLINK_TIMEOUT (1u * 1u * 120u)
 
 enum USER_SIGS {
   BUTTON_ID = Q_USER_SIG,
@@ -62,6 +62,9 @@ extern buttonEvt_t buttonEvt;
 
 //blink counter
 extern uint8_t blink_count;
+
+//decision bool for to send a button pressed event
+extern bool button_pressed;
 
 //todo I dought these are needed in other files
 // UUID definition extension

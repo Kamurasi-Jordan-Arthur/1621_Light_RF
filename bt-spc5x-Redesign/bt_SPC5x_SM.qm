@@ -69,13 +69,13 @@ app_assert_status(me-&gt;sc);
 //app_log_info(&quot;All bonding deleted.\n&quot;);
 
 ///set defualt connection parameters
-me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
-                                           CONN_INTERVAL_MAX,
-                                           CONN_RESPONDER_LATENCY,
-                                           CONN_TIMEOUT,
-                                           CONN_MIN_CE_LENGTH,
-                                           CONN_MAX_CE_LENGTH);
-
+//me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
+//                                           CONN_INTERVAL_MAX,
+//                                           CONN_RESPONDER_LATENCY,
+//                                           CONN_TIMEOUT,
+//                                           CONN_MIN_CE_LENGTH,
+//                                           CONN_MAX_CE_LENGTH);
+//
 app_assert_status(me-&gt;sc);
 
 
@@ -108,9 +108,6 @@ app_assert_status(me-&gt;sc);
     </state>
     <state name="OPERRATIONAL">
      <initial target="../4">
-      <action>//after that restrict new connections
-me-&gt;sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);
-app_assert_status(me-&gt;sc);</action>
       <initial_glyph conn="40,33,5,0,-20,3">
        <action box="0,-2,10,2"/>
       </initial_glyph>
@@ -151,7 +148,11 @@ app_assert_status(me-&gt;sc);</action>
       </tran_glyph>
      </tran>
      <state name="ADVERTISING">
-      <entry>me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
+      <entry>//after that restrict new connections
+me-&gt;sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);
+app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
                                  sl_bt_legacy_advertiser_connectable);
 app_assert_status(me-&gt;sc);
 

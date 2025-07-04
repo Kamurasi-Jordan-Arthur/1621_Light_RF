@@ -1,3 +1,6 @@
-2025/06/27-06:50:10.015 2e2c Reusing MANIFEST C:\Users\user\SimplicityStudio\v5_workspace\.browser\Default\Session Storage/MANIFEST-000001
-2025/06/27-06:50:10.018 2e2c Recovering log #3
-2025/06/27-06:50:10.025 2e2c Reusing old log C:\Users\user\SimplicityStudio\v5_workspace\.browser\Default\Session Storage/000003.log 
+2025/07/04-12:55:33.489 34c8 Reusing MANIFEST C:\Users\user\SimplicityStudio\v5_workspace\.browser\Default\Session Storage/MANIFEST-000001
+2025/07/04-12:55:33.568 34c8 Recovering log #3
+2025/07/04-12:55:33.577 34c8 Reusing old log C:\Users\user\SimplicityStudio\v5_workspace\.browser\Default\Session Storage/000003.log 
+2025/07/04-15:51:37.950 34c8 Level-0 table #5: started
+2025/07/04-15:51:38.073 34c8 Level-0 table #5: 17359 bytes OK
+2025/07/04-15:51:38.085 34c8 Delete type=0 #3

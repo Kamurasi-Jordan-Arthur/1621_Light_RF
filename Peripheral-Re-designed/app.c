@@ -86,7 +86,7 @@ static QEvt btEvt;
 //App-logic_indicators
 static bool blink_expired = false;
 static bool scan_timer_expired = false;
-static bool button_pressed = false;
+bool button_pressed = false;
 
 //led blinking count
 uint8_t blink_count;
@@ -148,6 +148,11 @@ SL_WEAK void app_process_action(void)
 
       QASM_DISPATCH(QMsm_bt_remote_p, &buttonEvt.super, (void)0U);
 
+      //because we have no event Queue hence
+//      if (button_pressed){
+//          QASM_DISPATCH(QMsm_bt_remote_p, &buttonEvt.super, (void)0U);
+//          button_pressed = false;
+//      }
   }
 
   if(scan_timer_expired){
@@ -195,16 +200,19 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 //          event->data.evt_gatt_server_characteristic_status.connection);
 //
 //      break;
-//    case sl_bt_evt_connection_closed_id:
+//    case sl_bt_evt_connection_phy_status_id:
 //      bd_addr peer_address;
 //      uint8_t address_type;
-//      event->data.evt_connection_closed.reason;
+//      event->data.evt_connection_phy_status.phy;
+//      switch (event->data.evt_connection_phy_status.phy) {
+//        case 0x01U:
+//          app_log_info("%uM PHY",event->data.evt_connection_phy_status.phy);
+//          break;
+//        default:
+//          break;
+//      }
 //      SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED
-//      sl_bt_gatt_discover_primary_services(
-//          me->connection,
-//          me->address,
-//          me->add_type
-//      );
+//      sl_bt_connection_set_default_parameters
 //      break;
 //
 //  }
@@ -289,7 +297,7 @@ void blinkTimerCallback(sl_sleeptimer_timer_handle_t *handle, void *data){
 
   if(blink_count > (uint8_t)0U){
 
-      if(!sl_led_get_state(&sl_led_led0)){
+      if(sl_led_get_state(&sl_led_led0)){
           sl_led_toggle(&sl_led_led0);
           blink_count--;
       }else{

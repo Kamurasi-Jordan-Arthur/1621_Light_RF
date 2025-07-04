@@ -88,10 +88,10 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    <code>(uint16_t)0x00u</code>
   </attribute>
   <attribute name="SCAN_TIMEOUT" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 10U * 1000U)</code>
+   <code>(1U * 5U * 1000U)</code>
   </attribute>
   <attribute name="CONNECTION_TIMEOUT" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 5U * 1000U)</code>
+   <code>(1U * 3U * 1000U)</code>
   </attribute>
   <attribute name="MAX_LED_INDEX" type="" visibility="0x03" properties="0x00">
    <code>(uint8_t)3U</code>
@@ -176,23 +176,6 @@ app_log_info(&quot;Bluetooth stack booted: v%d.%d.%d-b%d\n&quot; APP_LOG_NL,
 
 print_bluetooth_address();
 
-// Set the default connection parameters for subsequent connections
-//me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
-//                                          CONN_INTERVAL_MAX,
-//                                           CONN_RESPONDER_LATENCY,
-//                                           CONN_TIMEOUT,
-//                                           CONN_MIN_CE_LENGTH,
-//                                           CONN_MAX_CE_LENGTH);
-//app_assert_status(me-&gt;sc);
-
-me-&gt;sc = sl_bt_connection_set_default_parameters(6U,
-                                          12U,
-                                           0U,
-                                           100U,
-                                           CONN_MIN_CE_LENGTH,
-                                           CONN_MAX_CE_LENGTH);
-app_assert_status(me-&gt;sc);
-
 me-&gt;sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_noinputnooutput);
 app_assert_status(me-&gt;sc);
 
@@ -202,6 +185,23 @@ app_assert_status(me-&gt;sc);
 //                                    SCAN_WINDOW);
 //app_assert_status(me-&gt;sc);
 //app_log_info(&quot;Scan parameters set&quot;);
+
+// Set the default connection parameters for subsequent connections
+
+//me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
+//                                          CONN_INTERVAL_MAX,
+//                                           CONN_RESPONDER_LATENCY,
+//                                           CONN_TIMEOUT,
+//                                           CONN_MIN_CE_LENGTH,
+//                                           CONN_MAX_CE_LENGTH);
+//app_assert_status(me-&gt;sc);
+me-&gt;sc = sl_bt_connection_set_default_parameters(14U,
+                                          14U,
+                                           5U,
+                                           100U,
+                                           CONN_MIN_CE_LENGTH,
+                                           CONN_MAX_CE_LENGTH);
+app_assert_status(me-&gt;sc);
 
 //me-&gt;sc = sl_bt_sm_delete_bondings();
 //app_assert_status(me-&gt;sc);
@@ -244,15 +244,9 @@ app_log_info(&quot;Stack Initialed...\n&quot;);</action>
      </tran>
      <state name="running">
       <entry>//listen to button presses
-app_button_press_enable();
+//app_button_press_enable();
 
-me-&gt;sc = sl_bt_gatt_read_characteristic_value(
-                                me-&gt;connection_handle,
-                                me-&gt;led_conf_characteristic_handle);
-
-app_assert_status(me-&gt;sc);
-
-sl_led_turn_on(&amp;sl_led_led0);
+//sl_led_turn_on(&amp;sl_led_led0);
 
 me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
                                           CONN_INTERVAL_MIN,
@@ -261,16 +255,11 @@ me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
                                           CONN_TIMEOUT,
                                           CONN_MIN_CE_LENGTH,
                                           CONN_MAX_CE_LENGTH);
-
 app_assert_status(me-&gt;sc);
+
 app_log_info(&quot;Reset conection parameters\n&quot;);
 
-//me-&gt;sc = sl_bt_gatt_set_characteristic_notification(me-&gt;connection_handle,
-//                                                     me-&gt;changes_characteristic_handle,
-//                                                     sl_bt_gatt_notification);
-//app_assert_status(me-&gt;sc);
 
-//app_log_info(&quot;changes notification enabled.\n&quot;);
 me-&gt;sc = sl_sleeptimer_restart_timer_ms(
                             &amp;appTimer,
                             RUNNING_TIMEOUT,
@@ -279,12 +268,14 @@ me-&gt;sc = sl_sleeptimer_restart_timer_ms(
                             0U,
                             0U);
 app_assert_status(me-&gt;sc);
-app_log_info(&quot;Timeout started.\n&quot;);
+app_log_info(&quot;Running Timeout started.\n&quot;);
 
 
 //sl_led_turn_on(&amp;sl_led_led0);
+//button_pressed = true;
 
-app_log_info(&quot;Running...\n&quot;);</entry>
+app_log_info(&quot;Running...\n&quot;);
+</entry>
       <exit>//dont listen to button presses
 //app_button_press_disable();
 sl_led_turn_off(&amp;sl_led_led0);
@@ -572,6 +563,7 @@ app_assert_status(me-&gt;sc);
 me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
 app_assert_status(me-&gt;sc);
 
+
 me-&gt;sc = sl_bt_connection_open(event-&gt;data.evt_scanner_legacy_advertisement_report.address,
                          event-&gt;data.evt_scanner_legacy_advertisement_report.address_type,
                          sl_bt_gap_phy_1m,
@@ -735,7 +727,7 @@ if( me-&gt;led_conf_characteristic_handle){
          <guard brief="HandlesGotten">me-&gt;changes_characteristic_handle &amp;&amp;
 me-&gt;led_conf_characteristic_handle
 </guard>
-         <choice_glyph conn="76,76,5,2,34,-14">
+         <choice_glyph conn="76,76,5,2,34,-8">
           <action box="1,0,14,2"/>
          </choice_glyph>
         </choice>
@@ -772,12 +764,28 @@ app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;led_config notification enabled.\n&quot;);
 </entry>
-       <tran trig="sl_bt_evt_gatt_procedure_completed_id" target="../../../2">
-        <tran_glyph conn="114,57,1,3,9">
-         <action box="-17,0,27,2"/>
+       <tran trig="sl_bt_evt_gatt_procedure_completed_id" target="../../5">
+        <tran_glyph conn="107,58,0,2,-6">
+         <action box="-14,-4,27,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph color="2" node="98,52,16,10">
+       <state_glyph color="2" node="98,58,16,10">
+        <entry box="0,3,6,2"/>
+       </state_glyph>
+      </state>
+      <state name="read_Led_conf">
+       <entry>me-&gt;sc = sl_bt_gatt_read_characteristic_value(
+                                me-&gt;connection_handle,
+                                me-&gt;led_conf_characteristic_handle);
+
+app_assert_status(me-&gt;sc);</entry>
+       <tran trig="sl_bt_evt_gatt_procedure_completed_id" target="../../../2">
+        <action>button_pressed = true;</action>
+        <tran_glyph conn="111,49,1,3,10,12,2">
+         <action box="-10,-1,30,2"/>
+        </tran_glyph>
+       </tran>
+       <state_glyph color="1" node="100,43,11,9">
         <entry box="0,3,6,2"/>
        </state_glyph>
       </state>
@@ -797,9 +805,14 @@ me-&gt;sc = sl_sleeptimer_restart_timer_ms(
   0U,
   0U);
 app_assert_status(me-&gt;sc);</entry>
-      <exit>me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
-app_assert_status(me-&gt;sc);
-app_log_info(&quot;Opening timer halted.\n&quot;);</exit>
+      <exit>if (me-&gt;connection_handle){
+    me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
+    app_assert_status(me-&gt;sc);
+    app_log_info(&quot;Opening timer halted.\n&quot;);
+}
+
+
+</exit>
       <tran trig="sl_bt_evt_connection_opened_id">
        <action>me-&gt;connection_handle = event-&gt;data.evt_connection_opened.connection;
 app_log_info(&quot;Connection Opened.\n&quot;);
@@ -846,14 +859,18 @@ me-&gt;bonding_Handle = event-&gt;data.evt_sm_bonded.bonding;</action>
        <action>//me-&gt;sc = sl_bt_sm_delete_bonding(me-&gt;bonding_Handle);
 app_log_info(&quot;Connection Opening timeout\n&quot;);
 me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
-app_assert_status(me-&gt;sc);</action>
-       <tran_glyph conn="31,60,0,-1,5">
-        <action box="-6,6,10,2"/>
+app_assert_status(me-&gt;sc);
+
+
+//used as a safe check on exist when we timeut
+me-&gt;connection_handle = CONNECTION_HANDLE_INVALID;</action>
+       <tran_glyph conn="31,60,0,-1,7">
+        <action box="-7,8,10,2"/>
        </tran_glyph>
       </tran>
       <tran trig="sl_bt_evt_connection_closed_id" target="../../3">
-       <tran_glyph conn="34,60,0,2,-9">
-        <action box="-8,-5,25,2"/>
+       <tran_glyph conn="30,60,0,2,-9">
+        <action box="-7,-3,26,2"/>
        </tran_glyph>
       </tran>
       <state_glyph node="23,60,24,13">
@@ -879,7 +896,7 @@ app_button_press_enable();
        <action>me-&gt;sc = sl_bt_connection_open(me-&gt;address,
                              me-&gt;add_type,
                              sl_bt_gap_phy_1m,
-                             NULL);
+                             &amp;me-&gt;connection_handle);
 app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Reconnectiong to previous device\n&quot;);

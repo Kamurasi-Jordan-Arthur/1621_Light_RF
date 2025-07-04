@@ -40,6 +40,13 @@
 
 //extern QHsm * const the_oven;
 
+//#define LED_DEB (void)0U;
+
+#define LED_DEB sl_led_toggle(&sl_led_led0);
+//#define LED_DEB app_assert_status(1U);
+
+
+
 //$declare(SMs::INITIAL_FLAG_CONFIG)
 //$declare${SMs} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
@@ -47,7 +54,7 @@
 #define INITIAL_FLAG_CONFIG 0b00100110
 
 //${SMs::CONN_INTERVAL_MIN} ..................................................
-#define CONN_INTERVAL_MIN 160U
+#define CONN_INTERVAL_MIN 200U
 
 //${SMs::CONN_INTERVAL_MAX} ..................................................
 #define CONN_INTERVAL_MAX 300U
@@ -74,7 +81,7 @@
 #define CHARACTERISTIC_HANDLE_INVALID (uint16_t)0x00u
 
 //${SMs::SCAN_TIMEOUT} .......................................................
-#define SCAN_TIMEOUT (1U * 12U * 1000U)
+#define SCAN_TIMEOUT (1U * 5U * 1000U)
 
 //${SMs::CONNECTION_TIMEOUT} .................................................
 #define CONNECTION_TIMEOUT (1U * 3U * 1000U)
@@ -83,7 +90,7 @@
 #define MAX_LED_INDEX (uint8_t)3U
 
 //${SMs::RUNNING_TIMEOUT} ....................................................
-#define RUNNING_TIMEOUT (1U * 30U * 1000U)
+#define RUNNING_TIMEOUT (1U * 10U * 1000U)
 
 //${SMs::INVALID_ADDRESS_TYPE} ...............................................
 #define INVALID_ADDRESS_TYPE 0xff
@@ -132,17 +139,25 @@ QState bt_remote_scanning_x(bt_remote * const me);
 extern QMState const bt_remote_scanning_s;
 QState bt_remote_discoveryAndSetup  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_discoveryAndSetup_e(bt_remote * const me);
+QState bt_remote_discoveryAndSetup_x(bt_remote * const me);
 QState bt_remote_discoveryAndSetup_i(bt_remote * const me);
 extern QMState const bt_remote_discoveryAndSetup_s;
 QState bt_remote_Service_discovery  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_Service_discovery_e(bt_remote * const me);
+QState bt_remote_Service_discovery_x(bt_remote * const me);
 extern QMState const bt_remote_Service_discovery_s;
 QState bt_remote_characteristic_discovery  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_characteristic_discovery_e(bt_remote * const me);
+QState bt_remote_characteristic_discovery_x(bt_remote * const me);
 extern QMState const bt_remote_characteristic_discovery_s;
 QState bt_remote_notification_getting  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_notification_getting_e(bt_remote * const me);
+QState bt_remote_notification_getting_x(bt_remote * const me);
 extern QMState const bt_remote_notification_getting_s;
+QState bt_remote_read_Led_conf  (bt_remote * const me, QEvt const * const e);
+QState bt_remote_read_Led_conf_e(bt_remote * const me);
+QState bt_remote_read_Led_conf_x(bt_remote * const me);
+extern QMState const bt_remote_read_Led_conf_s;
 QState bt_remote_openning  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_openning_e(bt_remote * const me);
 QState bt_remote_openning_x(bt_remote * const me);
