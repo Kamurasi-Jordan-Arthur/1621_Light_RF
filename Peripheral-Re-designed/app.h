@@ -75,6 +75,13 @@ extern const uint8_t led_cofig_char_UUID[16];
 extern const uint8_t changes_char_UUID[16];
 
 
+// UUID's for silicon labs robust caching service and characteristics
+extern const uint8_t robustCaching_service_UUID[2];
+
+extern const uint8_t robustCaching_char_UUID[2];
+
+
+
 uint8_t service_InAdvertisement(uint8_t *data, uint8_t len);
 
 bd_addr *read_and_cache_bluetooth_address(uint8_t *address_type_out);

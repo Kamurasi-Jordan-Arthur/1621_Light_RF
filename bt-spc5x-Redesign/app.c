@@ -28,6 +28,7 @@
  *
  ******************************************************************************/
 #include "em_common.h"
+#include <stdio.h>
 #include "app_assert.h"
 #include "sl_bluetooth.h"
 #include "gatt_db.h"
@@ -191,10 +192,19 @@ void notify_flag_change(void){
 
 
 
-bool parse_data(void){
+void parse_dataAndProcess(void){
   sl_status_t sc;
   size_t data_len;
   uint8_t data[7U];
+  uint8_t Percetage;
+
+  //led to change
+  uint8_t Led = (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1]);
+  // Value to change to
+  uint8_t value = (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2]);
+
+
+
   // Read status characteristic stored in local GATT database.
   sc = sl_bt_gatt_server_read_attribute_value(gattdb_Led_config,
                                               0,
@@ -206,35 +216,93 @@ bool parse_data(void){
   switch (event->data.evt_gatt_server_attribute_value.value.data[0]) {
     case 'P':
 
-      //Update the value
-      data[(uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1])] =        //What led configuration to change
-          (
-              (data[(uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1])] //Led configuration to be changed
-             & 0x80)                                                                  // For percentage clear the percentage bits
-          | (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2])         // Then fill them with the required bits for percentage
-                                                                  );
+      switch (value) {
+//        Increment sign
+        case '+':
+          Percetage = data[Led] & 0x7FU;
+
+          if(Percetage < 0x64U){
+              Percetage += 7U;
+
+              data[Led] &= 0x80U;
+
+//        case when increament is results to a value greater than 100
+              if(Percetage < 0x64U){
+                  data[Led] |= Percetage;
+              }else{
+                  data[Led] |= 0x64U;
+
+              }
+          }else {
+//              Avoid changes to configuration
+              return;
+          }
+
+          break;
+
+//          Deduct sign
+        case '-':
+          Percetage = data[Led] & 0x7FU;
+
+          if(Percetage > 0x00U){
+              Percetage -= 7U;
+
+              data[Led] &= 0x80U;
+
+//        cater for case when the deduction results to increment
+              if(Percetage < 0x64U){
+                  data[Led] |= Percetage;
+              }
+          }else{
+ //              Avoid changes to configuration
+              return;
+          }
+
+          break;
+        default:
+          //Update the value
+          data[Led] =        //What led configuration to change
+              (
+              (data[Led]                                                                //Led configuration to be changed
+              & 0x80)                                                                   // For percentage clear the percentage bits
+              | value    // Then fill them with the required bits for percentage
+              );
+
+          break;
+      }
 
 
       //Finally we should alert the SPC5x about the change
-      app_log_info("L%u P%u\n",
-                   (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1]),
-                   (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2]));
+      printf("L%u P%u\n",
+                   Led,
+                   value);
 
 
 
       break;
     case 'S':
       //TODO think of toggling the status instead
-      data[(uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1])] =                //What led configuration to change
-          ((data[(uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1])]            //Led configuration to be changed
-             & 0x7F)                                                                           // For status clear the status bits (bit 8)
-          | ((uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2])) << 7U);      // Then fill them with the required bits for status
+//      data[Led] =                //What led configuration to change
+//          ((data[Led]            //Led configuration to be changed
+//             & 0x7F)                                                                           // For status clear the status bits (bit 8)
+//          | (value) << 7U);      // Then fill them with the required bits for status
+//      Is it a switch btw leds or not
+      switch (value) {
+//        Switch btw leds
+        case 'S':
+          app_log_info("Switching Led to %u", Led);
+          break;
 
+        default:
+          data[Led] ^=  0x80U;             //Toggle the led
+          break;
 
-      //Finally we should alert the SPC5x about the change
-      app_log_info("L%u S%u\n",
-                   (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1]),
-                   (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2]));
+      }
+
+//      Finally we should alert the SPC5x about the change
+      printf("L%u S%u\n",
+                   Led,
+                   (uint8_t)((data[Led] & 0x80U) >> 7u));
       break;
 
 
@@ -249,10 +317,10 @@ bool parse_data(void){
 
       app_log_warning("Unknown configuration: %s%u%u\n",
                       data, // the change
-                      (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1]), // the led
-                      (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2]));// the value
+                      Led, // the led
+                      value);// the value
 
-      return false;
+      return;
 //      break;
   }
 
@@ -266,7 +334,6 @@ bool parse_data(void){
   sc = sl_bt_gatt_server_notify_all(gattdb_Led_config, data_len, data);
   app_assert_status(sc);
 
-  return true;
 }
 
 
@@ -282,20 +349,20 @@ void send_notification(void){
 
    switch (event->data.evt_gatt_server_attribute_value.attribute) {
      case gattdb_Changes:
-       if(!parse_data()){
-           return;
-       }
+       parse_dataAndProcess();
+//       if(!parse_data()){
+//           return;
+//       }
        break;
-       /* no break */
-       // Intentional fall through
+
 
      case gattdb_Led_config:
        // Read led values characteristic stored in local GATT database.
-       sc = sl_bt_gatt_server_write_attribute_value(event->data.evt_gatt_server_attribute_value.attribute,
-                                                    event->data.evt_gatt_server_attribute_value.offset,
-                                                   (size_t)event->data.evt_gatt_server_attribute_value.value.len,
-                                                   event->data.evt_gatt_server_attribute_value.value.data);
-       app_assert_status(sc);
+//       sc = sl_bt_gatt_server_write_attribute_value(event->data.evt_gatt_server_attribute_value.attribute,
+//                                                    event->data.evt_gatt_server_attribute_value.offset,
+//                                                   (size_t)event->data.evt_gatt_server_attribute_value.value.len,
+//                                                   event->data.evt_gatt_server_attribute_value.value.data);
+//       app_assert_status(sc);
 
        // Send characteristic notification.
        sc = sl_bt_gatt_server_notify_all(event->data.evt_gatt_server_attribute_value.attribute,

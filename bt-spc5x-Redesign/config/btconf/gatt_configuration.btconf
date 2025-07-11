@@ -72,6 +72,14 @@
         <read authenticated="false" bonded="false" encrypted="false"/>
       </properties>
     </characteristic>
+
+    <!--Custom Characteristic-->
+    <characteristic const="false" name="Custom Characteristic" sourceId="" uuid="822de72c-1e96-4e51-82c1-a19c97e42156">
+      <value length="0" type="hex" variable_length="false">00</value>
+      <properties>
+        <read authenticated="false" bonded="false" encrypted="false"/>
+      </properties>
+    </characteristic>
   </service>
 
   <!--Generic Access-->
@@ -80,7 +88,7 @@
 
     <!--Device Name-->
     <characteristic const="true" id="device_name" name="Device Name" sourceId="org.bluetooth.characteristic.gap.device_name" uuid="2A00">
-      <value length="8" type="utf-8" variable_length="false">bt_SPC51</value>
+      <value length="8" type="utf-8" variable_length="false">bt_SPC5x</value>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
       </properties>

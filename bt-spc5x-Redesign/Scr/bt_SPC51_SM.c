@@ -36,6 +36,8 @@
 //
 //$endhead${SMs::./Scr::bt_SPC51_SM.c} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #include "em_common.h"
+#include <stdio.h>
+
 #include "app_assert.h"
 #include "sl_sleeptimer.h"
 
@@ -55,6 +57,8 @@
 #include "qpc.h"
 
 #include "bt_SPC51_SM.h"
+
+#include <stdio.h>
 
 
 //$skip${QP_VERSION} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -112,7 +116,7 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::INITIALIZING::sl_bt_evt_system_boot_id}
-        case sl_bt_evt_system_boot_id_SIG: {
+        case sl_bt_evt_system_boot_id: {
             //Stack verion display
             app_log_info("Stack version: %u.%u.%u\r\r\n",
                        event->data.evt_system_boot.major,
@@ -235,13 +239,13 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_gatt_server_attribute_~}
-        case sl_bt_evt_gatt_server_attribute_value_id_SIG: {
+        case sl_bt_evt_gatt_server_attribute_value_id: {
             send_notification();
             status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_connection_parameters_~}
-        case sl_bt_evt_connection_parameters_id_SIG: {
+        case sl_bt_evt_connection_parameters_id: {
             switch (event->data.evt_connection_parameters.security_mode)
                 {
                 case sl_bt_connection_mode1_level1:
@@ -263,7 +267,7 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_connection_closed_id}
-        case sl_bt_evt_connection_closed_id_SIG: {
+        case sl_bt_evt_connection_closed_id: {
             app_log_info("Connection Closed....\n");
 
             status_ = QM_HANDLED();
@@ -309,7 +313,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_connection_opened_id}
-        case sl_bt_evt_connection_opened_id_SIG: {
+        case sl_bt_evt_connection_opened_id: {
             app_log_info("Connection Opened....\n");
 
 
@@ -369,7 +373,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_gatt_server_characteri~}
-        case sl_bt_evt_gatt_server_characteristic_status_id_SIG: {
+        case sl_bt_evt_gatt_server_characteristic_status_id: {
             if (event->data.evt_gatt_server_characteristic_status.status_flags == sl_bt_gatt_server_client_config) {
               if (event->data.evt_gatt_server_characteristic_status.client_config_flags == sl_bt_gatt_server_notification) {
                   // Notifications have been enabled by the client
@@ -416,7 +420,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_passkey_display_id}
-        case sl_bt_evt_sm_passkey_display_id_SIG: {
+        case sl_bt_evt_sm_passkey_display_id: {
             app_log_info("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
             //sl_iostream_write(sl_iostream_vcom_handle, &(event->data.evt_sm_passkey_display.passkey), (size_t)6U);
             printf("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
@@ -424,7 +428,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_bonding_failed_id}
-        case sl_bt_evt_sm_bonding_failed_id_SIG: {
+        case sl_bt_evt_sm_bonding_failed_id: {
             //failed bonding close the connection.
             me->sc = sl_bt_connection_close(
                           event->data.evt_sm_bonding_failed.connection);
@@ -446,7 +450,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_confirm_bonding_id}
-        case sl_bt_evt_sm_confirm_bonding_id_SIG: {
+        case sl_bt_evt_sm_confirm_bonding_id: {
             me->sc = sl_bt_sm_bonding_confirm(event->data.evt_sm_confirm_bonding.connection, 1U);
             app_assert_status(me->sc);
 
@@ -455,7 +459,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_bonded_id}
-        case sl_bt_evt_sm_bonded_id_SIG: {
+        case sl_bt_evt_sm_bonded_id: {
             app_log_info("Bonded....\n");
 
 

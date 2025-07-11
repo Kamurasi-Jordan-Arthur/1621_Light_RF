@@ -50,7 +50,7 @@ void notify_flag_change(void);
 void send_notification(void);
 
 // FD for extraction of sent data
-bool parse_data(void);
+void parse_dataAndProcess(void);
 
 //time window for new connections
 #define NEW_DEVICE_CONNECTABLE_DECAY (1 * 1 * 500)

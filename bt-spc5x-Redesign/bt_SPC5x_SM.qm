@@ -283,6 +283,8 @@ app_log_info(&quot;Remote bonding reqeust confirmed.\n&quot;);</action>
   <directory name="./Scr">
    <file name="bt_SPC51_SM.c">
     <text>#include &quot;em_common.h&quot;
+#include &lt;stdio.h&gt;
+
 #include &quot;app_assert.h&quot;
 #include &quot;sl_sleeptimer.h&quot;
 
@@ -302,6 +304,8 @@ app_log_info(&quot;Remote bonding reqeust confirmed.\n&quot;);</action>
 #include &quot;qpc.h&quot;
 
 #include &quot;bt_SPC51_SM.h&quot;
+
+#include &lt;stdio.h&gt;
 
 
 $define(SMs::bt_SPC51_inst)
