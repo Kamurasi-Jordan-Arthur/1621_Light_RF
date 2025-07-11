@@ -61,6 +61,15 @@ const uint8_t led_cofig_char_UUID[16] = {
   0x6d, 0x38, 0x51, 0x44, 0x3a, 0x91, 0x43, 0x92,
   0xbd, 0x40, 0x74, 0x27, 0x89, 0x56, 0xf5, 0x5f
 };
+
+ const uint8_t robustCaching_service_UUID[2] = {
+     0x01, 0x18
+ };
+
+ const uint8_t robustCaching_char_UUID[2] = {
+     0x29, 0x2b
+ };
+
 //
 //static const uint8_t status_char_UUID[16] = {
 //  0x6e, 0x38, 0x51, 0x44, 0x3a, 0x91, 0x43, 0x92,
@@ -200,10 +209,17 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 //          event->data.evt_gatt_server_characteristic_status.connection);
 //
 //      break;
-//    case sl_bt_evt_connection_closed_id:
+//    case sl_bt_evt_connection_phy_status_id:
 //      bd_addr peer_address;
 //      uint8_t address_type;
-//      event->data.evt_connection_closed.reason;
+//      event->data.evt_connection_phy_status.phy;
+//      switch (event->data.evt_connection_phy_status.phy) {
+//        case 0x01U:
+//          app_log_info("%uM PHY",event->data.evt_connection_phy_status.phy);
+//          break;
+//        default:
+//          break;
+//      }
 //      SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED
 //      sl_bt_connection_set_default_parameters
 //      break;

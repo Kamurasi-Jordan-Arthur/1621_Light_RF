@@ -52,6 +52,12 @@ $declare(SMs)
 //$declare(SMs::bt_SPC51)
 //$declare(SMs::remoteSM_ctor)
 
+
+//for power profile debuging.s
+//#define LED_DEB (void)0U;
+#define LED_DEB sl_led_toggle(&amp;sl_led_led0);
+//#define LED_DEB app_assert_status(1U);
+
 extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
 
 #endif // HISTORY_H_</text>
@@ -118,6 +124,12 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    <attribute name="changes_characteristic_handle" type="uint16_t" visibility="0x02" properties="0x00">
     <code>CHARACTERISTIC_HANDLE_INVALID;</code>
    </attribute>
+   <attribute name="robust_caching_service_handle" type="uint32_t" visibility="0x02" properties="0x00">
+    <code>SERVICE_HANDLE_INVALID;</code>
+   </attribute>
+   <attribute name="robust_caching_characteritic_handle" type="uint16_t" visibility="0x02" properties="0x00">
+    <code>CHARACTERISTIC_HANDLE_INVALID;</code>
+   </attribute>
    <attribute name="connection_handle" type="uint8_t" visibility="0x02" properties="0x00">
     <code>CONNECTION_HANDLE_INVALID;</code>
    </attribute>
@@ -146,10 +158,15 @@ QMsm_ctor(&amp;me-&gt;super, Q_STATE_CAST(&amp;bt_remote_initial));</code>
    </operation>
    <operation name="reset_properties" type="void" visibility="0x02" properties="0x00">
     <documentation>for reseting to connection defaults values</documentation>
-    <code>me-&gt;led_control_service_handle = SERVICE_HANDLE_INVALID;
+    <code>me-&gt;connection_handle = CONNECTION_HANDLE_INVALID;
+
+me-&gt;led_control_service_handle = SERVICE_HANDLE_INVALID;
+me-&gt;robust_caching_service_handle = SERVICE_HANDLE_INVALID;
+
+me-&gt;robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
 me-&gt;changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
 me-&gt;led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
-me-&gt;connection_handle = CONNECTION_HANDLE_INVALID;
+
 me-&gt;add_type = INVALID_ADDRESS_TYPE;
 me-&gt;current_led = 0U;
 me-&gt;changes[0] = (uint8_t)'S';
@@ -215,8 +232,8 @@ app_log_info(&quot;Stack Initialed...\n&quot;);</action>
      <state_glyph node="17,15,11,7"/>
     </state>
     <state name="operational">
-     <initial target="../3">
-      <initial_glyph conn="35,32,5,0,5,3">
+     <initial target="../5">
+      <initial_glyph conn="35,32,5,0,5,12">
        <action box="0,-2,10,2"/>
       </initial_glyph>
      </initial>
@@ -238,8 +255,51 @@ app_log_info(&quot;Stack Initialed...\n&quot;);</action>
     default:
       break;
     }</action>
-      <tran_glyph conn="11,64,3,-1,9,2">
+      <tran_glyph conn="11,101,3,-1,16">
        <action box="-12,-2,28,2"/>
+      </tran_glyph>
+     </tran>
+     <tran trig="sl_bt_evt_connection_phy_status_id">
+      <action>app_log_info(&quot;%uM PHY\n&quot;,event-&gt;data.evt_connection_phy_status.phy);
+</action>
+      <tran_glyph conn="55,105,2,-1,-3,20">
+       <action box="0,-2,28,2"/>
+      </tran_glyph>
+     </tran>
+     <tran trig="sl_bt_evt_connection_closed_id" target="../../3">
+      <action>
+/*for matters of prpper sync we try and delete the bond*/
+//me-&gt;add_type = INVALID_ADDRESS_TYPE;
+//app_log_info(&quot;Unexpected Connection closure.\n&quot;);
+
+me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
+
+
+
+if(!me-&gt;sc){
+    app_log_info(&quot;Timer stopped.\n&quot;);
+    //forcefully turn off the led indicators
+
+    sl_led_turn_off(&amp;sl_led_led0);
+
+    }
+
+app_log_info(&quot;Connection closed.\n&quot;);
+
+
+if (event-&gt;data.evt_connection_closed.reason == SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED) {
+    me-&gt;sc = sl_bt_sm_delete_bonding(me-&gt;bonding_Handle);
+    app_assert_status(me-&gt;sc);
+    app_log_info(&quot;REason : Termination by remote...\n&quot;);
+
+    app_log_info(&quot;Therefore : Deleting bond...\n&quot;);
+
+    // The remote device terminated the connection
+}
+
+</action>
+      <tran_glyph conn="96,30,0,2,-9">
+       <action box="-8,-6,26,2"/>
       </tran_glyph>
      </tran>
      <state name="running">
@@ -272,7 +332,7 @@ app_log_info(&quot;Running Timeout started.\n&quot;);
 
 
 //sl_led_turn_on(&amp;sl_led_led0);
-//button_pressed = true;
+button_pressed = true;
 
 app_log_info(&quot;Running...\n&quot;);
 </entry>
@@ -283,82 +343,52 @@ sl_led_turn_off(&amp;sl_led_led0);
       <tran trig="BUTTON_ID">
        <action>  switch (Q_EVT_CAST(buttonEvt_t)-&gt;duration) {
   case APP_BUTTON_PRESS_DURATION_SHORT:
+
     if (&amp;sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
 
         me-&gt;changes[0] = (uint8_t)'S';
         me-&gt;changes[1] = me-&gt;current_led;
-        me-&gt;changes[2] = (me-&gt;led_conf[me-&gt;current_led] &amp; 0x80) ? 0x00U : 0x01U;
+        me-&gt;changes[2] = 0x01U;
+//        me-&gt;changes[2] = (me-&gt;led_conf[me-&gt;current_led] &amp; 0x80) ? 0x00U : 0x01U;
 
         me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
                                               me-&gt;changes_characteristic_handle,
                                               (size_t)sizeof(me-&gt;changes),
                                               me-&gt;changes);
         app_assert_status(me-&gt;sc);
-        app_log_info(&quot;Status L%u, S%u \n&quot;,
-                     (uint8_t)me-&gt;current_led,
-                     (uint8_t)me-&gt;changes[2]);
+        app_log_info(&quot;Status L%u, Toggled\n&quot;,
+                     (uint8_t)me-&gt;current_led);
 
     }else if (&amp;sl_button_btn1 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
 
-
-        if((me-&gt;led_conf[me-&gt;current_led] &amp; 0x7F) &lt; 0x64U){
             me-&gt;changes[0] = (uint8_t)'P';
             me-&gt;changes[1] = me-&gt;current_led;
-            me-&gt;changes[2] = (me-&gt;led_conf[me-&gt;current_led] &amp; 0x7F) + 0x05U;
+            me-&gt;changes[2] = (uint8_t)'+';
 
-            if(me-&gt;changes[2] &gt; 0x64U){
-                me-&gt;changes[2] = 0x64U;
-            }
-
-            me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
-                                                            me-&gt;changes_characteristic_handle,
-                                                            (size_t)sizeof(me-&gt;changes),
-                                                            me-&gt;changes);
-           app_assert_status(me-&gt;sc);
-        }else{
-           me-&gt;changes[0] = (uint8_t)'P';
-           me-&gt;changes[2] = 0x64U;
-           me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
-                                                            me-&gt;changes_characteristic_handle,
-                                                            (size_t)sizeof(me-&gt;changes),
-                                                            me-&gt;changes);
-           app_assert_status(me-&gt;sc);
-         }
-
-        app_log_info(&quot;Increase L%u, P%u \n&quot;,
-                     (uint8_t)me-&gt;current_led,
-                     (uint8_t) me-&gt;changes[2]);
-
-    } else if (&amp;sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
-
-        if((me-&gt;led_conf[me-&gt;current_led] &amp; 0x7F) &gt; 0x00U){
-            me-&gt;changes[0] = (uint8_t)'P';
-            me-&gt;changes[1] = me-&gt;current_led;
-            me-&gt;changes[2] = (me-&gt;led_conf[me-&gt;current_led] &amp; 0x7F) - 0x05U;
-
-            if(me-&gt;changes[2] &gt; 0x64U){
-                me-&gt;changes[2] = 0x00U;
-            }
+            app_log_info(&quot;Increase L%u, Inc\n&quot;,
+                         (uint8_t)me-&gt;current_led);
 
             me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
                                                             me-&gt;changes_characteristic_handle,
                                                             (size_t)sizeof(me-&gt;changes),
                                                             me-&gt;changes);
             app_assert_status(me-&gt;sc);
-        }else{
-           me-&gt;changes[0] = (uint8_t)'P';
-           me-&gt;changes[2] = 0x00U;
-           me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
+
+    } else if (&amp;sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
+
+            me-&gt;changes[0] = (uint8_t)'P';
+            me-&gt;changes[1] = me-&gt;current_led;
+            me-&gt;changes[2] = (uint8_t)'-';
+
+            app_log_info(&quot;Increase L%u, Dec\n&quot;,
+                         (uint8_t)me-&gt;current_led);
+
+            me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
                                                             me-&gt;changes_characteristic_handle,
                                                             (size_t)sizeof(me-&gt;changes),
                                                             me-&gt;changes);
-           app_assert_status(me-&gt;sc);
-         }
+            app_assert_status(me-&gt;sc);
 
-
-        app_log_info(&quot;Decrease L%u, P%u \n&quot;,
-                     (uint8_t)me-&gt;current_led,
-                     (uint8_t) me-&gt;changes[2]);
 
     }
 
@@ -398,15 +428,17 @@ sl_led_turn_off(&amp;sl_led_led0);
 
         me-&gt;changes[0] = (uint8_t)'S';
         me-&gt;changes[1] = me-&gt;current_led;
-        me-&gt;changes[2] = (me-&gt;led_conf[me-&gt;current_led] &amp; 0x80) ? 0x01 : 0x00;
-
-
+        me-&gt;changes[2] =  (uint8_t)'S';
 
         me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
                                                         me-&gt;changes_characteristic_handle,
                                                         (size_t)sizeof(me-&gt;changes),
                                                         me-&gt;changes);
         app_assert_status(me-&gt;sc);
+
+        app_log_info(&quot;Status L%u, S%c \n&quot;,
+                     (uint8_t)me-&gt;current_led,
+                     (uint8_t)me-&gt;changes[2]);
 
   //          Blink twice
         blink_count = 2U;
@@ -458,36 +490,29 @@ sl_led_turn_off(&amp;sl_led_led0);
     break;
   }
 
-//  app_button_press_enable();
-
-
-
-</action>
-       <tran_glyph conn="137,55,1,-1,-6">
+//  app_button_press_enable();</action>
+       <tran_glyph conn="151,60,1,-1,-10">
         <action box="-9,-2,10,2"/>
        </tran_glyph>
       </tran>
-      <tran trig="sl_bt_evt_connection_closed_id" target="../../../3">
-       <action>me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
-
-
-
-if(!me-&gt;sc){
-    app_log_info(&quot;Timer stopped.\n&quot;);
-    //forcefully turn off the led indicators
-    sl_led_turn_off(&amp;sl_led_led0);
-    }
-
-app_log_info(&quot;Connection closed.\n&quot;);</action>
-       <tran_glyph conn="128,48,0,1,-32,-12">
-        <action box="-11,-25,29,2"/>
-       </tran_glyph>
-      </tran>
       <tran trig="sl_bt_evt_gatt_procedure_completed_id">
-       <action>app_button_press_enable();
-</action>
-       <tran_glyph conn="137,67,1,-1,-7">
-        <action box="-9,-2,30,2"/>
+       <choice target="../../../6">
+        <guard brief="databaseChanged">event-&gt;data.evt_gatt_procedure_completed.result == SL_STATUS_BT_ATT_OUT_OF_SYNC</guard>
+        <action>app_log_warning(&quot;DataBase Changed!\n&quot;);</action>
+        <choice_glyph conn="146,83,5,1,-16">
+         <action box="-16,1,15,2"/>
+        </choice_glyph>
+       </choice>
+       <choice>
+        <guard>else</guard>
+        <action>app_button_press_enable();
+app_log_warning(&quot;DataBase Intact!\n&quot;);</action>
+        <choice_glyph conn="146,83,4,-1,-5">
+         <action box="-2,-8,10,2"/>
+        </choice_glyph>
+       </choice>
+       <tran_glyph conn="151,83,1,-1,-5">
+        <action box="-6,1,30,2"/>
        </tran_glyph>
       </tran>
       <tran trig="TIMEOUT_ID">
@@ -499,7 +524,7 @@ app_log_info(&quot;Closing connection...\n&quot;);
 //me-&gt;add_type = INVALID_ADDRESS_TYPE;
 app_button_press_disable();
 </action>
-       <tran_glyph conn="137,61,1,-1,-7">
+       <tran_glyph conn="151,66,1,-1,-7">
         <action box="-9,-3,10,2"/>
        </tran_glyph>
       </tran>
@@ -516,11 +541,11 @@ app_log_info(&quot;Led_conf: 0x%02X, 0x%02X, 0x%02X, 0x%02X\n&quot;,
              me-&gt;led_conf[2],
              me-&gt;led_conf[3]);
 </action>
-       <tran_glyph conn="125,69,2,-1,-5">
-        <action box="-11,0,30,2"/>
+       <tran_glyph conn="151,70,1,-1,-5">
+        <action box="-6,-3,30,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph color="1" node="123,48,14,21">
+      <state_glyph color="1" node="137,53,14,35">
        <entry box="0,3,6,2"/>
        <exit box="0,5,6,2"/>
       </state_glyph>
@@ -538,8 +563,6 @@ me-&gt;sc = sl_sleeptimer_restart_timer_ms(
 app_assert_status(me-&gt;sc);
 
 
-//reset parameters
-bt_remote_reset_properties(me);
 
 //Commence scaning
 me-&gt;sc = sl_bt_scanner_start(sl_bt_scanner_scan_phy_1m,
@@ -547,12 +570,17 @@ me-&gt;sc = sl_bt_scanner_start(sl_bt_scanner_scan_phy_1m,
 app_assert_status_f(me-&gt;sc, &quot;Failed to start discovery #1&quot; APP_LOG_NL);
 
 
-app_log_info(&quot;Scanning...\n&quot;);</entry>
+app_log_info(&quot;Scanning...\n&quot;);
+
+
+//reset parameters
+bt_remote_reset_properties(me);
+</entry>
       <exit>me-&gt;sc = sl_bt_scanner_stop();
 app_assert_status(me-&gt;sc);
 </exit>
       <tran trig="sl_bt_evt_scanner_legacy_advertisement_report_id">
-       <choice target="../../../5">
+       <choice target="../../../7">
         <guard brief="servicePresent!!">(event-&gt;data.evt_scanner_legacy_advertisement_report.event_flags ==
 (SL_BT_SCANNER_EVENT_FLAG_CONNECTABLE | SL_BT_SCANNER_EVENT_FLAG_SCANNABLE)) &amp;&amp;
 
@@ -573,11 +601,11 @@ app_assert_status(me-&gt;sc);
 me-&gt;address = event-&gt;data.evt_scanner_legacy_advertisement_report.address;
 me-&gt;add_type = event-&gt;data.evt_scanner_legacy_advertisement_report.address_type;
 </action>
-        <choice_glyph conn="28,46,4,0,14">
+        <choice_glyph conn="28,55,4,0,15">
          <action box="-13,8,15,2"/>
         </choice_glyph>
        </choice>
-       <tran_glyph conn="19,46,3,-1,9">
+       <tran_glyph conn="19,55,3,-1,9">
         <action box="1,-3,38,2"/>
        </tran_glyph>
       </tran>
@@ -585,16 +613,16 @@ me-&gt;add_type = event-&gt;data.evt_scanner_legacy_advertisement_report.address
        <action>//me-&gt;sc = sl_sleeptimer_stop_timer(&amp;blinkhandle);
 //app_assert_status(me-&gt;sc);
 app_log_info(&quot;Scaning timeout\n&quot;);</action>
-       <tran_glyph conn="48,35,0,3,-19,14">
+       <tran_glyph conn="48,44,0,3,-28,14">
         <action box="-1,-22,10,2"/>
        </tran_glyph>
       </tran>
       <tran trig="sl_bt_evt_gatt_characteristic_value_id">
-       <tran_glyph conn="32,51,2,-1,-3,18">
+       <tran_glyph conn="32,60,2,-1,-3,18">
         <action box="0,-2,29,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="19,35,42,16">
+      <state_glyph node="19,44,42,16">
        <entry box="0,3,6,2"/>
        <exit box="0,5,6,2"/>
       </state_glyph>
@@ -602,69 +630,57 @@ app_log_info(&quot;Scaning timeout\n&quot;);</action>
      <state name="discoveryAndSetup">
       <entry>//listen to now button presses
 //app_button_press_disable();
-me-&gt;changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
-me-&gt;led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
 </entry>
-      <initial target="../2">
-       <initial_glyph conn="76,40,5,0,10,3">
+      <initial target="../1">
+       <initial_glyph conn="81,39,5,0,16,3">
         <action box="0,-2,10,2"/>
        </initial_glyph>
       </initial>
-      <tran trig="sl_bt_evt_connection_closed_id" target="../../../3">
-       <action>
-/*for matters of prpper sync we try and delete the bond*/
-//me-&gt;add_type = INVALID_ADDRESS_TYPE;
-app_log_info(&quot;Unexpected Connection closure.\n&quot;);
-
-if (event-&gt;data.evt_connection_closed.reason == SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED) {
-    me-&gt;sc = sl_bt_sm_delete_bonding(me-&gt;bonding_Handle);
-    app_assert_status(me-&gt;sc);
-    app_log_info(&quot;REason : Termination by remote...\n&quot;);
-
-    app_log_info(&quot;Therefore : Deleting bond...\n&quot;);
-
-    // The remote device terminated the connection
-}
-
-</action>
-       <tran_glyph conn="96,35,0,2,-14">
-        <action box="-5,-11,26,2"/>
-       </tran_glyph>
-      </tran>
       <state name="Service_discovery">
-       <entry>me-&gt;sc = sl_bt_gatt_discover_primary_services_by_uuid(me-&gt;connection_handle , sizeof(led_service_UUID), led_service_UUID);
-//me-&gt;sc = sl_bt_gatt_discover_primary_services(me-&gt;connection_handle);
+       <entry>//me-&gt;sc = sl_bt_gatt_discover_primary_services_by_uuid(me-&gt;connection_handle , sizeof(led_service_UUID), led_service_UUID);
+me-&gt;sc = sl_bt_gatt_discover_primary_services(me-&gt;connection_handle);
 app_assert_status(me-&gt;sc);
 
-app_log_info(&quot;Discovering Led_Control service.\n&quot;);
-</entry>
+app_log_info(&quot;Discovering Services.\n&quot;);
+
+LED_DEB</entry>
+       <exit>LED_DEB</exit>
        <tran trig="sl_bt_evt_gatt_service_id">
         <action>    // if Led service
-//if(memcmp(event-&gt;data.evt_gatt_service.uuid.data, led_service_UUID, sizeof(led_service_UUID)) == 0){
-//   // Save service handle for future reference
-//   me-&gt;led_control_service_handle = event-&gt;data.evt_gatt_service.service;
-//   app_log_info(&quot;Led_ control Service handle gotten.\n&quot;);
-//}else {
-//   app_log_warning(&quot;Unknown Service handle.\n&quot;);
-//}
+if(memcmp(event-&gt;data.evt_gatt_service.uuid.data, led_service_UUID, sizeof(led_service_UUID)) == 0){
+   // Save service handle for future reference
+   me-&gt;led_control_service_handle = event-&gt;data.evt_gatt_service.service;
+   app_log_info(&quot;Led_ control Service handle gotten.\n&quot;);
 
-me-&gt;led_control_service_handle = event-&gt;data.evt_gatt_service.service;
+}else if(memcmp(event-&gt;data.evt_gatt_service.uuid.data, robustCaching_service_UUID, sizeof(robustCaching_service_UUID)) == 0){
+   me-&gt;robust_caching_service_handle = event-&gt;data.evt_gatt_service.service;
+    app_log_info(&quot;robustCaching_service handle gotten.\n&quot;);
+
+}else {
+   app_log_warning(&quot;Unknown Service handle.\n&quot;);
+}
+
+//me-&gt;led_control_service_handle = event-&gt;data.evt_gatt_service.service;
+
 </action>
-        <tran_glyph conn="84,54,2,-1,-4,6">
-         <action box="-4,-3,20,2"/>
+        <tran_glyph conn="123,50,1,-1,-9">
+         <action box="-17,-3,20,2"/>
         </tran_glyph>
        </tran>
        <tran trig="sl_bt_evt_gatt_procedure_completed_id">
         <choice target="../../../3">
-         <guard brief="ServiceGotten">me-&gt;led_control_service_handle</guard>
-         <choice_glyph conn="77,58,4,3,8,2">
-          <action box="-10,1,13,2"/>
+         <guard brief="ServiceGotten">me-&gt;led_control_service_handle &amp;&amp;
+me-&gt;robust_caching_service_handle</guard>
+         <choice_glyph conn="74,50,4,3,20,4">
+          <action box="-2,5,13,2"/>
          </choice_glyph>
         </choice>
         <choice>
          <guard>else</guard>
-         <action>me-&gt;sc = sl_bt_connection_close(
-              event-&gt;data.evt_gatt_procedure_completed.connection);
+         <action>me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
+app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_gatt_discover_primary_services(me-&gt;connection_handle);
 app_assert_status(me-&gt;sc);
 
 me-&gt;add_type = INVALID_ADDRESS_TYPE;
@@ -672,26 +688,36 @@ me-&gt;add_type = INVALID_ADDRESS_TYPE;
 app_log_warning(&quot;Un-able to fullfill service requirement.\n&quot;);
 app_log_warning(&quot;Closing connection.\n&quot;);
 
-me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
-app_assert_status(me-&gt;sc);</action>
-         <choice_glyph conn="77,58,5,-1,-3,-13">
-          <action box="-13,-20,10,2"/>
+</action>
+         <choice_glyph conn="74,50,4,-1,-7">
+          <action box="0,-6,6,2"/>
          </choice_glyph>
         </choice>
-        <tran_glyph conn="79,51,3,-1,-2,7">
-         <action box="-15,4,30,2"/>
+        <tran_glyph conn="83,50,3,-1,-9">
+         <action box="-5,1,30,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph color="2" node="79,43,15,11">
+       <state_glyph color="2" node="83,42,40,12">
         <entry box="0,3,6,2"/>
+        <exit box="0,5,6,2"/>
        </state_glyph>
       </state>
       <state name="characteristic_discovery">
-       <entry>me-&gt;sc = sl_bt_gatt_discover_characteristics(event-&gt;data.evt_gatt_procedure_completed.connection,
-                                       me-&gt;led_control_service_handle);
+       <entry>//me-&gt;sc = sl_bt_gatt_discover_characteristics(event-&gt;data.evt_gatt_procedure_completed.connection,
+//                                       me-&gt;led_control_service_handle);
+//app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_gatt_discover_characteristics_by_uuid(me-&gt;connection_handle,
+                    me-&gt;led_control_service_handle,
+                    sizeof(changes_char_UUID),
+                    changes_char_UUID);
+
 app_assert_status(me-&gt;sc);
 
-app_log_info(&quot;Discovering_characteristics...\n&quot;);</entry>
+app_log_info(&quot;Discovering_characteristics...\n&quot;);
+
+LED_DEB</entry>
+       <exit>LED_DEB</exit>
        <tran trig="sl_bt_evt_gatt_characteristic_id">
         <action>//            if (memcmp(event-&gt;data.evt_gatt_characteristic.uuid.data, led_cofig_char_UUID, sizeof(led_cofig_char_UUID)) == 0) {
 //              me-&gt;led_conf_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
@@ -709,87 +735,128 @@ app_log_info(&quot;Discovering_characteristics...\n&quot;);</entry>
 //            }
 
 
-if( me-&gt;led_conf_characteristic_handle){
-  me-&gt;changes_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
-  app_log_info(&quot;changes handle found.\n&quot;);
-
-} else{
-  me-&gt;led_conf_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
-  app_log_info(&quot;led_config handle found.\n&quot;);
-
-    }</action>
-        <tran_glyph conn="88,74,2,-1,-3,6">
+//            if( me-&gt;led_conf_characteristic_handle){
+//              me-&gt;changes_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+//              app_log_info(&quot;changes handle found.\n&quot;);
+//
+//            } else{
+//              me-&gt;led_conf_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+//              app_log_info(&quot;led_config handle found.\n&quot;);
+//
+//                }
+            
+me-&gt;led_conf_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+app_log_info(&quot;led_config handle found.\n&quot;);</action>
+        <tran_glyph conn="96,92,2,-1,-3,6">
          <action box="-9,-5,25,2"/>
         </tran_glyph>
        </tran>
        <tran trig="sl_bt_evt_gatt_procedure_completed_id">
-        <choice target="../../../4">
-         <guard brief="HandlesGotten">me-&gt;changes_characteristic_handle &amp;&amp;
-me-&gt;led_conf_characteristic_handle
-</guard>
-         <choice_glyph conn="76,76,5,2,34,-8">
+        <choice target="../../../../4">
+         <guard brief="HandleGotten">me-&gt;changes_characteristic_handle</guard>
+         <choice_glyph conn="80,94,5,2,65,-6">
           <action box="1,0,14,2"/>
          </choice_glyph>
         </choice>
         <choice>
          <guard>else</guard>
-         <action>me-&gt;sc = sl_bt_connection_close(
-              event-&gt;data.evt_gatt_procedure_completed.connection);
+         <action>me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
 app_assert_status(me-&gt;sc);
 
 me-&gt;add_type = INVALID_ADDRESS_TYPE;
 
-app_log_warning(&quot;Un-able to fullfill all characteristic requirements.\n&quot;);
+app_log_warning(&quot;Un-able to fullfill all led_control characteristic requirements.\n&quot;);
 app_log_warning(&quot;Closing connection.\n&quot;);
 
-me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
-app_assert_status(me-&gt;sc);</action>
-         <choice_glyph conn="76,76,5,-1,-3,-2">
-          <action box="-16,-31,10,2"/>
+</action>
+         <choice_glyph conn="80,94,5,-1,-5">
+          <action box="-12,0,10,2"/>
          </choice_glyph>
         </choice>
-        <tran_glyph conn="79,72,3,-1,-3,4">
-         <action box="-31,-1,29,2"/>
+        <tran_glyph conn="83,90,3,-1,-3,4">
+         <action box="-28,-2,29,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph color="2" node="79,62,17,12">
+       <state_glyph color="2" node="83,80,31,12">
         <entry box="0,3,6,2"/>
+        <exit box="0,5,6,2"/>
        </state_glyph>
       </state>
-      <state name="notification_getting">
-       <entry>me-&gt;sc = sl_bt_gatt_set_characteristic_notification(me-&gt;connection_handle,
-                                                     me-&gt;led_conf_characteristic_handle,
-                                                     sl_bt_gatt_notification);
+      <state name="Enable_robust_caching">
+       <entry>//Enable Robust Caching by writing to the Client Supported Features characteristic of the server:
+me-&gt;sc = sl_bt_gatt_discover_characteristics_by_uuid(me-&gt;connection_handle,
+                    me-&gt;robust_caching_service_handle,
+                    sizeof(robustCaching_char_UUID),
+                    robustCaching_char_UUID);
+
 app_assert_status(me-&gt;sc);
 
-app_log_info(&quot;led_config notification enabled.\n&quot;);
-</entry>
-       <tran trig="sl_bt_evt_gatt_procedure_completed_id" target="../../5">
-        <tran_glyph conn="107,58,0,2,-6">
-         <action box="-14,-4,27,2"/>
-        </tran_glyph>
-       </tran>
-       <state_glyph color="2" node="98,58,16,10">
-        <entry box="0,3,6,2"/>
-       </state_glyph>
-      </state>
-      <state name="read_Led_conf">
-       <entry>me-&gt;sc = sl_bt_gatt_read_characteristic_value(
-                                me-&gt;connection_handle,
-                                me-&gt;led_conf_characteristic_handle);
+app_log_info(&quot;Discovering robust caching Characteristic.\n&quot;);
 
-app_assert_status(me-&gt;sc);</entry>
-       <tran trig="sl_bt_evt_gatt_procedure_completed_id" target="../../../2">
-        <action>button_pressed = true;</action>
-        <tran_glyph conn="111,49,1,3,10,12,2">
-         <action box="-10,-1,30,2"/>
+me-&gt;robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
+
+LED_DEB</entry>
+       <exit>LED_DEB</exit>
+       <tran trig="sl_bt_evt_gatt_procedure_completed_id">
+        <choice target="../../2">
+         <guard brief="CharacteristicGotten!!!">me-&gt;robust_caching_characteritic_handle</guard>
+         <choice_glyph conn="102,71,5,1,-11">
+          <action box="-13,-2,19,2"/>
+         </choice_glyph>
+        </choice>
+        <choice>
+         <guard>else</guard>
+         <action>me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
+app_assert_status(me-&gt;sc);
+
+me-&gt;add_type = INVALID_ADDRESS_TYPE;
+
+app_log_warning(&quot;Un-able to fullfill all robust caching requirements.\n&quot;);
+app_log_warning(&quot;Closing connection.\n&quot;);
+</action>
+         <choice_glyph conn="102,71,4,-1,-4,4">
+          <action box="1,-6,8,2"/>
+         </choice_glyph>
+        </choice>
+        <tran_glyph conn="115,71,1,-1,-13">
+         <action box="-11,1,30,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph color="1" node="100,43,11,9">
+       <tran trig="sl_bt_evt_gatt_characteristic_id">
+        <action>me-&gt;robust_caching_characteritic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+app_log_info(&quot;Robust_caching_characteritic_handle found.\n&quot;);
+</action>
+        <tran_glyph conn="115,63,1,-1,-20">
+         <action box="-23,-2,25,2"/>
+        </tran_glyph>
+       </tran>
+       <state name="write_To_It">
+        <entry>uint8_t enable_bit[1] = {0x01};
+
+me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
+                                    me-&gt;robust_caching_characteritic_handle,
+                                    sizeof(enable_bit), &amp;enable_bit[0]);
+app_assert_status(me-&gt;sc);
+app_log_info(&quot;Writing to Robust enable bit.\n&quot;);
+
+LED_DEB</entry>
+        <exit>LED_DEB</exit>
+        <tran trig="sl_bt_evt_gatt_procedure_completed_id" target="../../../2">
+         <tran_glyph conn="81,73,2,3,13,2">
+          <action box="-7,5,29,2"/>
+         </tran_glyph>
+        </tran>
+        <state_glyph node="80,66,11,7">
+         <entry box="0,3,6,2"/>
+         <exit box="0,5,6,2"/>
+        </state_glyph>
+       </state>
+       <state_glyph node="78,58,37,17">
         <entry box="0,3,6,2"/>
+        <exit box="0,5,6,2"/>
        </state_glyph>
       </state>
-      <state_glyph color="2" node="72,35,43,44">
+      <state_glyph color="2" node="72,35,58,63">
        <entry box="0,3,6,2"/>
       </state_glyph>
      </state>
@@ -805,24 +872,32 @@ me-&gt;sc = sl_sleeptimer_restart_timer_ms(
   0U,
   0U);
 app_assert_status(me-&gt;sc);</entry>
-      <exit>if (me-&gt;connection_handle){
+      <exit>if (me-&gt;add_type != INVALID_ADDRESS_TYPE){
     me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
     app_assert_status(me-&gt;sc);
     app_log_info(&quot;Opening timer halted.\n&quot;);
-}
-
-
-</exit>
+}</exit>
       <tran trig="sl_bt_evt_connection_opened_id">
        <action>me-&gt;connection_handle = event-&gt;data.evt_connection_opened.connection;
 app_log_info(&quot;Connection Opened.\n&quot;);
+
+//Change the phy
+//me-&gt;sc = sl_bt_connection_set_preferred_phy(me-&gt;connection_handle,
+//                                            0x02U,
+//                                            0x03U);
+//app_assert_status(me-&gt;sc);
+
+//LED_DEB
 
 //me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
 //app_assert_status(me-&gt;sc);
 
 //app_log_info(&quot;Connection Opened.\n&quot;);</action>
        <choice target="../../../4">
-        <guard brief="alreadyBonded">SL_BT_INVALID_BONDING_HANDLE != event-&gt;data.evt_connection_opened.bonding</guard>
+        <guard brief="alreadyBonded">SL_BT_INVALID_BONDING_HANDLE != event-&gt;data.evt_connection_opened.bonding
+&amp;&amp; me-&gt;changes_characteristic_handle
+&amp;&amp; me-&gt;led_conf_characteristic_handle
+&amp;&amp; me-&gt;led_control_service_handle</guard>
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
 me-&gt;bonding_Handle = event-&gt;data.evt_connection_opened.bonding;
 
@@ -830,11 +905,18 @@ me-&gt;bonding_Handle = event-&gt;data.evt_connection_opened.bonding;
 //me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
 //app_assert_status(me-&gt;sc);
 </action>
-        <choice_glyph conn="36,67,5,3,36">
+        <choice_glyph conn="36,77,5,3,101">
          <action box="1,0,14,2"/>
         </choice_glyph>
        </choice>
-       <tran_glyph conn="47,63,1,-1,-11,4">
+       <choice target="../../../6">
+        <guard brief="justPowered">SL_BT_INVALID_BONDING_HANDLE != event-&gt;data.evt_connection_opened.bonding</guard>
+        <action>app_log_warning(&quot;Just powered\n&quot;);</action>
+        <choice_glyph conn="36,77,4,3,4,36">
+         <action box="0,4,10,2"/>
+        </choice_glyph>
+       </choice>
+       <tran_glyph conn="47,73,1,-1,-11,4">
         <action box="0,-2,26,2"/>
        </tran_glyph>
       </tran>
@@ -844,15 +926,15 @@ me-&gt;add_type = INVALID_ADDRESS_TYPE;
 
 //me-&gt;add_type = INVALID_ADDRESS_TYPE;
 //app_log_info(&quot;Resetting add_type\n&quot;);</action>
-       <tran_glyph conn="37,60,0,2,-6,26,-33">
-        <action box="1,-8,26,2"/>
+       <tran_glyph conn="37,70,0,2,-3,29,-46">
+        <action box="2,-3,26,2"/>
        </tran_glyph>
       </tran>
-      <tran trig="sl_bt_evt_sm_bonded_id" target="../../4">
+      <tran trig="sl_bt_evt_sm_bonded_id" target="../../6">
        <action brief="Just bonded">app_log_info(&quot;Bonding Successfull.\n&quot;);
 me-&gt;bonding_Handle = event-&gt;data.evt_sm_bonded.bonding;</action>
-       <tran_glyph conn="44,73,2,3,4,28">
-        <action box="-23,1,29,2"/>
+       <tran_glyph conn="44,83,2,3,1,28">
+        <action box="0,1,29,2"/>
        </tran_glyph>
       </tran>
       <tran trig="TIMEOUT_ID">
@@ -863,22 +945,22 @@ app_assert_status(me-&gt;sc);
 
 
 //used as a safe check on exist when we timeut
-me-&gt;connection_handle = CONNECTION_HANDLE_INVALID;</action>
-       <tran_glyph conn="31,60,0,-1,7">
+me-&gt;add_type = INVALID_ADDRESS_TYPE;</action>
+       <tran_glyph conn="31,70,0,-1,7">
         <action box="-7,8,10,2"/>
        </tran_glyph>
       </tran>
-      <tran trig="sl_bt_evt_connection_closed_id" target="../../3">
-       <tran_glyph conn="30,60,0,2,-9">
-        <action box="-7,-3,26,2"/>
+      <tran trig="sl_bt_evt_connection_closed_id" target="../../../3">
+       <tran_glyph conn="30,70,0,2,-5,34,-44">
+        <action box="1,-7,26,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="23,60,24,13">
+      <state_glyph node="23,70,24,13">
        <entry box="0,3,6,2"/>
        <exit box="0,5,6,2"/>
       </state_glyph>
      </state>
-     <state_glyph node="11,30,130,55"/>
+     <state_glyph node="11,30,145,75"/>
     </state>
     <state name="max_idle_state">
      <entry>app_log_info(&quot;Sleeping...\n&quot;);
@@ -891,7 +973,7 @@ app_button_press_enable();
 //sl_led_toggle(&amp;sl_led_led0);
 </exit>
      <tran trig="BUTTON_ID">
-      <choice target="../../../2/5">
+      <choice target="../../../2/7">
        <guard brief="Reconnect!">me-&gt;add_type != INVALID_ADDRESS_TYPE</guard>
        <action>me-&gt;sc = sl_bt_connection_open(me-&gt;address,
                              me-&gt;add_type,
@@ -904,13 +986,13 @@ app_log_info(&quot;Reconnectiong to previous device\n&quot;);
 //bt_remote_reset_properties(me);
 
 </action>
-       <choice_glyph conn="74,12,5,1,15,53,-42">
+       <choice_glyph conn="74,12,5,1,4,11,-10,52,-21">
         <action box="4,1,10,2"/>
        </choice_glyph>
       </choice>
-      <choice target="../../../2/3">
+      <choice target="../../../2/5">
        <guard>else</guard>
-       <choice_glyph conn="74,12,4,0,7,-17,16">
+       <choice_glyph conn="74,12,4,0,7,-17,25">
         <action box="-6,3,10,2"/>
        </choice_glyph>
       </choice>
@@ -918,12 +1000,28 @@ app_log_info(&quot;Reconnectiong to previous device\n&quot;);
        <action box="0,1,10,2"/>
       </tran_glyph>
      </tran>
+     <tran trig="sl_bt_evt_connection_closed_id" target="..">
+      <action>me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
+
+
+
+if(!me-&gt;sc){
+    app_log_info(&quot;Timer stopped.\n&quot;);
+    //forcefully turn off the led indicators
+    sl_led_turn_off(&amp;sl_led_led0);
+    }
+
+app_log_info(&quot;Connection closed.\n&quot;);</action>
+      <tran_glyph conn="116,20,1,1,15,-4,-15">
+       <action box="-11,-25,29,2"/>
+      </tran_glyph>
+     </tran>
      <state_glyph color="3" node="62,8,54,13">
       <entry box="0,3,6,2"/>
       <exit box="0,5,6,2"/>
      </state_glyph>
     </state>
-    <state_diagram size="150,111"/>
+    <state_diagram size="180,111"/>
    </statechart>
   </class>
   <attribute name="bt_remote_inst" type="bt_remote" visibility="0x01" properties="0x00"/>

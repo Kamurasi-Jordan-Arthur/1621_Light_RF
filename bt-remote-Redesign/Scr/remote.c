@@ -76,10 +76,15 @@ void bt_remote_ctor(bt_remote * const me) {
 
 //${SMs::bt_remote::reset_properties} ........................................
 void bt_remote_reset_properties(bt_remote * const me) {
+    me->connection_handle = CONNECTION_HANDLE_INVALID;
+
     me->led_control_service_handle = SERVICE_HANDLE_INVALID;
+    me->robust_caching_service_handle = SERVICE_HANDLE_INVALID;
+
+    me->robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
     me->changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
     me->led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
-    me->connection_handle = CONNECTION_HANDLE_INVALID;
+
     me->add_type = INVALID_ADDRESS_TYPE;
     me->current_led = 0U;
     me->changes[0] = (uint8_t)'S';
@@ -137,20 +142,20 @@ QState bt_remote_INITIALIZING(bt_remote * const me, QEvt const * const e) {
 
             // Set the default connection parameters for subsequent connections
 
-            me->sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
-                                                      CONN_INTERVAL_MAX,
-                                                       CONN_RESPONDER_LATENCY,
-                                                       CONN_TIMEOUT,
+            //me->sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
+            //                                          CONN_INTERVAL_MAX,
+            //                                           CONN_RESPONDER_LATENCY,
+            //                                           CONN_TIMEOUT,
+            //                                           CONN_MIN_CE_LENGTH,
+            //                                           CONN_MAX_CE_LENGTH);
+            //app_assert_status(me->sc);
+            me->sc = sl_bt_connection_set_default_parameters(14U,
+                                                      14U,
+                                                       5U,
+                                                       100U,
                                                        CONN_MIN_CE_LENGTH,
                                                        CONN_MAX_CE_LENGTH);
             app_assert_status(me->sc);
-//            me->sc = sl_bt_connection_set_default_parameters(14U,
-//                                                      14U,
-//                                                       5U,
-//                                                       100U,
-//                                                       CONN_MIN_CE_LENGTH,
-//                                                       CONN_MAX_CE_LENGTH);
-//            app_assert_status(me->sc);
 
             //me->sc = sl_bt_sm_delete_bondings();
             //app_assert_status(me->sc);
@@ -227,12 +232,64 @@ QState bt_remote_operational(bt_remote * const me, QEvt const * const e) {
             status_ = QM_HANDLED();
             break;
         }
+        //${SMs::bt_remote::SM::operational::sl_bt_evt_connection_phy_status_~}
+        case sl_bt_evt_connection_phy_status_id: {
+            app_log_info("%uM PHY\n",event->data.evt_connection_phy_status.phy);
+
+            status_ = QM_HANDLED();
+            break;
+        }
+        //${SMs::bt_remote::SM::operational::sl_bt_evt_connection_closed_id}
+        case sl_bt_evt_connection_closed_id: {
+
+            /*for matters of prpper sync we try and delete the bond*/
+            //me->add_type = INVALID_ADDRESS_TYPE;
+            //app_log_info("Unexpected Connection closure.\n");
+
+            me->sc = sl_sleeptimer_stop_timer(&appTimer);
+
+
+
+            if(!me->sc){
+                app_log_info("Timer stopped.\n");
+                //forcefully turn off the led indicators
+
+                sl_led_turn_off(&sl_led_led0);
+
+                }
+
+            app_log_info("Connection closed.\n");
+
+
+            if (event->data.evt_connection_closed.reason == SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED) {
+                me->sc = sl_bt_sm_delete_bonding(me->bonding_Handle);
+                app_assert_status(me->sc);
+                app_log_info("REason : Termination by remote...\n");
+
+                app_log_info("Therefore : Deleting bond...\n");
+
+                // The remote device terminated the connection
+            }
+
+
+            static struct {
+                QMState const *target;
+                QActionHandler act[2];
+            } const tatbl_ = { // tran-action table
+                &bt_remote_max_idle_state_s, // target state
+                {
+                    Q_ACTION_CAST(&bt_remote_max_idle_state_e), // entry
+                    Q_ACTION_NULL // zero terminator
+                }
+            };
+            status_ = QM_TRAN(&tatbl_);
+            break;
+        }
         default: {
             status_ = QM_SUPER();
             break;
         }
     }
-    Q_UNUSED_PAR(me);
     return status_;
 }
 
@@ -275,7 +332,7 @@ QState bt_remote_running_e(bt_remote * const me) {
 
 
     //sl_led_turn_on(&sl_led_led0);
-    //button_pressed = true;
+    button_pressed = true;
 
     app_log_info("Running...\n");
 
@@ -298,82 +355,52 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
         case BUTTON_ID: {
               switch (Q_EVT_CAST(buttonEvt_t)->duration) {
               case APP_BUTTON_PRESS_DURATION_SHORT:
+
                 if (&sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
 
                     me->changes[0] = (uint8_t)'S';
                     me->changes[1] = me->current_led;
-                    me->changes[2] = (me->led_conf[me->current_led] & 0x80) ? 0x00U : 0x01U;
+                    me->changes[2] = 0x01U;
+            //        me->changes[2] = (me->led_conf[me->current_led] & 0x80) ? 0x00U : 0x01U;
 
                     me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
                                                           me->changes_characteristic_handle,
                                                           (size_t)sizeof(me->changes),
                                                           me->changes);
                     app_assert_status(me->sc);
-                    app_log_info("Status L%u, S%u \n",
-                                 (uint8_t)me->current_led,
-                                 (uint8_t)me->changes[2]);
+                    app_log_info("Status L%u, Toggled\n",
+                                 (uint8_t)me->current_led);
 
                 }else if (&sl_button_btn1 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
 
-
-                    if((me->led_conf[me->current_led] & 0x7F) < 0x64U){
                         me->changes[0] = (uint8_t)'P';
                         me->changes[1] = me->current_led;
-                        me->changes[2] = (me->led_conf[me->current_led] & 0x7F) + 0x05U;
+                        me->changes[2] = (uint8_t)'+';
 
-                        if(me->changes[2] > 0x64U){
-                            me->changes[2] = 0x64U;
-                        }
-
-                        me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-                                                                        me->changes_characteristic_handle,
-                                                                        (size_t)sizeof(me->changes),
-                                                                        me->changes);
-                       app_assert_status(me->sc);
-                    }else{
-                       me->changes[0] = (uint8_t)'P';
-                       me->changes[2] = 0x64U;
-                       me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-                                                                        me->changes_characteristic_handle,
-                                                                        (size_t)sizeof(me->changes),
-                                                                        me->changes);
-                       app_assert_status(me->sc);
-                     }
-
-                    app_log_info("Increase L%u, P%u \n",
-                                 (uint8_t)me->current_led,
-                                 (uint8_t) me->changes[2]);
-
-                } else if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
-
-                    if((me->led_conf[me->current_led] & 0x7F) > 0x00U){
-                        me->changes[0] = (uint8_t)'P';
-                        me->changes[1] = me->current_led;
-                        me->changes[2] = (me->led_conf[me->current_led] & 0x7F) - 0x05U;
-
-                        if(me->changes[2] > 0x64U){
-                            me->changes[2] = 0x00U;
-                        }
+                        app_log_info("Increase L%u, Inc\n",
+                                     (uint8_t)me->current_led);
 
                         me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
                                                                         me->changes_characteristic_handle,
                                                                         (size_t)sizeof(me->changes),
                                                                         me->changes);
                         app_assert_status(me->sc);
-                    }else{
-                       me->changes[0] = (uint8_t)'P';
-                       me->changes[2] = 0x00U;
-                       me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
+
+                } else if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
+
+                        me->changes[0] = (uint8_t)'P';
+                        me->changes[1] = me->current_led;
+                        me->changes[2] = (uint8_t)'-';
+
+                        app_log_info("Increase L%u, Dec\n",
+                                     (uint8_t)me->current_led);
+
+                        me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
                                                                         me->changes_characteristic_handle,
                                                                         (size_t)sizeof(me->changes),
                                                                         me->changes);
-                       app_assert_status(me->sc);
-                     }
+                        app_assert_status(me->sc);
 
-
-                    app_log_info("Decrease L%u, P%u \n",
-                                 (uint8_t)me->current_led,
-                                 (uint8_t) me->changes[2]);
 
                 }
 
@@ -413,15 +440,17 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
 
                     me->changes[0] = (uint8_t)'S';
                     me->changes[1] = me->current_led;
-                    me->changes[2] = (me->led_conf[me->current_led] & 0x80) ? 0x01 : 0x00;
-
-
+                    me->changes[2] =  (uint8_t)'S';
 
                     me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
                                                                     me->changes_characteristic_handle,
                                                                     (size_t)sizeof(me->changes),
                                                                     me->changes);
                     app_assert_status(me->sc);
+
+                    app_log_info("Status L%u, S%c \n",
+                                 (uint8_t)me->current_led,
+                                 (uint8_t)me->changes[2]);
 
               //          Blink twice
                     blink_count = 2U;
@@ -474,45 +503,34 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
               }
 
             //  app_button_press_enable();
-
-
-
-
             status_ = QM_HANDLED();
-            break;
-        }
-        //${SMs::bt_remote::SM::operational::running::sl_bt_evt_connection_closed_id}
-        case sl_bt_evt_connection_closed_id: {
-            me->sc = sl_sleeptimer_stop_timer(&appTimer);
-
-
-
-            if(!me->sc){
-                app_log_info("Timer stopped.\n");
-                //forcefully turn off the led indicators
-                sl_led_turn_off(&sl_led_led0);
-                }
-
-            app_log_info("Connection closed.\n");
-            static struct {
-                QMState const *target;
-                QActionHandler act[3];
-            } const tatbl_ = { // tran-action table
-                &bt_remote_max_idle_state_s, // target state
-                {
-                    Q_ACTION_CAST(&bt_remote_running_x), // exit
-                    Q_ACTION_CAST(&bt_remote_max_idle_state_e), // entry
-                    Q_ACTION_NULL // zero terminator
-                }
-            };
-            status_ = QM_TRAN(&tatbl_);
             break;
         }
         //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
-            app_button_press_enable();
-
-            status_ = QM_HANDLED();
+            //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_p~::[databaseChanged]}
+            if (event->data.evt_gatt_procedure_completed.result == SL_STATUS_BT_ATT_OUT_OF_SYNC) {
+                app_log_warning("DataBase Changed!\n");
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[4];
+                } const tatbl_ = { // tran-action table
+                    &bt_remote_discoveryAndSetup_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_remote_running_x), // exit
+                        Q_ACTION_CAST(&bt_remote_discoveryAndSetup_e), // entry
+                        Q_ACTION_CAST(&bt_remote_discoveryAndSetup_i), // initial tran.
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
+            //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_p~::[else]}
+            else {
+                app_button_press_enable();
+                app_log_warning("DataBase Intact!\n");
+                status_ = QM_HANDLED();
+            }
             break;
         }
         //${SMs::bt_remote::SM::operational::running::TIMEOUT_ID}
@@ -575,8 +593,6 @@ QState bt_remote_scanning_e(bt_remote * const me) {
     app_assert_status(me->sc);
 
 
-    //reset parameters
-    bt_remote_reset_properties(me);
 
     //Commence scaning
     me->sc = sl_bt_scanner_start(sl_bt_scanner_scan_phy_1m,
@@ -585,6 +601,11 @@ QState bt_remote_scanning_e(bt_remote * const me) {
 
 
     app_log_info("Scanning...\n");
+
+
+    //reset parameters
+    bt_remote_reset_properties(me);
+
     return QM_ENTRY(&bt_remote_scanning_s);
 }
 //${SMs::bt_remote::SM::operational::scanning}
@@ -685,9 +706,8 @@ QMState const bt_remote_discoveryAndSetup_s = {
 QState bt_remote_discoveryAndSetup_e(bt_remote * const me) {
     //listen to now button presses
     //app_button_press_disable();
-    me->changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
-    me->led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
 
+    Q_UNUSED_PAR(me);
     return QM_ENTRY(&bt_remote_discoveryAndSetup_s);
 }
 //${SMs::bt_remote::SM::operational::discoveryAndSetu~::initial}
@@ -709,42 +729,12 @@ QState bt_remote_discoveryAndSetup_i(bt_remote * const me) {
 QState bt_remote_discoveryAndSetup(bt_remote * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::sl_bt_evt_connection_closed_id}
-        case sl_bt_evt_connection_closed_id: {
-
-            /*for matters of prpper sync we try and delete the bond*/
-            //me->add_type = INVALID_ADDRESS_TYPE;
-            app_log_info("Unexpected Connection closure.\n");
-
-            if (event->data.evt_connection_closed.reason == SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED) {
-                me->sc = sl_bt_sm_delete_bonding(me->bonding_Handle);
-                app_assert_status(me->sc);
-                app_log_info("REason : Termination by remote...\n");
-
-                app_log_info("Therefore : Deleting bond...\n");
-
-                // The remote device terminated the connection
-            }
-
-
-            static struct {
-                QMState const *target;
-                QActionHandler act[2];
-            } const tatbl_ = { // tran-action table
-                &bt_remote_max_idle_state_s, // target state
-                {
-                    Q_ACTION_CAST(&bt_remote_max_idle_state_e), // entry
-                    Q_ACTION_NULL // zero terminator
-                }
-            };
-            status_ = QM_TRAN(&tatbl_);
-            break;
-        }
         default: {
             status_ = QM_SUPER();
             break;
         }
     }
+    Q_UNUSED_PAR(me);
     return status_;
 }
 
@@ -753,18 +743,25 @@ QMState const bt_remote_Service_discovery_s = {
     &bt_remote_discoveryAndSetup_s, // superstate
     Q_STATE_CAST(&bt_remote_Service_discovery),
     Q_ACTION_CAST(&bt_remote_Service_discovery_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_remote_Service_discovery_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discovery}
 QState bt_remote_Service_discovery_e(bt_remote * const me) {
-    me->sc = sl_bt_gatt_discover_primary_services_by_uuid(me->connection_handle , sizeof(led_service_UUID), led_service_UUID);
-    //me->sc = sl_bt_gatt_discover_primary_services(me->connection_handle);
+    //me->sc = sl_bt_gatt_discover_primary_services_by_uuid(me->connection_handle , sizeof(led_service_UUID), led_service_UUID);
+    me->sc = sl_bt_gatt_discover_primary_services(me->connection_handle);
     app_assert_status(me->sc);
 
-    app_log_info("Discovering Led_Control service.\n");
+    app_log_info("Discovering Services.\n");
 
+    LED_DEB
     return QM_ENTRY(&bt_remote_Service_discovery_s);
+}
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discovery}
+QState bt_remote_Service_discovery_x(bt_remote * const me) {
+    LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_remote_Service_discovery_s);
 }
 //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discovery}
 QState bt_remote_Service_discovery(bt_remote * const me, QEvt const * const e) {
@@ -773,15 +770,21 @@ QState bt_remote_Service_discovery(bt_remote * const me, QEvt const * const e) {
         //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discover~::sl_bt_evt_gatt_service_id}
         case sl_bt_evt_gatt_service_id: {
                 // if Led service
-            //if(memcmp(event->data.evt_gatt_service.uuid.data, led_service_UUID, sizeof(led_service_UUID)) == 0){
-            //   // Save service handle for future reference
-            //   me->led_control_service_handle = event->data.evt_gatt_service.service;
-            //   app_log_info("Led_ control Service handle gotten.\n");
-            //}else {
-            //   app_log_warning("Unknown Service handle.\n");
-            //}
+            if(memcmp(event->data.evt_gatt_service.uuid.data, led_service_UUID, sizeof(led_service_UUID)) == 0){
+               // Save service handle for future reference
+               me->led_control_service_handle = event->data.evt_gatt_service.service;
+               app_log_info("Led_ control Service handle gotten.\n");
 
-            me->led_control_service_handle = event->data.evt_gatt_service.service;
+            }else if(memcmp(event->data.evt_gatt_service.uuid.data, robustCaching_service_UUID, sizeof(robustCaching_service_UUID)) == 0){
+               me->robust_caching_service_handle = event->data.evt_gatt_service.service;
+                app_log_info("robustCaching_service handle gotten.\n");
+
+            }else {
+               app_log_warning("Unknown Service handle.\n");
+            }
+
+            //me->led_control_service_handle = event->data.evt_gatt_service.service;
+
 
             status_ = QM_HANDLED();
             break;
@@ -789,14 +792,17 @@ QState bt_remote_Service_discovery(bt_remote * const me, QEvt const * const e) {
         //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discover~::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
             //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discover~::sl_bt_evt_gatt_p~::[ServiceGotten]}
-            if (me->led_control_service_handle) {
+            if (me->led_control_service_handle &&
+                me->robust_caching_service_handle)
+            {
                 static struct {
                     QMState const *target;
-                    QActionHandler act[2];
+                    QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
-                    &bt_remote_characteristic_discovery_s, // target state
+                    &bt_remote_Enable_robust_caching_s, // target state
                     {
-                        Q_ACTION_CAST(&bt_remote_characteristic_discovery_e), // entry
+                        Q_ACTION_CAST(&bt_remote_Service_discovery_x), // exit
+                        Q_ACTION_CAST(&bt_remote_Enable_robust_caching_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
                 };
@@ -804,8 +810,10 @@ QState bt_remote_Service_discovery(bt_remote * const me, QEvt const * const e) {
             }
             //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discover~::sl_bt_evt_gatt_p~::[else]}
             else {
-                me->sc = sl_bt_connection_close(
-                              event->data.evt_gatt_procedure_completed.connection);
+                me->sc = sl_bt_connection_close(me->connection_handle);
+                app_assert_status(me->sc);
+
+                me->sc = sl_bt_gatt_discover_primary_services(me->connection_handle);
                 app_assert_status(me->sc);
 
                 me->add_type = INVALID_ADDRESS_TYPE;
@@ -813,8 +821,7 @@ QState bt_remote_Service_discovery(bt_remote * const me, QEvt const * const e) {
                 app_log_warning("Un-able to fullfill service requirement.\n");
                 app_log_warning("Closing connection.\n");
 
-                me->sc = sl_bt_connection_close(me->connection_handle);
-                app_assert_status(me->sc);
+
                 status_ = QM_HANDLED();
             }
             break;
@@ -832,17 +839,32 @@ QMState const bt_remote_characteristic_discovery_s = {
     &bt_remote_discoveryAndSetup_s, // superstate
     Q_STATE_CAST(&bt_remote_characteristic_discovery),
     Q_ACTION_CAST(&bt_remote_characteristic_discovery_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_remote_characteristic_discovery_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_discovery}
 QState bt_remote_characteristic_discovery_e(bt_remote * const me) {
-    me->sc = sl_bt_gatt_discover_characteristics(event->data.evt_gatt_procedure_completed.connection,
-                                           me->led_control_service_handle);
+    //me->sc = sl_bt_gatt_discover_characteristics(event->data.evt_gatt_procedure_completed.connection,
+    //                                       me->led_control_service_handle);
+    //app_assert_status(me->sc);
+
+    me->sc = sl_bt_gatt_discover_characteristics_by_uuid(me->connection_handle,
+                        me->led_control_service_handle,
+                        sizeof(changes_char_UUID),
+                        changes_char_UUID);
+
     app_assert_status(me->sc);
 
     app_log_info("Discovering_characteristics...\n");
+
+    LED_DEB
     return QM_ENTRY(&bt_remote_characteristic_discovery_s);
+}
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_discovery}
+QState bt_remote_characteristic_discovery_x(bt_remote * const me) {
+    LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_remote_characteristic_discovery_s);
 }
 //${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_discovery}
 QState bt_remote_characteristic_discovery(bt_remote * const me, QEvt const * const e) {
@@ -866,32 +888,33 @@ QState bt_remote_characteristic_discovery(bt_remote * const me, QEvt const * con
             //            }
 
 
-            if( me->led_conf_characteristic_handle){
-              me->changes_characteristic_handle = event->data.evt_gatt_characteristic.characteristic;
-              app_log_info("changes handle found.\n");
+            //            if( me->led_conf_characteristic_handle){
+            //              me->changes_characteristic_handle = event->data.evt_gatt_characteristic.characteristic;
+            //              app_log_info("changes handle found.\n");
+            //
+            //            } else{
+            //              me->led_conf_characteristic_handle = event->data.evt_gatt_characteristic.characteristic;
+            //              app_log_info("led_config handle found.\n");
+            //
+            //                }
 
-            } else{
-              me->led_conf_characteristic_handle = event->data.evt_gatt_characteristic.characteristic;
-              app_log_info("led_config handle found.\n");
-
-                }
+            me->led_conf_characteristic_handle = event->data.evt_gatt_characteristic.characteristic;
+            app_log_info("led_config handle found.\n");
             status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_d~::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
-            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_d~::sl_bt_evt_gatt_p~::[HandlesGotten]}
-            if (me->changes_characteristic_handle &&
-                me->led_conf_characteristic_handle
-)
-            {
+            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_d~::sl_bt_evt_gatt_p~::[HandleGotten]}
+            if (me->changes_characteristic_handle) {
                 static struct {
                     QMState const *target;
-                    QActionHandler act[2];
+                    QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
-                    &bt_remote_notification_getting_s, // target state
+                    &bt_remote_running_s, // target state
                     {
-                        Q_ACTION_CAST(&bt_remote_notification_getting_e), // entry
+                        Q_ACTION_CAST(&bt_remote_characteristic_discovery_x), // exit
+                        Q_ACTION_CAST(&bt_remote_running_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
                 };
@@ -899,17 +922,15 @@ QState bt_remote_characteristic_discovery(bt_remote * const me, QEvt const * con
             }
             //${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_d~::sl_bt_evt_gatt_p~::[else]}
             else {
-                me->sc = sl_bt_connection_close(
-                              event->data.evt_gatt_procedure_completed.connection);
+                me->sc = sl_bt_connection_close(me->connection_handle);
                 app_assert_status(me->sc);
 
                 me->add_type = INVALID_ADDRESS_TYPE;
 
-                app_log_warning("Un-able to fullfill all characteristic requirements.\n");
+                app_log_warning("Un-able to fullfill all led_control characteristic requirements.\n");
                 app_log_warning("Closing connection.\n");
 
-                me->sc = sl_bt_connection_close(me->connection_handle);
-                app_assert_status(me->sc);
+
                 status_ = QM_HANDLED();
             }
             break;
@@ -922,42 +943,77 @@ QState bt_remote_characteristic_discovery(bt_remote * const me, QEvt const * con
     return status_;
 }
 
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::notification_getting}
-QMState const bt_remote_notification_getting_s = {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
+QMState const bt_remote_Enable_robust_caching_s = {
     &bt_remote_discoveryAndSetup_s, // superstate
-    Q_STATE_CAST(&bt_remote_notification_getting),
-    Q_ACTION_CAST(&bt_remote_notification_getting_e),
-    Q_ACTION_NULL, // no exit action
+    Q_STATE_CAST(&bt_remote_Enable_robust_caching),
+    Q_ACTION_CAST(&bt_remote_Enable_robust_caching_e),
+    Q_ACTION_CAST(&bt_remote_Enable_robust_caching_x),
     Q_ACTION_NULL  // no initial tran.
 };
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::notification_getting}
-QState bt_remote_notification_getting_e(bt_remote * const me) {
-    me->sc = sl_bt_gatt_set_characteristic_notification(me->connection_handle,
-                                                         me->led_conf_characteristic_handle,
-                                                         sl_bt_gatt_notification);
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
+QState bt_remote_Enable_robust_caching_e(bt_remote * const me) {
+    //Enable Robust Caching by writing to the Client Supported Features characteristic of the server:
+    me->sc = sl_bt_gatt_discover_characteristics_by_uuid(me->connection_handle,
+                        me->robust_caching_service_handle,
+                        sizeof(robustCaching_char_UUID),
+                        robustCaching_char_UUID);
+
     app_assert_status(me->sc);
 
-    app_log_info("led_config notification enabled.\n");
+    app_log_info("Discovering robust caching Characteristic.\n");
 
-    return QM_ENTRY(&bt_remote_notification_getting_s);
+    me->robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
+
+    LED_DEB
+    return QM_ENTRY(&bt_remote_Enable_robust_caching_s);
 }
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::notification_getting}
-QState bt_remote_notification_getting(bt_remote * const me, QEvt const * const e) {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
+QState bt_remote_Enable_robust_caching_x(bt_remote * const me) {
+    LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_remote_Enable_robust_caching_s);
+}
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
+QState bt_remote_Enable_robust_caching(bt_remote * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::notification_get~::sl_bt_evt_gatt_procedure_complet~}
+        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
-            static struct {
-                QMState const *target;
-                QActionHandler act[2];
-            } const tatbl_ = { // tran-action table
-                &bt_remote_read_Led_conf_s, // target state
-                {
-                    Q_ACTION_CAST(&bt_remote_read_Led_conf_e), // entry
-                    Q_ACTION_NULL // zero terminator
-                }
-            };
-            status_ = QM_TRAN(&tatbl_);
+            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_p~::[CharacteristicGotten!!!]}
+            if (me->robust_caching_characteritic_handle) {
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[2];
+                } const tatbl_ = { // tran-action table
+                    &bt_remote_write_To_It_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_remote_write_To_It_e), // entry
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
+            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_p~::[else]}
+            else {
+                me->sc = sl_bt_connection_close(me->connection_handle);
+                app_assert_status(me->sc);
+
+                me->add_type = INVALID_ADDRESS_TYPE;
+
+                app_log_warning("Un-able to fullfill all robust caching requirements.\n");
+                app_log_warning("Closing connection.\n");
+
+                status_ = QM_HANDLED();
+            }
+            break;
+        }
+        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_characteristic_id}
+        case sl_bt_evt_gatt_characteristic_id: {
+            me->robust_caching_characteritic_handle = event->data.evt_gatt_characteristic.characteristic;
+            app_log_info("Robust_caching_characteritic_handle found.\n");
+
+            status_ = QM_HANDLED();
             break;
         }
         default: {
@@ -968,37 +1024,48 @@ QState bt_remote_notification_getting(bt_remote * const me, QEvt const * const e
     return status_;
 }
 
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::read_Led_conf} .......
-QMState const bt_remote_read_Led_conf_s = {
-    &bt_remote_discoveryAndSetup_s, // superstate
-    Q_STATE_CAST(&bt_remote_read_Led_conf),
-    Q_ACTION_CAST(&bt_remote_read_Led_conf_e),
-    Q_ACTION_NULL, // no exit action
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
+QMState const bt_remote_write_To_It_s = {
+    &bt_remote_Enable_robust_caching_s, // superstate
+    Q_STATE_CAST(&bt_remote_write_To_It),
+    Q_ACTION_CAST(&bt_remote_write_To_It_e),
+    Q_ACTION_CAST(&bt_remote_write_To_It_x),
     Q_ACTION_NULL  // no initial tran.
 };
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::read_Led_conf}
-QState bt_remote_read_Led_conf_e(bt_remote * const me) {
-    me->sc = sl_bt_gatt_read_characteristic_value(
-                                    me->connection_handle,
-                                    me->led_conf_characteristic_handle);
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
+QState bt_remote_write_To_It_e(bt_remote * const me) {
+    uint8_t enable_bit[1] = {0x01};
 
+    me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
+                                        me->robust_caching_characteritic_handle,
+                                        sizeof(enable_bit), &enable_bit[0]);
     app_assert_status(me->sc);
-    return QM_ENTRY(&bt_remote_read_Led_conf_s);
+    app_log_info("Writing to Robust enable bit.\n");
+
+    LED_DEB
+    return QM_ENTRY(&bt_remote_write_To_It_s);
 }
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::read_Led_conf}
-QState bt_remote_read_Led_conf(bt_remote * const me, QEvt const * const e) {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
+QState bt_remote_write_To_It_x(bt_remote * const me) {
+    LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_remote_write_To_It_s);
+}
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
+QState bt_remote_write_To_It(bt_remote * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::read_Led_conf::sl_bt_evt_gatt_procedure_complet~}
+        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
-            button_pressed = true;
             static struct {
                 QMState const *target;
-                QActionHandler act[2];
+                QActionHandler act[4];
             } const tatbl_ = { // tran-action table
-                &bt_remote_running_s, // target state
+                &bt_remote_characteristic_discovery_s, // target state
                 {
-                    Q_ACTION_CAST(&bt_remote_running_e), // entry
+                    Q_ACTION_CAST(&bt_remote_write_To_It_x), // exit
+                    Q_ACTION_CAST(&bt_remote_Enable_robust_caching_x), // exit
+                    Q_ACTION_CAST(&bt_remote_characteristic_discovery_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }
             };
@@ -1038,14 +1105,11 @@ QState bt_remote_openning_e(bt_remote * const me) {
 }
 //${SMs::bt_remote::SM::operational::openning}
 QState bt_remote_openning_x(bt_remote * const me) {
-    if (me->connection_handle){
+    if (me->add_type != INVALID_ADDRESS_TYPE){
         me->sc = sl_sleeptimer_stop_timer(&appTimer);
         app_assert_status(me->sc);
         app_log_info("Opening timer halted.\n");
     }
-
-
-
     return QM_EXIT(&bt_remote_openning_s);
 }
 //${SMs::bt_remote::SM::operational::openning}
@@ -1057,12 +1121,24 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
             me->connection_handle = event->data.evt_connection_opened.connection;
             app_log_info("Connection Opened.\n");
 
+            //Change the phy
+            //me->sc = sl_bt_connection_set_preferred_phy(me->connection_handle,
+            //                                            0x02U,
+            //                                            0x03U);
+            //app_assert_status(me->sc);
+
+            //LED_DEB
+
             //me->sc = sl_bt_sm_increase_security(event->data.evt_connection_opened.connection);
             //app_assert_status(me->sc);
 
             //app_log_info("Connection Opened.\n");
             //${SMs::bt_remote::SM::operational::openning::sl_bt_evt_connec~::[alreadyBonded]}
-            if (SL_BT_INVALID_BONDING_HANDLE != event->data.evt_connection_opened.bonding) {
+            if (SL_BT_INVALID_BONDING_HANDLE != event->data.evt_connection_opened.bonding
+                && me->changes_characteristic_handle
+                && me->led_conf_characteristic_handle
+                && me->led_control_service_handle)
+            {
                 app_log_info("Already Bonded.\n");
                 me->bonding_Handle = event->data.evt_connection_opened.bonding;
 
@@ -1070,6 +1146,22 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
                 //me->sc = sl_bt_sm_increase_security(event->data.evt_connection_opened.connection);
                 //app_assert_status(me->sc);
 
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[3];
+                } const tatbl_ = { // tran-action table
+                    &bt_remote_running_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_remote_openning_x), // exit
+                        Q_ACTION_CAST(&bt_remote_running_e), // entry
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
+            //${SMs::bt_remote::SM::operational::openning::sl_bt_evt_connec~::[justPowered]}
+            else if (SL_BT_INVALID_BONDING_HANDLE != event->data.evt_connection_opened.bonding) {
+                app_log_warning("Just powered\n");
                 static struct {
                     QMState const *target;
                     QActionHandler act[4];
@@ -1138,7 +1230,7 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
 
 
             //used as a safe check on exist when we timeut
-            me->connection_handle = CONNECTION_HANDLE_INVALID;
+            me->add_type = INVALID_ADDRESS_TYPE;
             status_ = QM_HANDLED();
             break;
         }
@@ -1148,10 +1240,10 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
                 QMState const *target;
                 QActionHandler act[3];
             } const tatbl_ = { // tran-action table
-                &bt_remote_scanning_s, // target state
+                &bt_remote_max_idle_state_s, // target state
                 {
                     Q_ACTION_CAST(&bt_remote_openning_x), // exit
-                    Q_ACTION_CAST(&bt_remote_scanning_e), // entry
+                    Q_ACTION_CAST(&bt_remote_max_idle_state_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }
             };
@@ -1240,6 +1332,33 @@ QState bt_remote_max_idle_state(bt_remote * const me, QEvt const * const e) {
                 };
                 status_ = QM_TRAN(&tatbl_);
             }
+            break;
+        }
+        //${SMs::bt_remote::SM::max_idle_state::sl_bt_evt_connection_closed_id}
+        case sl_bt_evt_connection_closed_id: {
+            me->sc = sl_sleeptimer_stop_timer(&appTimer);
+
+
+
+            if(!me->sc){
+                app_log_info("Timer stopped.\n");
+                //forcefully turn off the led indicators
+                sl_led_turn_off(&sl_led_led0);
+                }
+
+            app_log_info("Connection closed.\n");
+            static struct {
+                QMState const *target;
+                QActionHandler act[3];
+            } const tatbl_ = { // tran-action table
+                &bt_remote_max_idle_state_s, // target state
+                {
+                    Q_ACTION_CAST(&bt_remote_max_idle_state_x), // exit
+                    Q_ACTION_CAST(&bt_remote_max_idle_state_e), // entry
+                    Q_ACTION_NULL // zero terminator
+                }
+            };
+            status_ = QM_TRAN(&tatbl_);
             break;
         }
         default: {

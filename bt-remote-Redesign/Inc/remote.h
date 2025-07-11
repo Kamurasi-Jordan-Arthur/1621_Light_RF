@@ -99,6 +99,8 @@ typedef struct {
     uint32_t led_control_service_handle;
     uint16_t led_conf_characteristic_handle;
     uint16_t changes_characteristic_handle;
+    uint32_t robust_caching_service_handle;
+    uint16_t robust_caching_characteritic_handle;
     uint8_t connection_handle;
     uint8_t led_conf[MAX_LED_INDEX + 1U];
     uint8_t changes[3];
@@ -136,16 +138,20 @@ QState bt_remote_discoveryAndSetup_i(bt_remote * const me);
 extern QMState const bt_remote_discoveryAndSetup_s;
 QState bt_remote_Service_discovery  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_Service_discovery_e(bt_remote * const me);
+QState bt_remote_Service_discovery_x(bt_remote * const me);
 extern QMState const bt_remote_Service_discovery_s;
 QState bt_remote_characteristic_discovery  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_characteristic_discovery_e(bt_remote * const me);
+QState bt_remote_characteristic_discovery_x(bt_remote * const me);
 extern QMState const bt_remote_characteristic_discovery_s;
-QState bt_remote_notification_getting  (bt_remote * const me, QEvt const * const e);
-QState bt_remote_notification_getting_e(bt_remote * const me);
-extern QMState const bt_remote_notification_getting_s;
-QState bt_remote_read_Led_conf  (bt_remote * const me, QEvt const * const e);
-QState bt_remote_read_Led_conf_e(bt_remote * const me);
-extern QMState const bt_remote_read_Led_conf_s;
+QState bt_remote_Enable_robust_caching  (bt_remote * const me, QEvt const * const e);
+QState bt_remote_Enable_robust_caching_e(bt_remote * const me);
+QState bt_remote_Enable_robust_caching_x(bt_remote * const me);
+extern QMState const bt_remote_Enable_robust_caching_s;
+QState bt_remote_write_To_It  (bt_remote * const me, QEvt const * const e);
+QState bt_remote_write_To_It_e(bt_remote * const me);
+QState bt_remote_write_To_It_x(bt_remote * const me);
+extern QMState const bt_remote_write_To_It_s;
 QState bt_remote_openning  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_openning_e(bt_remote * const me);
 QState bt_remote_openning_x(bt_remote * const me);
@@ -161,6 +167,12 @@ extern bt_remote bt_remote_inst;
 
 //$declare(SMs::bt_SPC51)
 //$declare(SMs::remoteSM_ctor)
+
+
+//for power profile debuging.s
+//#define LED_DEB (void)0U;
+#define LED_DEB sl_led_toggle(&sl_led_led0);
+//#define LED_DEB app_assert_status(1U);
 
 extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
 
