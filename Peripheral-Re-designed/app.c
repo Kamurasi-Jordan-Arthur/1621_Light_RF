@@ -163,7 +163,6 @@ SL_WEAK void app_process_action(void)
 //          button_pressed = false;
 //      }
   }
-
   if(scan_timer_expired){
       app_log_info("Timer_expired.\n");
       scan_timer_expired = false;
@@ -252,6 +251,13 @@ uint8_t service_InAdvertisement(uint8_t *data, uint8_t len) {
   return 0;
 }
 
+bool app_is_ok_to_sleep(void)
+{
+  if( scan_timer_expired | button_pressed | blink_expired ){
+      return false;
+  }
+  return true;
+}
 /**************************************************************************//**
  * @brief
  *   Function to Print Bluetooth Address.
@@ -327,145 +333,6 @@ void scanTimerCallback(sl_sleeptimer_timer_handle_t *handle, void *data){
   scan_timer_expired = true;
 }
 
-
-//void inline button_press_reaction(void){
-//  switch (Q_EVT_CAST(buttonEvt_t)->duration) {
-//  case APP_BUTTON_PRESS_DURATION_SHORT:
-//    if (&sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
-//
-//        me->changes[0] = (uint8_t)'S';
-//        me->changes[1] = me->current_led;
-//        me->changes[2] = (me->led_conf[me->current_led] & 0x80) ? 0x00U : 0x01U;
-//
-//        sl_bt_gatt_write_characteristic_value(me->connection_handle,
-//                                              me->changes_characteristic_handle,
-//                                              (size_t)sizeof(me->changes),
-//                                              me->changes);
-//
-//        app_log_info("Status L%u, P%u \n",
-//                     (uint8_t)me->current_led,
-//                     (uint8_t)me->changes[2]);
-//
-//    }else if (&sl_button_btn1 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
-//
-//
-//        if((me->led_conf[me->current_led] & 0x7F) < 0x64U){
-//            me->changes[0] = (uint8_t)'P';
-//            me->changes[1] = me->current_led;
-//            me->changes[2] = (me->led_conf[me->current_led] & 0x7F) + 0x05U;
-//
-//            if(me->changes[2] > 0x64U){
-//                me->changes[2] = 0x64U;
-//            }
-//
-//            me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-//                                                            me->changes_characteristic_handle,
-//                                                            (size_t)sizeof(me->changes),
-//                                                            me->changes);
-//            app_assert_status(me->sc);
-//        }
-//
-//        app_log_info("Increase L%u, P%u \n",
-//                     (uint8_t)me->current_led,
-//                     (uint8_t)me->changes[2]);
-//
-//    } else if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
-//
-//        if((me->led_conf[me->current_led] & 0x7F) > 0x00U){
-//            me->changes[0] = (uint8_t)'P';
-//            me->changes[1] = me->current_led;
-//            me->changes[2] = (me->led_conf[me->current_led] & 0x7F) - 0x05U;
-//
-//            if(me->changes[2] > 0x64U){
-//                me->changes[2] = 0x00U;
-//            }
-//
-//            me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-//                                                            me->changes_characteristic_handle,
-//                                                            (size_t)sizeof(me->changes),
-//                                                            me->changes);
-//            app_assert_status(me->sc);
-//        }
-//
-//        app_log_info("Decrease L%u, P%u \n",
-//                     (uint8_t)me->current_led,
-//                     (uint8_t)me->changes[2]);
-//
-//
-//    }
-//
-//        //blink only once
-//
-//        blink_count = 1U;
-//
-//        //turn led on
-//        sl_led_toggle(&sl_led_led0);
-//
-//        me->sc = sl_sleeptimer_restart_periodic_timer_ms(
-//            &appTimer,
-//            BLINK_TIMEOUT,
-//            blinkTimerCallback,
-//            NULL,
-//            0U,
-//            0U);
-//
-//        app_assert_status(me->sc);
-//        app_log_info("Blink Ounce");
-//
-//
-//    break;
-//
-//  case APP_BUTTON_PRESS_DURATION_MEDIUM:
-//    if (&sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
-//        if (me->current_led < MAX_LED_INDEX){
-//            me->current_led++;
-//        }else {
-//            me->current_led = 0U;
-//        }
-//        me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-//                                                        me->changes_characteristic_handle,
-//                                                        (size_t)sizeof(me->changes),
-//                                                        me->changes);
-//        app_assert_status(me->sc);
-//
-//  //          Blink twice
-//        blink_count = 2U;
-//
-//        //turn led on
-//        sl_led_toggle(&sl_led_led0);
-//
-//        me->sc = sl_sleeptimer_restart_periodic_timer_ms(
-//            &appTimer,
-//            BLINK_TIMEOUT,
-//            blinkTimerCallback,
-//            NULL,
-//            0U,
-//            0U);
-//        app_assert_status(me->sc);
-//
-//        app_log_info("Blink Twice");
-//
-//    }
-//
-//
-//    break;
-//
-//  case APP_BUTTON_PRESS_DURATION_VERYLONG:
-//    app_log_append_info("Resetting...\n");
-//    sl_bt_system_reset(sl_bt_system_boot_mode_normal);
-//    break;
-//
-//  default:
-//    break;
-//  }
-//
-//  //  app_button_press_enable();
-//
-//
-//
-//
-//
-//}
 
 void app_button_press_cb(uint8_t button, uint8_t duration){
 

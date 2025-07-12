@@ -316,9 +316,6 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
         case sl_bt_evt_connection_opened_id: {
             app_log_info("Connection Opened....\n");
 
-
-
-
             me->sc = sl_sleeptimer_stop_timer(&newConnectionTimer);
 
             if(me->sc == SL_STATUS_OK){

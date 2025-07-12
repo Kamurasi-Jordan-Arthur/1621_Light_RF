@@ -44,7 +44,7 @@
 //$declare${SMs} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 //${SMs::INITIAL_FLAG_CONFIG} ................................................
-#define INITIAL_FLAG_CONFIG 0b00100110
+#define INITIAL_FLAG_CONFIG 0b00100100
 
 //${SMs::CONN_INTERVAL_MIN} ..................................................
 #define CONN_INTERVAL_MIN 200U
@@ -83,7 +83,7 @@
 #define MAX_LED_INDEX (uint8_t)3U
 
 //${SMs::RUNNING_TIMEOUT} ....................................................
-#define RUNNING_TIMEOUT (1U * 10U * 1000U)
+#define RUNNING_TIMEOUT (1U * 5U * 1000U)
 
 //${SMs::INVALID_ADDRESS_TYPE} ...............................................
 #define INVALID_ADDRESS_TYPE 0xff
@@ -134,6 +134,7 @@ QState bt_remote_scanning_x(bt_remote * const me);
 extern QMState const bt_remote_scanning_s;
 QState bt_remote_discoveryAndSetup  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_discoveryAndSetup_e(bt_remote * const me);
+QState bt_remote_discoveryAndSetup_x(bt_remote * const me);
 QState bt_remote_discoveryAndSetup_i(bt_remote * const me);
 extern QMState const bt_remote_discoveryAndSetup_s;
 QState bt_remote_Service_discovery  (bt_remote * const me, QEvt const * const e);

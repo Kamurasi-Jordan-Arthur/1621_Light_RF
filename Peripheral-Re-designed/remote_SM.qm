@@ -64,7 +64,7 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    </file>
   </directory>
   <attribute name="INITIAL_FLAG_CONFIG" type="" visibility="0x03" properties="0x00">
-   <code>0b00100110</code>
+   <code>0b00100100</code>
   </attribute>
   <attribute name="CONN_INTERVAL_MIN" type="" visibility="0x03" properties="0x00">
    <code>200U</code>
@@ -103,7 +103,7 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    <code>(uint8_t)3U</code>
   </attribute>
   <attribute name="RUNNING_TIMEOUT" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 10U * 1000U)</code>
+   <code>(1U * 5U * 1000U)</code>
   </attribute>
   <attribute name="INVALID_ADDRESS_TYPE" type="" visibility="0x03" properties="0x00">
    <code>0xff</code>
@@ -160,11 +160,11 @@ QMsm_ctor(&amp;me-&gt;super, Q_STATE_CAST(&amp;bt_remote_initial));</code>
     <documentation>for reseting to connection defaults values</documentation>
     <code>me-&gt;connection_handle = CONNECTION_HANDLE_INVALID;
 
-me-&gt;led_control_service_handle = SERVICE_HANDLE_INVALID;
-me-&gt;robust_caching_service_handle = SERVICE_HANDLE_INVALID;
+//me-&gt;led_control_service_handle = SERVICE_HANDLE_INVALID;
+//me-&gt;robust_caching_service_handle = SERVICE_HANDLE_INVALID;
 
-me-&gt;robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
-me-&gt;changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
+//me-&gt;robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
+//me-&gt;changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
 me-&gt;led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
 
 me-&gt;add_type = INVALID_ADDRESS_TYPE;
@@ -212,8 +212,9 @@ app_assert_status(me-&gt;sc);
 //                                           CONN_MIN_CE_LENGTH,
 //                                           CONN_MAX_CE_LENGTH);
 //app_assert_status(me-&gt;sc);
+
 me-&gt;sc = sl_bt_connection_set_default_parameters(14U,
-                                          14U,
+                                           14U,
                                            5U,
                                            100U,
                                            CONN_MIN_CE_LENGTH,
@@ -233,7 +234,7 @@ app_log_info(&quot;Stack Initialed...\n&quot;);</action>
     </state>
     <state name="operational">
      <initial target="../5">
-      <initial_glyph conn="35,32,5,0,5,12">
+      <initial_glyph conn="31,40,5,0,9,4">
        <action box="0,-2,10,2"/>
       </initial_glyph>
      </initial>
@@ -245,6 +246,7 @@ app_log_info(&quot;Stack Initialed...\n&quot;);</action>
       break;
     case sl_bt_connection_mode1_level2:
       app_log_info(&quot;Unauthenticated pairing with encryption (Just Works)\n&quot;);
+      
       break;
     case sl_bt_connection_mode1_level3:
       app_log_info(&quot;Authenticated pairing with encryption (Legacy Pairing)\n&quot;);
@@ -308,16 +310,8 @@ if (event-&gt;data.evt_connection_closed.reason == SL_STATUS_BT_CTRL_REMOTE_USER
 
 //sl_led_turn_on(&amp;sl_led_led0);
 
-me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
-                                          CONN_INTERVAL_MIN,
-                                          CONN_INTERVAL_MAX,
-                                          CONN_RESPONDER_LATENCY,
-                                          CONN_TIMEOUT,
-                                          CONN_MIN_CE_LENGTH,
-                                          CONN_MAX_CE_LENGTH);
-app_assert_status(me-&gt;sc);
 
-app_log_info(&quot;Reset conection parameters\n&quot;);
+//app_log_info(&quot;Reset conection parameters\n&quot;);
 
 
 me-&gt;sc = sl_sleeptimer_restart_timer_ms(
@@ -328,11 +322,20 @@ me-&gt;sc = sl_sleeptimer_restart_timer_ms(
                             0U,
                             0U);
 app_assert_status(me-&gt;sc);
+
+//me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
+//                                          CONN_INTERVAL_MIN,
+//                                          CONN_INTERVAL_MAX,
+//                                          CONN_RESPONDER_LATENCY,
+//                                          CONN_TIMEOUT,
+//                                          CONN_MIN_CE_LENGTH,
+//                                          CONN_MAX_CE_LENGTH);
+//app_assert_status(me-&gt;sc);
+
 app_log_info(&quot;Running Timeout started.\n&quot;);
 
 
 //sl_led_turn_on(&amp;sl_led_led0);
-button_pressed = true;
 
 app_log_info(&quot;Running...\n&quot;);
 </entry>
@@ -491,7 +494,7 @@ sl_led_turn_off(&amp;sl_led_led0);
   }
 
 //  app_button_press_enable();</action>
-       <tran_glyph conn="151,60,1,-1,-10">
+       <tran_glyph conn="153,60,1,-1,-12">
         <action box="-9,-2,10,2"/>
        </tran_glyph>
       </tran>
@@ -511,7 +514,7 @@ app_log_warning(&quot;DataBase Intact!\n&quot;);</action>
          <action box="-2,-8,10,2"/>
         </choice_glyph>
        </choice>
-       <tran_glyph conn="151,83,1,-1,-5">
+       <tran_glyph conn="153,83,1,-1,-7">
         <action box="-6,1,30,2"/>
        </tran_glyph>
       </tran>
@@ -524,7 +527,7 @@ app_log_info(&quot;Closing connection...\n&quot;);
 //me-&gt;add_type = INVALID_ADDRESS_TYPE;
 app_button_press_disable();
 </action>
-       <tran_glyph conn="151,66,1,-1,-7">
+       <tran_glyph conn="153,66,1,-1,-9">
         <action box="-9,-3,10,2"/>
        </tran_glyph>
       </tran>
@@ -541,11 +544,51 @@ app_log_info(&quot;Led_conf: 0x%02X, 0x%02X, 0x%02X, 0x%02X\n&quot;,
              me-&gt;led_conf[2],
              me-&gt;led_conf[3]);
 </action>
-       <tran_glyph conn="151,70,1,-1,-5">
+       <tran_glyph conn="153,70,1,-1,-7">
         <action box="-6,-3,30,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph color="1" node="137,53,14,35">
+      <tran trig="sl_bt_evt_connection_parameters_id">
+       <action>switch (event-&gt;data.evt_connection_parameters.security_mode)
+    {
+
+    case sl_bt_connection_mode1_level2:
+      app_log_info(&quot;Unauthenticated pairing with encryption (Just Works)\n&quot;);
+
+      if (me-&gt;led_conf_characteristic_handle){
+        button_pressed = true;
+
+        me-&gt;led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
+        
+        me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
+                                                  CONN_INTERVAL_MIN,
+                                                  CONN_INTERVAL_MAX,
+                                                  CONN_RESPONDER_LATENCY,
+                                                  CONN_TIMEOUT,
+                                                  CONN_MIN_CE_LENGTH,
+                                                  CONN_MAX_CE_LENGTH);
+        app_assert_status(me-&gt;sc);
+
+        }
+
+      break;
+    case sl_bt_connection_mode1_level1:
+      app_log_info(&quot;No Security\n&quot;);
+      break;
+    case sl_bt_connection_mode1_level3:
+      app_log_info(&quot;Authenticated pairing with encryption (Legacy Pairing)\n&quot;);
+      break;
+    case sl_bt_connection_mode1_level4:
+      app_log_info(&quot;Authenticated Secure Connections pairing with encryption (BT 4.2 LE Secure Pairing)\n&quot;);
+      break;
+    default:
+      break;
+    }</action>
+       <tran_glyph conn="137,73,3,-1,9">
+        <action box="0,-2,30,2"/>
+       </tran_glyph>
+      </tran>
+      <state_glyph color="1" node="137,53,16,35">
        <entry box="0,3,6,2"/>
        <exit box="0,5,6,2"/>
       </state_glyph>
@@ -631,6 +674,14 @@ app_log_info(&quot;Scaning timeout\n&quot;);</action>
       <entry>//listen to now button presses
 //app_button_press_disable();
 </entry>
+      <exit>me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
+                                          CONN_INTERVAL_MIN,
+                                          CONN_INTERVAL_MAX,
+                                          CONN_RESPONDER_LATENCY,
+                                          CONN_TIMEOUT,
+                                          CONN_MIN_CE_LENGTH,
+                                          CONN_MAX_CE_LENGTH);
+app_assert_status(me-&gt;sc);</exit>
       <initial target="../1">
        <initial_glyph conn="81,39,5,0,16,3">
         <action box="0,-2,10,2"/>
@@ -703,8 +754,15 @@ app_log_warning(&quot;Closing connection.\n&quot;);
        </state_glyph>
       </state>
       <state name="characteristic_discovery">
-       <entry>me-&gt;sc = sl_bt_gatt_discover_characteristics(event-&gt;data.evt_gatt_procedure_completed.connection,
-                                       me-&gt;led_control_service_handle);
+       <entry>//me-&gt;sc = sl_bt_gatt_discover_characteristics(event-&gt;data.evt_gatt_procedure_completed.connection,
+//                                       me-&gt;led_control_service_handle);
+//app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_gatt_discover_characteristics_by_uuid(me-&gt;connection_handle,
+                    me-&gt;led_control_service_handle,
+                    sizeof(changes_char_UUID),
+                    changes_char_UUID);
+
 app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Discovering_characteristics...\n&quot;);
@@ -728,24 +786,25 @@ LED_DEB</entry>
 //            }
 
 
-if( me-&gt;led_conf_characteristic_handle){
-  me-&gt;changes_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
-  app_log_info(&quot;changes handle found.\n&quot;);
+//            if( me-&gt;led_conf_characteristic_handle){
+//              me-&gt;changes_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+//              app_log_info(&quot;changes handle found.\n&quot;);
+//
+//            } else{
+//              me-&gt;led_conf_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+//              app_log_info(&quot;led_config handle found.\n&quot;);
+//
+//                }
 
-} else{
-  me-&gt;led_conf_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
-  app_log_info(&quot;led_config handle found.\n&quot;);
-
-    }</action>
+me-&gt;changes_characteristic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+app_log_info(&quot;changes handle found.\n&quot;);</action>
         <tran_glyph conn="96,92,2,-1,-3,6">
          <action box="-9,-5,25,2"/>
         </tran_glyph>
        </tran>
        <tran trig="sl_bt_evt_gatt_procedure_completed_id">
         <choice target="../../../../4">
-         <guard brief="HandlesGotten">me-&gt;changes_characteristic_handle &amp;&amp;
-me-&gt;led_conf_characteristic_handle
-</guard>
+         <guard brief="HandleGotten">me-&gt;changes_characteristic_handle</guard>
          <choice_glyph conn="80,94,5,2,65,-6">
           <action box="1,0,14,2"/>
          </choice_glyph>
@@ -850,6 +909,7 @@ LED_DEB</entry>
       </state>
       <state_glyph color="2" node="72,35,58,63">
        <entry box="0,3,6,2"/>
+       <exit box="0,5,6,2"/>
       </state_glyph>
      </state>
      <state name="openning">
@@ -864,15 +924,18 @@ me-&gt;sc = sl_sleeptimer_restart_timer_ms(
   0U,
   0U);
 app_assert_status(me-&gt;sc);</entry>
-      <exit>if (me-&gt;add_type != INVALID_ADDRESS_TYPE){
-    me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
-    app_assert_status(me-&gt;sc);
+      <exit>me-&gt;sc = sl_sleeptimer_stop_timer(&amp;appTimer);
+
+if(me-&gt;sc){
     app_log_info(&quot;Opening timer halted.\n&quot;);
-}</exit>
+}
+
+</exit>
       <tran trig="sl_bt_evt_connection_opened_id">
        <action>me-&gt;connection_handle = event-&gt;data.evt_connection_opened.connection;
 app_log_info(&quot;Connection Opened.\n&quot;);
 
+me-&gt;led_conf_characteristic_handle = 0x01;
 //Change the phy
 //me-&gt;sc = sl_bt_connection_set_preferred_phy(me-&gt;connection_handle,
 //                                            0x02U,
@@ -888,8 +951,9 @@ app_log_info(&quot;Connection Opened.\n&quot;);
        <choice target="../../../4">
         <guard brief="alreadyBonded">SL_BT_INVALID_BONDING_HANDLE != event-&gt;data.evt_connection_opened.bonding
 &amp;&amp; me-&gt;changes_characteristic_handle
-&amp;&amp; me-&gt;led_conf_characteristic_handle
-&amp;&amp; me-&gt;led_control_service_handle</guard>
+&amp;&amp; me-&gt;led_control_service_handle
+&amp;&amp; me-&gt;robust_caching_service_handle
+&amp;&amp; me-&gt;robust_caching_characteritic_handle</guard>
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
 me-&gt;bonding_Handle = event-&gt;data.evt_connection_opened.bonding;
 
@@ -937,7 +1001,7 @@ app_assert_status(me-&gt;sc);
 
 
 //used as a safe check on exist when we timeut
-me-&gt;add_type = INVALID_ADDRESS_TYPE;</action>
+//me-&gt;add_type = INVALID_ADDRESS_TYPE;</action>
        <tran_glyph conn="31,70,0,-1,7">
         <action box="-7,8,10,2"/>
        </tran_glyph>

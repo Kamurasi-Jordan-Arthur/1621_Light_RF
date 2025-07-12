@@ -77,7 +77,7 @@ extern QMState const bt_SPC51_MANAGING_CONNECTION_s;
 extern bt_SPC51 bt_SPC51_inst;
 
 //${SMs::INITIAL_FLAG_CONFIG} ................................................
-#define INITIAL_FLAG_CONFIG 0b00101010
+#define INITIAL_FLAG_CONFIG 0b00101000
 
 //${SMs::CONN_INTERVAL_MIN} ..................................................
 #define CONN_INTERVAL_MIN 160U

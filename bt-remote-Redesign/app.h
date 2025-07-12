@@ -34,7 +34,7 @@
 //typedef struct sl_sleeptimer_timer_handle sl_sleeptimer_timer_handle_t;
 
 //time interval for each blink
-#define BLINK_TIMEOUT (1u * 1u * 120u)
+#define BLINK_TIMEOUT (1u * 1u * 80u)
 
 enum USER_SIGS {
   BUTTON_ID = Q_USER_SIG,
