@@ -9,20 +9,20 @@
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
 			<item value="_SIG"/>
+			<item value="noti"/>
+			<item value="sl_bt_connection_set_default_parameters"/>
+			<item value="increase_secur"/>
+			<item value="B%"/>
+			<item value="send_noti"/>
+			<item value="blink_expired"/>
+			<item value="send_"/>
+			<item value="sl_bt_system_linklayer_configure"/>
+			<item value="send"/>
+			<item value="send_notification"/>
+			<item value="notify_flag_change"/>
 			<item value="is_ok"/>
 			<item value="ok"/>
 			<item value="if( me-&gt;led_con"/>
-			<item value="robustCaching_char_UUID"/>
-			<item value="event-&gt;data.evt_gatt_prosecudure"/>
-			<item value="LED_DEB"/>
-			<item value="openning"/>
-			<item value="opening"/>
-			<item value="morn"/>
-			<item value="morni"/>
-			<item value="morning"/>
-			<item value="reset"/>
-			<item value="robust"/>
-			<item value="PHY"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
@@ -37,7 +37,7 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="691"/>
+		<item key="DIALOG_X_ORIGIN" value="936"/>
 		<item key="DIALOG_Y_ORIGIN" value="385"/>
 		<item key="DIALOG_WIDTH" value="322"/>
 		<item key="DIALOG_HEIGHT" value="391"/>

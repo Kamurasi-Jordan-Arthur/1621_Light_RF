@@ -2,6 +2,63 @@
 <model version="7.0.1" links="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.state-machine.com/qm/qm7.xsd">
  <framework name="qpc"/>
  <package name="SMs" stereotype="0x02">
+  <directory name="./Scr">
+   <file name="bt_SPC51_SM.c">
+    <text>#include &quot;em_common.h&quot;
+#include &lt;stdio.h&gt;
+
+#include &quot;app_assert.h&quot;
+#include &quot;sl_sleeptimer.h&quot;
+
+#include &quot;sl_bluetooth.h&quot;
+#include &quot;gatt_db.h&quot;
+
+
+#include &quot;app_button_press.h&quot;
+#include &quot;sl_simple_button.h&quot;
+#include &quot;sl_simple_button_instances.h&quot;
+
+#include &quot;sl_simple_led.h&quot;
+#include &quot;sl_simple_led_instances.h&quot;
+
+#include &quot;app.h&quot;
+#include &quot;app.h&quot;
+#include &quot;qpc.h&quot;
+
+#include &quot;bt_SPC51_SM.h&quot;
+
+#include &lt;stdio.h&gt;
+
+
+$define(SMs::bt_SPC51_inst)
+
+//static ToastOven l_oven; // the only instance of the ToastOven class
+
+// global-scope definitions -----------------------------------------
+QMsm * const QMsm_bt_SPC51_p = &amp;bt_SPC51_inst.super; // the opaque pointer
+
+$define(SMs::bt_SPC51)
+//$define(SMs::remoteSM_ctor)</text>
+   </file>
+  </directory>
+  <directory name="./Inc">
+   <file name="bt_SPC51_SM.h">
+    <text>#ifndef remoteSM_H_
+#define remoteSM_H_
+
+//extern QHsm * const the_oven; 
+
+//$declare(SMs::INITIAL_FLAG_CONFIG)
+$declare(SMs)
+
+//$declare(SMs::bt_SPC51)
+//$declare(SMs::remoteSM_ctor)
+
+extern QMsm * const QMsm_bt_SPC51_p; // opaque pointer to the remoteSM HSM
+
+#endif // HISTORY_H_</text>
+   </file>
+  </directory>
   <class name="bt_SPC51" superclass="qpc::QMsm">
    <attribute name="sc" type="sl_status_t" visibility="0x02" properties="0x00">
     <documentation>status return of run bt commands</documentation>
@@ -59,24 +116,27 @@ me-&gt;sc = sl_bt_gatt_server_write_attribute_value(gattdb_system_id,
                                              me-&gt;system_id);
 app_assert_status(me-&gt;sc);
 
+
+// setting the security mangers bits.
 me-&gt;sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_displayonly);
 app_assert_status(me-&gt;sc);
 
-//Delete any preivious bonding on start up if any
-//    me-&gt;sc = sl_bt_sm_delete_bondings();
+
+// Disabling feature exchange in peripheral role
+//uint32_t flags = 0x00000001; // 0x1 disables feature exchange in peripheral role
+//me-&gt;sc = sl_bt_system_linklayer_configure(sl_bt_system_linklayer_config_key_set_flags, sizeof(flags), (uint8_t*)&amp;flags);
 //app_assert_status(me-&gt;sc);
 
-//app_log_info(&quot;All bonding deleted.\n&quot;);
 
-///set defualt connection parameters
+//Setting the default connection parameters for subsequent connections on peripheral
 //me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
 //                                           CONN_INTERVAL_MAX,
 //                                           CONN_RESPONDER_LATENCY,
 //                                           CONN_TIMEOUT,
 //                                           CONN_MIN_CE_LENGTH,
 //                                           CONN_MAX_CE_LENGTH);
-//
-app_assert_status(me-&gt;sc);
+//app_assert_status(me-&gt;sc);
+
 
 
 me-&gt;sc = sl_bt_advertiser_create_set(&amp;me-&gt;advertising_set_handle);
@@ -89,10 +149,17 @@ app_assert_status(me-&gt;sc);
 
 me-&gt;sc = sl_bt_advertiser_set_timing(
                                 me-&gt;advertising_set_handle,
-                                800U, 900U, // min &amp; max interval (ms * 1.6)
+                                800U, 800U, // min &amp; max interval (ms * 1.6)
                                 0U, 0U);    // duration, max events
 app_assert_status(me-&gt;sc);
 
+
+
+//Delete any preivious bonding on start up if any
+//me-&gt;sc = sl_bt_sm_delete_bondings();
+//app_assert_status(me-&gt;sc);
+
+//app_log_info(&quot;All bonding deleted.\n&quot;);
 
 //sc = sl_bt_advertiser_set_channel_map(advertising_set_handle, (uint8_t)0x01);  // Only channel 37
 // Start advertising and enable connections.
@@ -189,8 +256,10 @@ if(me-&gt;sc == SL_STATUS_OK){
        <choice target="../..">
         <guard>else</guard>
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
+
 me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
 app_assert_status(me-&gt;sc);
+
 //me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
 //                                 sl_bt_legacy_advertiser_connectable);
 //app_assert_status(me-&gt;sc);
@@ -256,7 +325,7 @@ app_log_info(&quot;Closing connection....\n&quot;);</action>
 app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Remote bonding reqeust confirmed.\n&quot;);</action>
-       <tran_glyph conn="75,48,1,-1,-3">
+       <tran_glyph conn="75,48,1,-1,-8">
         <action box="1,-1,27,2"/>
        </tran_glyph>
       </tran>
@@ -277,78 +346,21 @@ app_log_info(&quot;Remote bonding reqeust confirmed.\n&quot;);</action>
     <state_diagram size="121,81"/>
    </statechart>
   </class>
-  <directory name="./Scr">
-   <file name="bt_SPC51_SM.c">
-    <text>#include &quot;em_common.h&quot;
-#include &lt;stdio.h&gt;
-
-#include &quot;app_assert.h&quot;
-#include &quot;sl_sleeptimer.h&quot;
-
-#include &quot;sl_bluetooth.h&quot;
-#include &quot;gatt_db.h&quot;
-
-
-#include &quot;app_button_press.h&quot;
-#include &quot;sl_simple_button.h&quot;
-#include &quot;sl_simple_button_instances.h&quot;
-
-#include &quot;sl_simple_led.h&quot;
-#include &quot;sl_simple_led_instances.h&quot;
-
-#include &quot;app.h&quot;
-#include &quot;app.h&quot;
-#include &quot;qpc.h&quot;
-
-#include &quot;bt_SPC51_SM.h&quot;
-
-#include &lt;stdio.h&gt;
-
-
-$define(SMs::bt_SPC51_inst)
-
-//static ToastOven l_oven; // the only instance of the ToastOven class
-
-// global-scope definitions -----------------------------------------
-QMsm * const QMsm_bt_SPC51_p = &amp;bt_SPC51_inst.super; // the opaque pointer
-
-$define(SMs::bt_SPC51)
-//$define(SMs::remoteSM_ctor)</text>
-   </file>
-  </directory>
-  <directory name="./Inc">
-   <file name="bt_SPC51_SM.h">
-    <text>#ifndef remoteSM_H_
-#define remoteSM_H_
-
-//extern QHsm * const the_oven; 
-
-//$declare(SMs::INITIAL_FLAG_CONFIG)
-$declare(SMs)
-
-//$declare(SMs::bt_SPC51)
-//$declare(SMs::remoteSM_ctor)
-
-extern QMsm * const QMsm_bt_SPC51_p; // opaque pointer to the remoteSM HSM
-
-#endif // HISTORY_H_</text>
-   </file>
-  </directory>
   <attribute name="bt_SPC51_inst" type="bt_SPC51" visibility="0x01" properties="0x00"/>
   <attribute name="INITIAL_FLAG_CONFIG" type="" visibility="0x03" properties="0x00">
-   <code>0b00101000</code>
+   <code>0b00101010</code>
   </attribute>
   <attribute name="CONN_INTERVAL_MIN" type="" visibility="0x03" properties="0x00">
-   <code>160U</code>
+   <code>200U</code>
   </attribute>
   <attribute name="CONN_INTERVAL_MAX" type="" visibility="0x03" properties="0x00">
-   <code>160U</code>
+   <code>300U</code>
   </attribute>
   <attribute name="CONN_RESPONDER_LATENCY" type="" visibility="0x03" properties="0x00">
-   <code>5U</code>
+   <code>0U</code>
   </attribute>
   <attribute name="CONN_TIMEOUT" type="" visibility="0x03" properties="0x00">
-   <code>450U</code>
+   <code>500U</code>
   </attribute>
   <attribute name="CONN_MIN_CE_LENGTH" type="" visibility="0x03" properties="0x00">
    <code>0U</code>

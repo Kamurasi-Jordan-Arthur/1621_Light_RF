@@ -138,7 +138,8 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 //          event->data.evt_gatt_server_characteristic_status.connection);
 //
 //      break;
-//    case sl_bt_evt_gatt_server_attribute_value_id:
+//    case sl_bt_evt_connection_opened_id:
+//      evt->data.evt_connection_opened.connection
 //      send_notification();
 //      break;
 //
@@ -273,9 +274,10 @@ void parse_dataAndProcess(void){
 
 
       //Finally we should alert the SPC5x about the change
-      printf("L%u P%u\n",
+      printf("L%u P%u S%u\n",
                    Led,
-                   value);
+                   data[Led] & 0x7FU,
+                   (data[Led] & 0x80U) ? 1U : 0U);
 
 
 
@@ -290,8 +292,8 @@ void parse_dataAndProcess(void){
       switch (value) {
 //        Switch btw leds
         case 'S':
-          app_log_info("Switching Led to %u", Led);
-          break;
+          printf("L%u\n", Led);
+          return;
 
         default:
           data[Led] ^=  0x80U;             //Toggle the led
@@ -300,9 +302,14 @@ void parse_dataAndProcess(void){
       }
 
 //      Finally we should alert the SPC5x about the change
-      printf("L%u S%u\n",
+      printf("L%u P%u S%u\n",
                    Led,
-                   (uint8_t)((data[Led] & 0x80U) >> 7u));
+                   data[Led] & 0x7FU,
+                   (data[Led] & 0x80U) ? 1U : 0U);
+
+      //printf("L%u S%u\n",
+      //             Led,
+      //             (uint8_t)((data[Led] & 0x80U) >> 7u));
       break;
 
 

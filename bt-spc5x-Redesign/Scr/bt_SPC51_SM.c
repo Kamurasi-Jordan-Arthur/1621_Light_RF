@@ -149,24 +149,27 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
                                                          me->system_id);
             app_assert_status(me->sc);
 
+
+            // setting the security mangers bits.
             me->sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_displayonly);
             app_assert_status(me->sc);
 
-            //Delete any preivious bonding on start up if any
-            //    me->sc = sl_bt_sm_delete_bondings();
+
+            // Disabling feature exchange in peripheral role
+            //uint32_t flags = 0x00000001; // 0x1 disables feature exchange in peripheral role
+            //me->sc = sl_bt_system_linklayer_configure(sl_bt_system_linklayer_config_key_set_flags, sizeof(flags), (uint8_t*)&flags);
             //app_assert_status(me->sc);
 
-            //app_log_info("All bonding deleted.\n");
 
-            ///set defualt connection parameters
+            //Setting the default connection parameters for subsequent connections on peripheral
             //me->sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
             //                                           CONN_INTERVAL_MAX,
             //                                           CONN_RESPONDER_LATENCY,
             //                                           CONN_TIMEOUT,
             //                                           CONN_MIN_CE_LENGTH,
             //                                           CONN_MAX_CE_LENGTH);
-            //
-            app_assert_status(me->sc);
+            //app_assert_status(me->sc);
+
 
 
             me->sc = sl_bt_advertiser_create_set(&me->advertising_set_handle);
@@ -179,10 +182,17 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
 
             me->sc = sl_bt_advertiser_set_timing(
                                             me->advertising_set_handle,
-                                            800U, 900U, // min & max interval (ms * 1.6)
+                                            800U, 800U, // min & max interval (ms * 1.6)
                                             0U, 0U);    // duration, max events
             app_assert_status(me->sc);
 
+
+
+            //Delete any preivious bonding on start up if any
+            //me->sc = sl_bt_sm_delete_bondings();
+            //app_assert_status(me->sc);
+
+            //app_log_info("All bonding deleted.\n");
 
             //sc = sl_bt_advertiser_set_channel_map(advertising_set_handle, (uint8_t)0x01);  // Only channel 37
             // Start advertising and enable connections.
@@ -348,8 +358,10 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_connec~::[else]}
             else {
                 app_log_info("Already Bonded.\n");
+
                 me->sc = sl_bt_sm_increase_security(event->data.evt_connection_opened.connection);
                 app_assert_status(me->sc);
+
                 //me->sc = sl_bt_legacy_advertiser_start(me->advertising_set_handle,
                 //                                 sl_bt_legacy_advertiser_connectable);
                 //app_assert_status(me->sc);

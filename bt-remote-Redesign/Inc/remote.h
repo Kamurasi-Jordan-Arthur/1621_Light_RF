@@ -44,7 +44,7 @@
 //$declare${SMs} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 //${SMs::INITIAL_FLAG_CONFIG} ................................................
-#define INITIAL_FLAG_CONFIG 0b00100110
+#define INITIAL_FLAG_CONFIG 0b00100010
 
 //${SMs::CONN_INTERVAL_MIN} ..................................................
 #define CONN_INTERVAL_MIN 200U
@@ -83,7 +83,7 @@
 #define MAX_LED_INDEX (uint8_t)3U
 
 //${SMs::RUNNING_TIMEOUT} ....................................................
-#define RUNNING_TIMEOUT (1U * 10U * 1000U)
+#define RUNNING_TIMEOUT (1U * 5U * 1000U)
 
 //${SMs::INVALID_ADDRESS_TYPE} ...............................................
 #define INVALID_ADDRESS_TYPE 0xff

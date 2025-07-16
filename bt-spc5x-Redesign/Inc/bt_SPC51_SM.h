@@ -77,19 +77,19 @@ extern QMState const bt_SPC51_MANAGING_CONNECTION_s;
 extern bt_SPC51 bt_SPC51_inst;
 
 //${SMs::INITIAL_FLAG_CONFIG} ................................................
-#define INITIAL_FLAG_CONFIG 0b00101000
+#define INITIAL_FLAG_CONFIG 0b00101010
 
 //${SMs::CONN_INTERVAL_MIN} ..................................................
-#define CONN_INTERVAL_MIN 160U
+#define CONN_INTERVAL_MIN 200U
 
 //${SMs::CONN_INTERVAL_MAX} ..................................................
-#define CONN_INTERVAL_MAX 160U
+#define CONN_INTERVAL_MAX 300U
 
 //${SMs::CONN_RESPONDER_LATENCY} .............................................
-#define CONN_RESPONDER_LATENCY 5U
+#define CONN_RESPONDER_LATENCY 0U
 
 //${SMs::CONN_TIMEOUT} .......................................................
-#define CONN_TIMEOUT 450U
+#define CONN_TIMEOUT 500U
 
 //${SMs::CONN_MIN_CE_LENGTH} .................................................
 #define CONN_MIN_CE_LENGTH 0U

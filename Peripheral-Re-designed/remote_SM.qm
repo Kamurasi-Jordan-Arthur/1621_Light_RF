@@ -64,7 +64,7 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    </file>
   </directory>
   <attribute name="INITIAL_FLAG_CONFIG" type="" visibility="0x03" properties="0x00">
-   <code>0b00100100</code>
+   <code>0b00100010</code>
   </attribute>
   <attribute name="CONN_INTERVAL_MIN" type="" visibility="0x03" properties="0x00">
    <code>200U</code>
@@ -97,7 +97,7 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    <code>(1U * 5U * 1000U)</code>
   </attribute>
   <attribute name="CONNECTION_TIMEOUT" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 3U * 1000U)</code>
+   <code>(1U * 10U * 1000U)</code>
   </attribute>
   <attribute name="MAX_LED_INDEX" type="" visibility="0x03" properties="0x00">
    <code>(uint8_t)3U</code>
@@ -193,6 +193,7 @@ app_log_info(&quot;Bluetooth stack booted: v%d.%d.%d-b%d\n&quot; APP_LOG_NL,
 
 print_bluetooth_address();
 
+
 me-&gt;sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_noinputnooutput);
 app_assert_status(me-&gt;sc);
 
@@ -203,23 +204,31 @@ app_assert_status(me-&gt;sc);
 //app_assert_status(me-&gt;sc);
 //app_log_info(&quot;Scan parameters set&quot;);
 
-// Set the default connection parameters for subsequent connections
 
-//me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
-//                                          CONN_INTERVAL_MAX,
-//                                           CONN_RESPONDER_LATENCY,
-//                                           CONN_TIMEOUT,
-//                                           CONN_MIN_CE_LENGTH,
-//                                           CONN_MAX_CE_LENGTH);
+
+// Disabling feature exchange in central role
+//uint32_t flags = 0x00000002; // 0x2 disables feature exchange in central role
+//me-&gt;sc = sl_bt_system_linklayer_configure(sl_bt_system_linklayer_config_key_set_flags, sizeof(flags), (uint8_t*)&amp;flags);
 //app_assert_status(me-&gt;sc);
 
-me-&gt;sc = sl_bt_connection_set_default_parameters(14U,
-                                           14U,
-                                           5U,
-                                           100U,
+//setting similar defualt connection parameters on central
+me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
+                                           CONN_INTERVAL_MAX,
+                                           CONN_RESPONDER_LATENCY,
+                                           CONN_TIMEOUT,
                                            CONN_MIN_CE_LENGTH,
                                            CONN_MAX_CE_LENGTH);
 app_assert_status(me-&gt;sc);
+
+
+
+//me-&gt;sc = sl_bt_connection_set_default_parameters(32U,
+//                                               32U,
+//                                               0U,
+//                                               100U,
+//                                               CONN_MIN_CE_LENGTH,
+//                                               CONN_MAX_CE_LENGTH);
+//app_assert_status(me-&gt;sc);
 
 //me-&gt;sc = sl_bt_sm_delete_bondings();
 //app_assert_status(me-&gt;sc);
@@ -312,7 +321,6 @@ if (event-&gt;data.evt_connection_closed.reason == SL_STATUS_BT_CTRL_REMOTE_USER
 
 
 //app_log_info(&quot;Reset conection parameters\n&quot;);
-
 
 me-&gt;sc = sl_sleeptimer_restart_timer_ms(
                             &amp;appTimer,
@@ -674,14 +682,6 @@ app_log_info(&quot;Scaning timeout\n&quot;);</action>
       <entry>//listen to now button presses
 //app_button_press_disable();
 </entry>
-      <exit>me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
-                                          CONN_INTERVAL_MIN,
-                                          CONN_INTERVAL_MAX,
-                                          CONN_RESPONDER_LATENCY,
-                                          CONN_TIMEOUT,
-                                          CONN_MIN_CE_LENGTH,
-                                          CONN_MAX_CE_LENGTH);
-app_assert_status(me-&gt;sc);</exit>
       <initial target="../1">
        <initial_glyph conn="81,39,5,0,16,3">
         <action box="0,-2,10,2"/>
@@ -731,7 +731,7 @@ me-&gt;robust_caching_service_handle</guard>
          <action>me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
 app_assert_status(me-&gt;sc);
 
-me-&gt;sc = sl_bt_gatt_discover_primary_services(me-&gt;connection_handle);
+me-&gt;sc = sl_bt_sm_delete_bonding(me-&gt;bonding_Handle);
 app_assert_status(me-&gt;sc);
 
 me-&gt;add_type = INVALID_ADDRESS_TYPE;
@@ -805,6 +805,14 @@ app_log_info(&quot;changes handle found.\n&quot;);</action>
        <tran trig="sl_bt_evt_gatt_procedure_completed_id">
         <choice target="../../../../4">
          <guard brief="HandleGotten">me-&gt;changes_characteristic_handle</guard>
+         <action>me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
+                                          CONN_INTERVAL_MIN,
+                                          CONN_INTERVAL_MAX,
+                                          CONN_RESPONDER_LATENCY,
+                                          CONN_TIMEOUT,
+                                          CONN_MIN_CE_LENGTH,
+                                          CONN_MAX_CE_LENGTH);
+app_assert_status(me-&gt;sc);</action>
          <choice_glyph conn="80,94,5,2,65,-6">
           <action box="1,0,14,2"/>
          </choice_glyph>
@@ -812,6 +820,9 @@ app_log_info(&quot;changes handle found.\n&quot;);</action>
         <choice>
          <guard>else</guard>
          <action>me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
+app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_sm_delete_bonding(me-&gt;bonding_Handle);
 app_assert_status(me-&gt;sc);
 
 me-&gt;add_type = INVALID_ADDRESS_TYPE;
@@ -858,6 +869,9 @@ LED_DEB</entry>
         <choice>
          <guard>else</guard>
          <action>me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
+app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_bt_sm_delete_bonding(me-&gt;bonding_Handle);
 app_assert_status(me-&gt;sc);
 
 me-&gt;add_type = INVALID_ADDRESS_TYPE;
@@ -909,7 +923,6 @@ LED_DEB</entry>
       </state>
       <state_glyph color="2" node="72,35,58,63">
        <entry box="0,3,6,2"/>
-       <exit box="0,5,6,2"/>
       </state_glyph>
      </state>
      <state name="openning">
@@ -956,7 +969,6 @@ me-&gt;led_conf_characteristic_handle = 0x01;
 &amp;&amp; me-&gt;robust_caching_characteritic_handle</guard>
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
 me-&gt;bonding_Handle = event-&gt;data.evt_connection_opened.bonding;
-
 //app_log_info(&quot;Ensuring bond consistence on remote.\n&quot;);
 //me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
 //app_assert_status(me-&gt;sc);

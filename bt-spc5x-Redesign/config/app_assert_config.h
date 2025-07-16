@@ -35,7 +35,7 @@
 
 // <e APP_ASSERT_ENABLE> Assert component
 // <i> Enables Assert.
-#define APP_ASSERT_ENABLE      0
+#define APP_ASSERT_ENABLE      1
 
 // <e APP_ASSERT_LOG_ENABLE> Logging
 // <i> Enables logging for assert.

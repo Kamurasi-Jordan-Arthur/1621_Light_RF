@@ -78,11 +78,11 @@ void bt_remote_ctor(bt_remote * const me) {
 void bt_remote_reset_properties(bt_remote * const me) {
     me->connection_handle = CONNECTION_HANDLE_INVALID;
 
-    me->led_control_service_handle = SERVICE_HANDLE_INVALID;
-    me->robust_caching_service_handle = SERVICE_HANDLE_INVALID;
+    //me->led_control_service_handle = SERVICE_HANDLE_INVALID;
+    //me->robust_caching_service_handle = SERVICE_HANDLE_INVALID;
 
-    me->robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
-    me->changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
+    //me->robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
+    //me->changes_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
     me->led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
 
     me->add_type = INVALID_ADDRESS_TYPE;
@@ -130,6 +130,7 @@ QState bt_remote_INITIALIZING(bt_remote * const me, QEvt const * const e) {
 
             print_bluetooth_address();
 
+
             me->sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_noinputnooutput);
             app_assert_status(me->sc);
 
@@ -140,21 +141,30 @@ QState bt_remote_INITIALIZING(bt_remote * const me, QEvt const * const e) {
             //app_assert_status(me->sc);
             //app_log_info("Scan parameters set");
 
-            // Set the default connection parameters for subsequent connections
 
+
+            // Disabling feature exchange in central role
+            //uint32_t flags = 0x00000002; // 0x2 disables feature exchange in central role
+            //me->sc = sl_bt_system_linklayer_configure(sl_bt_system_linklayer_config_key_set_flags, sizeof(flags), (uint8_t*)&flags);
+            //app_assert_status(me->sc);
+
+            //setting similar defualt connection parameters on central
             //me->sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
-            //                                          CONN_INTERVAL_MAX,
+            //                                           CONN_INTERVAL_MAX,
             //                                           CONN_RESPONDER_LATENCY,
             //                                           CONN_TIMEOUT,
             //                                           CONN_MIN_CE_LENGTH,
             //                                           CONN_MAX_CE_LENGTH);
             //app_assert_status(me->sc);
-            me->sc = sl_bt_connection_set_default_parameters(14U,
-                                                      14U,
-                                                       5U,
-                                                       100U,
-                                                       CONN_MIN_CE_LENGTH,
-                                                       CONN_MAX_CE_LENGTH);
+
+
+
+            me->sc = sl_bt_connection_set_default_parameters(16U,
+                                                           16U,
+                                                           0U,
+                                                           100U,
+                                                           CONN_MIN_CE_LENGTH,
+                                                           CONN_MAX_CE_LENGTH);
             app_assert_status(me->sc);
 
             //me->sc = sl_bt_sm_delete_bondings();
@@ -219,6 +229,7 @@ QState bt_remote_operational(bt_remote * const me, QEvt const * const e) {
                   break;
                 case sl_bt_connection_mode1_level2:
                   app_log_info("Unauthenticated pairing with encryption (Just Works)\n");
+
                   break;
                 case sl_bt_connection_mode1_level3:
                   app_log_info("Authenticated pairing with encryption (Legacy Pairing)\n");
@@ -308,17 +319,8 @@ QState bt_remote_running_e(bt_remote * const me) {
 
     //sl_led_turn_on(&sl_led_led0);
 
-    me->sc =  sl_bt_connection_set_parameters(me->connection_handle,
-                                              CONN_INTERVAL_MIN,
-                                              CONN_INTERVAL_MAX,
-                                              CONN_RESPONDER_LATENCY,
-                                              CONN_TIMEOUT,
-                                              CONN_MIN_CE_LENGTH,
-                                              CONN_MAX_CE_LENGTH);
-    app_assert_status(me->sc);
 
-    app_log_info("Reset conection parameters\n");
-
+    //app_log_info("Reset conection parameters\n");
 
     me->sc = sl_sleeptimer_restart_timer_ms(
                                 &appTimer,
@@ -328,11 +330,20 @@ QState bt_remote_running_e(bt_remote * const me) {
                                 0U,
                                 0U);
     app_assert_status(me->sc);
+
+    //me->sc =  sl_bt_connection_set_parameters(me->connection_handle,
+    //                                          CONN_INTERVAL_MIN,
+    //                                          CONN_INTERVAL_MAX,
+    //                                          CONN_RESPONDER_LATENCY,
+    //                                          CONN_TIMEOUT,
+    //                                          CONN_MIN_CE_LENGTH,
+    //                                          CONN_MAX_CE_LENGTH);
+    //app_assert_status(me->sc);
+
     app_log_info("Running Timeout started.\n");
 
 
     //sl_led_turn_on(&sl_led_led0);
-    button_pressed = true;
 
     app_log_info("Running...\n");
 
@@ -477,15 +488,15 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
                 break;
 
               case APP_BUTTON_PRESS_DURATION_LONG:
-                if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
-                    //me->sc = sl_bt_sm_delete_bonding(me->bonding_Handle);
-                    me->sc = sl_bt_connection_close(me->connection_handle);
+                //if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
+                //    //me->sc = sl_bt_sm_delete_bonding(me->bonding_Handle);
+                //    me->sc = sl_bt_connection_close(me->connection_handle);
 
-                    app_assert_status(me->sc);
-                    app_log_append_info("Closing connection...\n");
-                    //me->add_type = INVALID_ADDRESS_TYPE;
+                //    app_assert_status(me->sc);
+                //    app_log_append_info("Closing connection...\n");
+                 //   //me->add_type = INVALID_ADDRESS_TYPE;
 
-                }
+                //}
 
             //    app_log_append_info("Deleting bond.\n");
 
@@ -560,6 +571,46 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
                          me->led_conf[2],
                          me->led_conf[3]);
 
+            status_ = QM_HANDLED();
+            break;
+        }
+        //${SMs::bt_remote::SM::operational::running::sl_bt_evt_connection_parameters_~}
+        case sl_bt_evt_connection_parameters_id: {
+            switch (event->data.evt_connection_parameters.security_mode)
+                {
+
+                case sl_bt_connection_mode1_level2:
+                  app_log_info("Unauthenticated pairing with encryption (Just Works)\n");
+
+                  if (me->led_conf_characteristic_handle){
+                    button_pressed = true;
+
+                    me->led_conf_characteristic_handle = CHARACTERISTIC_HANDLE_INVALID;
+
+                    me->sc =  sl_bt_connection_set_parameters(me->connection_handle,
+                                                              CONN_INTERVAL_MIN,
+                                                              CONN_INTERVAL_MAX,
+                                                              CONN_RESPONDER_LATENCY,
+                                                              CONN_TIMEOUT,
+                                                              CONN_MIN_CE_LENGTH,
+                                                              CONN_MAX_CE_LENGTH);
+                    app_assert_status(me->sc);
+
+                    }
+
+                  break;
+                case sl_bt_connection_mode1_level1:
+                  app_log_info("No Security\n");
+                  break;
+                case sl_bt_connection_mode1_level3:
+                  app_log_info("Authenticated pairing with encryption (Legacy Pairing)\n");
+                  break;
+                case sl_bt_connection_mode1_level4:
+                  app_log_info("Authenticated Secure Connections pairing with encryption (BT 4.2 LE Secure Pairing)\n");
+                  break;
+                default:
+                  break;
+                }
             status_ = QM_HANDLED();
             break;
         }
@@ -898,8 +949,8 @@ QState bt_remote_characteristic_discovery(bt_remote * const me, QEvt const * con
             //
             //                }
 
-            me->led_conf_characteristic_handle = event->data.evt_gatt_characteristic.characteristic;
-            app_log_info("led_config handle found.\n");
+            me->changes_characteristic_handle = event->data.evt_gatt_characteristic.characteristic;
+            app_log_info("changes handle found.\n");
             status_ = QM_HANDLED();
             break;
         }
@@ -907,6 +958,14 @@ QState bt_remote_characteristic_discovery(bt_remote * const me, QEvt const * con
         case sl_bt_evt_gatt_procedure_completed_id: {
             //${SMs::bt_remote::SM::operational::discoveryAndSetu~::characteristic_d~::sl_bt_evt_gatt_p~::[HandleGotten]}
             if (me->changes_characteristic_handle) {
+                me->sc =  sl_bt_connection_set_parameters(me->connection_handle,
+                                                          CONN_INTERVAL_MIN,
+                                                          CONN_INTERVAL_MAX,
+                                                          CONN_RESPONDER_LATENCY,
+                                                          CONN_TIMEOUT,
+                                                          CONN_MIN_CE_LENGTH,
+                                                          CONN_MAX_CE_LENGTH);
+                app_assert_status(me->sc);
                 static struct {
                     QMState const *target;
                     QActionHandler act[3];
@@ -1105,11 +1164,13 @@ QState bt_remote_openning_e(bt_remote * const me) {
 }
 //${SMs::bt_remote::SM::operational::openning}
 QState bt_remote_openning_x(bt_remote * const me) {
-    if (me->add_type != INVALID_ADDRESS_TYPE){
-        me->sc = sl_sleeptimer_stop_timer(&appTimer);
-        app_assert_status(me->sc);
+    me->sc = sl_sleeptimer_stop_timer(&appTimer);
+
+    if(me->sc){
         app_log_info("Opening timer halted.\n");
     }
+
+
     return QM_EXIT(&bt_remote_openning_s);
 }
 //${SMs::bt_remote::SM::operational::openning}
@@ -1121,6 +1182,7 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
             me->connection_handle = event->data.evt_connection_opened.connection;
             app_log_info("Connection Opened.\n");
 
+            me->led_conf_characteristic_handle = 0x01;
             //Change the phy
             //me->sc = sl_bt_connection_set_preferred_phy(me->connection_handle,
             //                                            0x02U,
@@ -1136,12 +1198,12 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
             //${SMs::bt_remote::SM::operational::openning::sl_bt_evt_connec~::[alreadyBonded]}
             if (SL_BT_INVALID_BONDING_HANDLE != event->data.evt_connection_opened.bonding
                 && me->changes_characteristic_handle
-                && me->led_conf_characteristic_handle
-                && me->led_control_service_handle)
+                && me->led_control_service_handle
+                && me->robust_caching_service_handle
+                && me->robust_caching_characteritic_handle)
             {
                 app_log_info("Already Bonded.\n");
                 me->bonding_Handle = event->data.evt_connection_opened.bonding;
-
                 //app_log_info("Ensuring bond consistence on remote.\n");
                 //me->sc = sl_bt_sm_increase_security(event->data.evt_connection_opened.connection);
                 //app_assert_status(me->sc);
@@ -1230,7 +1292,7 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
 
 
             //used as a safe check on exist when we timeut
-            me->add_type = INVALID_ADDRESS_TYPE;
+            //me->add_type = INVALID_ADDRESS_TYPE;
             status_ = QM_HANDLED();
             break;
         }
