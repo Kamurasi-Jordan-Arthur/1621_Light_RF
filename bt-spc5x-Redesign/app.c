@@ -274,7 +274,7 @@ void parse_dataAndProcess(void){
 
 
       //Finally we should alert the SPC5x about the change
-      printf("L%u P%u S%u\n",
+      printf("L%u %u %u\n",
                    Led,
                    data[Led] & 0x7FU,
                    (data[Led] & 0x80U) ? 1U : 0U);

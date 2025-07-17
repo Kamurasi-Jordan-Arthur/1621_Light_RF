@@ -222,13 +222,13 @@ app_assert_status(me-&gt;sc);
 
 
 
-me-&gt;sc = sl_bt_connection_set_default_parameters(16U,
-                                               16U,
-                                               0U,
-                                               100U,
-                                               CONN_MIN_CE_LENGTH,
-                                               CONN_MAX_CE_LENGTH);
-app_assert_status(me-&gt;sc);
+//me-&gt;sc = sl_bt_connection_set_default_parameters(800U,
+//                                               800U,
+//                                               0U,
+//                                               300U,
+//                                              CONN_MIN_CE_LENGTH,
+//                                               CONN_MAX_CE_LENGTH);
+//app_assert_status(me-&gt;sc);
 
 //me-&gt;sc = sl_bt_sm_delete_bondings();
 //app_assert_status(me-&gt;sc);
@@ -805,7 +805,9 @@ app_log_info(&quot;changes handle found.\n&quot;);</action>
        <tran trig="sl_bt_evt_gatt_procedure_completed_id">
         <choice target="../../../../4">
          <guard brief="HandleGotten">me-&gt;changes_characteristic_handle</guard>
-         <action>me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
+         <action>button_pressed = true;
+
+me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;connection_handle,
                                           CONN_INTERVAL_MIN,
                                           CONN_INTERVAL_MAX,
                                           CONN_RESPONDER_LATENCY,
