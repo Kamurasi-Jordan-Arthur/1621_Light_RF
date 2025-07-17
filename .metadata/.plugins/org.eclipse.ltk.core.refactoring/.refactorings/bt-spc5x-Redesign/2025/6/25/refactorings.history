@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;bt-spc5x-Redesign/remote_SM.qm&apos; to &apos;bt_SPC5x_SM.qm&apos;" description="Rename resource &apos;remote_SM.qm&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="remote_SM.qm" name="bt_SPC5x_SM.qm" stamp="1750516545747" updateReferences="true"/>
+</session>

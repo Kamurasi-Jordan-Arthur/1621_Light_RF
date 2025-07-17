@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Peripheral-Re-designed/remote_SM.qm&apos; to &apos;remote_SM0.qm&apos;" description="Rename resource &apos;remote_SM.qm&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="remote_SM.qm" name="remote_SM0.qm" stamp="1750756866964" updateReferences="true"/>
+</session>
