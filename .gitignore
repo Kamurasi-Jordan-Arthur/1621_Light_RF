@@ -1,1 +1,39 @@
+# Simplicity Studio generated files
+.project
+.cproject
+.settings/
+autogen/
+config/
+GNU ARM/
+IAR ARM/
+Keil ARM/
+out/
+build/
+debug/
+release/
 
+# Compiled object files and binaries
+*.o
+*.d
+*.elf
+*.axf
+*.bin
+*.hex
+*.map
+*.srec
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*~
+
+# User-specific files
+*.swp
+*.user
+*.launch
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
