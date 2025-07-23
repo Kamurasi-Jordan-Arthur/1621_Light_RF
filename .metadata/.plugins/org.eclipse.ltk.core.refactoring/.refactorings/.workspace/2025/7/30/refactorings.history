@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 4 resources" deleteContents="false" description="Delete 4 resources" element1="/bt_spc5x-redesign/GNU ARM v12.2.1 - Default/bt_soc_blinky_shared.bin" element2="/bt_spc5x-redesign/GNU ARM v12.2.1 - Default/bt_soc_blinky_shared.hex" element3="/bt_spc5x-redesign/GNU ARM v12.2.1 - Default/bt_soc_blinky_shared.out" element4="/bt_spc5x-redesign/GNU ARM v12.2.1 - Default/bt_soc_blinky_shared.s37" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="4" stamp="1753084554309"/>
+</session>

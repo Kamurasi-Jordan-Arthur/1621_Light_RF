@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="com.silabs.ss.framework.ide.project.ui.solution" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1752883415480_2" label="bt_soc_blinky_shared" name="bt_soc_blinky_shared">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/bt_spc5x-redesign" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1752873191858_0" label="Window Working Set" name="Aggregate for window 1752873191858"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1752883415883_4" label="Solutions" name="Solutions">
+<workingSet IMemento.internal.id="bt_soc_blinky_shared"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1752883428550_5" label="Window Working Set" name="Aggregate for window 1752883428550"/>
+</workingSetManager>

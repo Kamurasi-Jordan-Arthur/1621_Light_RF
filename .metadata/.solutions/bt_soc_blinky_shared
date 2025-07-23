@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<MSolutions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.silabs.com/ss/Solution.ecore">
+  <solution name="bt_soc_blinky_shared" label="bt_soc_blinky_shared">
+    <SolutionModuleReferences id="slc.workspace.data"/>
+    <property key="solution.activeDebugGroup" value="Default"/>
+    <project builtin="true" name="bt_spc5x-redesign" location="../../bt_spc5x-redesign"/>
+    <configuration name="Default">
+      <project builtin="true" name="bt_spc5x-redesign"/>
+    </configuration>
+    <SDMDefinition id="slc.workspace.data">
+      <project name="bt_spc5x-redesign" location="C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\."/>
+    </SDMDefinition>
+  </solution>
+</MSolutions>
