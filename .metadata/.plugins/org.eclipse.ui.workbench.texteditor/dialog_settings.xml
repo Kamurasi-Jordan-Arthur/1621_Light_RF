@@ -2,17 +2,27 @@
 <section name="Workbench">
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
 		<list key="replacehistory">
+			<item value="Firmware_assert_false"/>
+			<item value="FUpdate_assert_false"/>
 		</list>
 		<list key="findhistory">
-			<item value="service"/>
-			<item value="serviceIn"/>
-			<item value="_SIG"/>
-			<item value="stdio"/>
-			<item value="print"/>
-			<item value="switch (e-&gt;)"/>
-			<item value="e-&gt;"/>
-			<item value="SIG"/>
+			<item value="NEXT_FIRMWARE_UPDATE_STATE_ID"/>
+			<item value="1"/>
+			<item value="QASM_DISPATCH"/>
+			<item value="BSL_INVOCK_DELAY"/>
+			<item value="updateTimerEx_Callback"/>
+			<item value="button_pressed"/>
+			<item value="energy_mode_restrictio"/>
+			<item value="read"/>
+			<item value="cb"/>
+			<item value="pa"/>
+			<item value="parse"/>
+			<item value="pars"/>
+			<item value="stream"/>
+			<item value="BUTTON_ID"/>
+			<item value="buttonEvt"/>
 		</list>
 	</section>
 </section>
