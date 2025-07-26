@@ -4,25 +4,26 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="replacehistory">
+			<item value="void"/>
 			<item value="Firmware_assert_false"/>
 			<item value="FUpdate_assert_false"/>
 		</list>
 		<list key="findhistory">
+			<item value="_SIG"/>
+			<item value="SEND_CONN"/>
+			<item value="DATA_WRITE_RSP"/>
+			<item value="Update_timer_expired."/>
+			<item value="bsl_read ="/>
+			<item value="Host_BSL_Connection"/>
+			<item value="CheckStaus"/>
+			<item value="Update_timer_expired"/>
 			<item value="NEXT_FIRMWARE_UPDATE_STATE_ID"/>
-			<item value="1"/>
-			<item value="QASM_DISPATCH"/>
-			<item value="BSL_INVOCK_DELAY"/>
-			<item value="updateTimerEx_Callback"/>
-			<item value="button_pressed"/>
-			<item value="energy_mode_restrictio"/>
-			<item value="read"/>
-			<item value="cb"/>
-			<item value="pa"/>
-			<item value="parse"/>
-			<item value="pars"/>
-			<item value="stream"/>
+			<item value="BUTTON_I"/>
 			<item value="BUTTON_ID"/>
-			<item value="buttonEvt"/>
+			<item value="Pressed."/>
+			<item value="BUTTON"/>
+			<item value="turn_on"/>
+			<item value="button_pressed"/>
 		</list>
 	</section>
 </section>

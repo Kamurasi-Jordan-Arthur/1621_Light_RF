@@ -7,7 +7,7 @@ gecko_sdk_4.4.6/hardware/board/src/sl_board_init.o: \
  C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x\config/sl_board_control_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h \
- c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h \
+ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h \
@@ -71,7 +71,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_
 C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x\config/sl_board_control_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
-c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h:
+c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h:

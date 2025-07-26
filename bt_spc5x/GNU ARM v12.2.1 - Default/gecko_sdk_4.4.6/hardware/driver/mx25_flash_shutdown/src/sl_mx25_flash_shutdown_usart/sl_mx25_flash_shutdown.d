@@ -3,7 +3,7 @@ gecko_sdk_4.4.6/hardware/driver/mx25_flash_shutdown/src/sl_mx25_flash_shutdown_u
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h \
- c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h \
+ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h \
@@ -68,7 +68,7 @@ gecko_sdk_4.4.6/hardware/driver/mx25_flash_shutdown/src/sl_mx25_flash_shutdown_u
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
-c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h:
+c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h:

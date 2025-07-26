@@ -2,7 +2,7 @@ gecko_sdk_4.4.6/platform/service/power_manager/src/sl_power_manager_hal_s2.o: \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/service/power_manager/src/sl_power_manager_hal_s2.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h \
- c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h \
+ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h \
@@ -71,7 +71,7 @@ gecko_sdk_4.4.6/platform/service/power_manager/src/sl_power_manager_hal_s2.o: \
  C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x\config/sl_sleeptimer_config.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
-c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h:
+c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h:

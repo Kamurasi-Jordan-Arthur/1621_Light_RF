@@ -2,7 +2,7 @@ gecko_sdk_4.4.6/platform/common/toolchain/src/sl_memory.o: \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/common/toolchain/src/sl_memory.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h \
- c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h \
+ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h \
@@ -52,7 +52,7 @@ gecko_sdk_4.4.6/platform/common/toolchain/src/sl_memory.o: \
  C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x\config/sl_memory_config.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
-c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h:
+c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h:

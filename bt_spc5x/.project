@@ -1681,9 +1681,9 @@
 			<locationURI>STUDIO_SDK_LOC/platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22_wdog.h</locationURI>
 		</link>
 		<link>
-			<name>gecko_sdk_4.4.6/platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22c224f512im40.h</name>
+			<name>gecko_sdk_4.4.6/platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22c224f512im32.h</name>
 			<type>1</type>
-			<locationURI>STUDIO_SDK_LOC/platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22c224f512im40.h</locationURI>
+			<locationURI>STUDIO_SDK_LOC/platform/Device/SiliconLabs/EFR32MG22/Include/efr32mg22c224f512im32.h</locationURI>
 		</link>
 		<link>
 			<name>gecko_sdk_4.4.6/platform/Device/SiliconLabs/EFR32MG22/Include/em_device.h</name>

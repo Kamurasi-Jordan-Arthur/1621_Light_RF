@@ -41,6 +41,7 @@
 #include "sl_sleeptimer.h"
 #include "sl_bt_api.h"
 #include <stdio.h>
+#include "qpc.h"
 #include "app.h"
 
 int main(void)

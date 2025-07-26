@@ -7,17 +7,13 @@ extern bool update_timer_expired;
 extern sl_sleeptimer_timer_handle_t updateTimer;
 
 
-#define BSL_DELAY (1000000)
-
 #define MAX_PAYLOAD_DATA_SIZE (128)
 //MAX_PACKET_SIZE = MAX_PAYLOAD_DATA_SIZE + HDR_LEN_CMD_BYTES + CRC_BYTES = 128 + 8 = 136
 #define MAX_PACKET_SIZE (136)
 
-//#define Hardware_Invoke
-#define Software_Invoke  //This just work when the code "Application_demo_with_software_trigger_LP_MSPM0G3507_0_address" exist on the device
+extern uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
+extern uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
 
-uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
-uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
 // ! Define BSL CORE commands
 #define CMD_CONNECTION (0x12)
 #define CMD_GET_ID (0x19)
@@ -62,7 +58,6 @@ enum {
     eBSL_responseCommand = 0x3B
 
 };
-typedef uint8_t BSL_error_t;
 
 enum {
     uart_noError   = 0,     //normal ACK
@@ -84,42 +79,34 @@ enum{
   BYTE_ACK,
   GetID_RSP,
   UNLOCK_RSP,
-  INFO_RSP,
-  ERASE_RSP,
+  MASS_ERASE_RSP,
+  DATA_WRITE_RSP,
 };
 
 // Varibale that dictates what read bsl_host read we expect to get.
 extern uint8_t bsl_read;
 
-uint16_t BSL_MAX_BUFFER_SIZE;
+extern uint16_t BSL_MAX_BUFFER_SIZE;
 
 void Host_BSL_entry_sequence(void);
 
-void Firmware_assert_false(void);
-
 void BSL_software_trigger(void);
 
-BSL_error_t Host_BSL_Connection(void);
-BSL_error_t Host_BSL_GetID(void);
-BSL_error_t Host_BSL_loadPassword(uint8_t* pPassword);
-BSL_error_t Host_BSL_MassErase(void);
-BSL_error_t Host_BSL_writeMemory(
-    uint32_t addr, const uint8_t* data, uint32_t len);
-BSL_error_t Host_BSL_StartApp(void);
+void Host_BSL_Connection(void);
+void Host_BSL_GetID(void);
+void Host_BSL_loadPassword(uint8_t* pPassword);
+void Host_BSL_MassErase(void);
+//void Host_BSL_writeMemory(void);
+void Host_BSL_StartApp(void);
 
+// function to get the CRC of a given buffer and buffer length
 uint32_t softwareCRC(const uint8_t* data, uint8_t length);
-BSL_error_t Host_BSL_getResponse(void);
 
+//
+void updateTimerEx_Callback(sl_sleeptimer_timer_handle_t *handle, void *data);
 
-
-#define TIMEOUT_COUNT 1500000
-
-void Host_BSL_entry_software(void);
-uint8_t Status_check(void);
-void BSL_sendSingleByte(uint8_t ui8Byte);
-uint8_t BSL_getResponse(void);
-uint8_t UART_writeBuffer(uint8_t *pData, uint8_t ui8Cnt);
-void UART_readBuffer(uint8_t *pData, uint8_t ui8Cnt);
+// Call back for handling the blinking during the new device connection window
+void newConnectionTimerCallback(sl_sleeptimer_timer_handle_t *handle, void *data);
 
 
 #endif

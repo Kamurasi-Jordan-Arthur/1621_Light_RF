@@ -2,20 +2,32 @@
 #include <stdint.h>
 #include <string.h>
 #include "sl_app_assert.h"
+//#include "bt_SPC51_SM.h"
 #include "bsl_firmware_update.h"
 
 sl_sleeptimer_timer_handle_t updateTimer;
 
+// TX and RX buffers for use during transmit and receive
+uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
+uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
+
+// Variable to hold the Max buffer allowed by BSL core
+uint16_t BSL_MAX_BUFFER_SIZE;
+
+//Varible declaration for holding the state of the timer during BSL
 bool update_timer_expired = false;
 
+// declaration of the bsl read type variable
 uint8_t bsl_read;
+
+sl_status_t sc;
 
 void updateTimerEx_Callback(sl_sleeptimer_timer_handle_t *handle, void *data){
   (void)data;
   (void)handle;
 
   update_timer_expired = true;
-  app_log_info("Update_timer_expired.\n");
+  //app_log_info("Update_timer_expired.\n");
 }
 
 void BSL_software_trigger(void)
@@ -42,10 +54,8 @@ void Firmware_assert_false(void)
 //
 //*****************************************************************************
 
-BSL_error_t Host_BSL_Connection(void)
+void Host_BSL_Connection(void)
 {
-    BSL_error_t bsl_err = eBSL_success;
-    sl_status_t sc;
     uint32_t ui32CRC;
 
     BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
@@ -67,7 +77,6 @@ BSL_error_t Host_BSL_Connection(void)
 
 
 //    TODO remove these unused variables bsl_err
-    return (bsl_err);
 }
 
 //*****************************************************************************
@@ -75,10 +84,8 @@ BSL_error_t Host_BSL_Connection(void)
 // ! Need to send when build connection to get RAM BSL_RX_buffer size and other information
 //
 //*****************************************************************************
-  BSL_error_t Host_BSL_GetID(void)
+  void Host_BSL_GetID(void)
 {
-    BSL_error_t bsl_err = eBSL_success;
-    sl_status_t sc;
     uint32_t ui32CRC;
 
     BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
@@ -106,7 +113,6 @@ BSL_error_t Host_BSL_Connection(void)
 //    BSL_MAX_BUFFER_SIZE = 0;
 //    BSL_MAX_BUFFER_SIZE =
 //        *(uint16_t *) &BSL_RX_buffer[HDR_LEN_CMD_BYTES + ID_BACK - 14];
-    return (bsl_err);
 }
 //*****************************************************************************
 // ! Unlock BSL for programming
@@ -115,10 +121,9 @@ BSL_error_t Host_BSL_Connection(void)
 // ! When programming complete, issue BSL_readPassword to retrieve new one.
 //
 //*****************************************************************************
-BSL_error_t Host_BSL_loadPassword(uint8_t *pPassword)
+void Host_BSL_loadPassword(uint8_t *pPassword)
 {
-    BSL_error_t bsl_err = eBSL_success;
-    uart_error_t uart_ack;
+
     uint32_t ui32CRC;
 
     BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
@@ -135,7 +140,7 @@ BSL_error_t Host_BSL_loadPassword(uint8_t *pPassword)
     *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + PASSWORD_SIZE] = ui32CRC;
 
     // Write the packet to the target
-    sc = sl_iostream_write(SL_IOSTREAM_STDIN ,HDR_LEN_CMD_BYTES + PASSWORD_SIZE + CRC_BYTES);
+    sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer ,HDR_LEN_CMD_BYTES + PASSWORD_SIZE + CRC_BYTES);
     app_assert_status(sc);
 
     bsl_read = BYTE_ACK;
@@ -148,7 +153,6 @@ BSL_error_t Host_BSL_loadPassword(uint8_t *pPassword)
 
 //    bsl_err = Host_BSL_getResponse();
 
-    return (bsl_err);
 }
 
 //*****************************************************************************
@@ -156,10 +160,8 @@ BSL_error_t Host_BSL_loadPassword(uint8_t *pPassword)
 // ! Need to do mess erase before write new image
 //
 //*****************************************************************************
-BSL_error_t Host_BSL_MassErase(void)
+void Host_BSL_MassErase(void)
 {
-    BSL_error_t bsl_err = eBSL_success;
-    uart_error_t uart_ack;
     uint32_t ui32CRC;
 
     BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
@@ -173,13 +175,11 @@ BSL_error_t Host_BSL_MassErase(void)
     *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES] = ui32CRC;
 
     // Write the packet to the target
-    uart_ack = UART_writeBuffer(BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
-    if (uart_ack != uart_noError) {
-        Firmware_assert_false();
-    }
-
-    bsl_err = Host_BSL_getResponse();
-    return (bsl_err);
+    sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
+    app_assert_status(sc);
+//    uart_ack = UART_writeBuffer(BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
+    bsl_read = BYTE_ACK;
+//    bsl_err = Host_BSL_getResponse();
 }
 
 //*****************************************************************************
@@ -188,82 +188,83 @@ BSL_error_t Host_BSL_MassErase(void)
 // ! Writes memory section to target
 //
 //*****************************************************************************
-BSL_error_t Host_BSL_writeMemory(
-    uint32_t addr, const uint8_t *data, uint32_t len)
-{
-    BSL_error_t bsl_err = eBSL_success;
-    uart_error_t uart_ack;
-    uint16_t ui16DataLength;
-    uint16_t ui16PayloadSize;
-    uint16_t ui16PacketSize;
-    uint32_t ui32CRC;
-    uint16_t ui16BytesToWrite = len;
-    uint32_t TargetAddress    = addr;
+//BSL_error_t Host_BSL_writeMemory(
+//    uint32_t addr, const uint8_t *data, uint32_t len)
+//{
+//    BSL_error_t bsl_err = eBSL_success;
+//    uart_error_t uart_ack;
+//    uint16_t ui16DataLength;
+//    uint16_t ui16PayloadSize;
+//    uint16_t ui16PacketSize;
+//    uint32_t ui32CRC;
+//    uint16_t ui16BytesToWrite = len;
+//    uint32_t TargetAddress    = addr;
+//
+//    //  pSection->checksum = softwareCRC(pSection->pMemory, pSection->mem_size);
+//
+//    while (ui16BytesToWrite > 0) {
+//        delay_cycles(2000000);  //allow target deal with the packet send before
+//
+//        if (ui16BytesToWrite >= MAX_PAYLOAD_DATA_SIZE)
+//            ui16DataLength = MAX_PAYLOAD_DATA_SIZE;
+//        else
+//            ui16DataLength = ui16BytesToWrite;
+//
+//        ui16BytesToWrite = ui16BytesToWrite - ui16DataLength;
+//
+//        // Add (1byte) command + (4 bytes)ADDRS = 5 bytes to the payload
+//        ui16PayloadSize = (CMD_BYTE + ADDRS_BYTES + ui16DataLength);
+//
+//        BSL_TX_buffer[0] = PACKET_HEADER;
+//        BSL_TX_buffer[1] =
+//            LSB(ui16PayloadSize);  // typically 4 + MAX_PAYLOAD SIZE
+//        BSL_TX_buffer[2] = MSB(ui16PayloadSize);
+//        BSL_TX_buffer[3] = (uint8_t) CMD_PROGRAMDATA;
+//        *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES] = TargetAddress;
+//
+//        // Bump up the target address by 2x the number of bytes sent for the next packet
+//        TargetAddress += ui16DataLength;
+//
+//        // Copy the data into the BSL_RX_buffer
+//        memcpy(&BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES], data,
+//            ui16DataLength);
+//
+//        data += ui16DataLength;
+//
+//        // Calculate CRC on the PAYLOAD
+//        ui32CRC = softwareCRC(&BSL_TX_buffer[3], ui16PayloadSize);
+//
+//        // Calculate the packet length
+//        ui16PacketSize = HDR_LEN_CMD_BYTES + ADDRS_BYTES + ui16DataLength;
+//
+//        // Insert the CRC into the packet at the end
+//        *(uint32_t *) &BSL_TX_buffer[ui16PacketSize] = ui32CRC;
+//
+//        // Write the packet to the target
+//        uart_ack = UART_writeBuffer(BSL_TX_buffer, ui16PacketSize + CRC_BYTES);
+//        if (uart_ack != uart_noError) {
+//            Firmware_assert_false();
+//        }
+//
+//        // Check operation was complete
+//        bsl_err = Host_BSL_getResponse();
+//        if (bsl_err != eBSL_success) break;
+//
+//    }  // end while
+//
+//    return (bsl_err);
+//}
 
-    //  pSection->checksum = softwareCRC(pSection->pMemory, pSection->mem_size);
 
-    while (ui16BytesToWrite > 0) {
-        delay_cycles(2000000);  //allow target deal with the packet send before
 
-        if (ui16BytesToWrite >= MAX_PAYLOAD_DATA_SIZE)
-            ui16DataLength = MAX_PAYLOAD_DATA_SIZE;
-        else
-            ui16DataLength = ui16BytesToWrite;
-
-        ui16BytesToWrite = ui16BytesToWrite - ui16DataLength;
-
-        // Add (1byte) command + (4 bytes)ADDRS = 5 bytes to the payload
-        ui16PayloadSize = (CMD_BYTE + ADDRS_BYTES + ui16DataLength);
-
-        BSL_TX_buffer[0] = PACKET_HEADER;
-        BSL_TX_buffer[1] =
-            LSB(ui16PayloadSize);  // typically 4 + MAX_PAYLOAD SIZE
-        BSL_TX_buffer[2] = MSB(ui16PayloadSize);
-        BSL_TX_buffer[3] = (uint8_t) CMD_PROGRAMDATA;
-        *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES] = TargetAddress;
-
-        // Bump up the target address by 2x the number of bytes sent for the next packet
-        TargetAddress += ui16DataLength;
-
-        // Copy the data into the BSL_RX_buffer
-        memcpy(&BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES], data,
-            ui16DataLength);
-
-        data += ui16DataLength;
-
-        // Calculate CRC on the PAYLOAD
-        ui32CRC = softwareCRC(&BSL_TX_buffer[3], ui16PayloadSize);
-
-        // Calculate the packet length
-        ui16PacketSize = HDR_LEN_CMD_BYTES + ADDRS_BYTES + ui16DataLength;
-
-        // Insert the CRC into the packet at the end
-        *(uint32_t *) &BSL_TX_buffer[ui16PacketSize] = ui32CRC;
-
-        // Write the packet to the target
-        uart_ack = UART_writeBuffer(BSL_TX_buffer, ui16PacketSize + CRC_BYTES);
-        if (uart_ack != uart_noError) {
-            Firmware_assert_false();
-        }
-
-        // Check operation was complete
-        bsl_err = Host_BSL_getResponse();
-        if (bsl_err != eBSL_success) break;
-
-    }  // end while
-
-    return (bsl_err);
-}
 
 //*****************************************************************************
 // ! Host_BSL_StartApp
 // ! Start the new application
 //
 //*****************************************************************************
-BSL_error_t Host_BSL_StartApp(void)
+void Host_BSL_StartApp(void)
 {
-    BSL_error_t bsl_err = eBSL_success;
-    uart_error_t uart_ack;
     uint32_t ui32CRC;
 
     BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
@@ -277,11 +278,11 @@ BSL_error_t Host_BSL_StartApp(void)
     *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES] = ui32CRC;
 
     // Write the packet to the target
-    uart_ack = UART_writeBuffer(BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
-    if (uart_ack != uart_noError) {
-        Firmware_assert_false();
-    }
-    return (bsl_err);
+    sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
+    app_assert_status(sc);
+    bsl_read = BYTE_ACK;
+//    uart_ack = UART_writeBuffer(BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
+
 }
 
 //*****************************************************************************
@@ -319,16 +320,16 @@ uint32_t softwareCRC(const uint8_t *data, uint8_t length)
 // ! Returns errors.
 //
 //*****************************************************************************
-BSL_error_t Host_BSL_getResponse(void)
-{
-    BSL_error_t bsl_err = eBSL_success;
-
-    UART_readBuffer(BSL_RX_buffer, (HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES));
-    //   Get ACK value
-    bsl_err = BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1];
-    //   Return ACK value
-    return (bsl_err);
-}
-
-
-
+//BSL_error_t Host_BSL_getResponse(void)
+//{
+//    BSL_error_t bsl_err = eBSL_success;
+//
+//    UART_readBuffer(BSL_RX_buffer, (HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES));
+//    //   Get ACK value
+//    bsl_err = BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1];
+//    //   Return ACK value
+//    return (bsl_err);
+//}
+//
+//
+//

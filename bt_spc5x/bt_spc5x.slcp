@@ -28,7 +28,7 @@ include:
 sdk: {id: gecko_sdk, version: 4.4.6}
 toolchain_settings: []
 component:
-- {id: EFR32MG22C224F512IM40}
+- {id: EFR32MG22C224F512IM32}
 - {id: app_assert}
 - {id: app_button_press}
 - {id: app_log}
@@ -41,8 +41,8 @@ component:
 - {id: bluetooth_feature_system}
 - {id: bluetooth_stack}
 - {id: bootloader_interface}
-- {id: brd4002a}
-- {id: brd4182a_b06}
+- {id: brd4001a}
+- {id: brd4183a}
 - {id: bt_post_build}
 - {id: component_catalog}
 - {id: debug_swo}

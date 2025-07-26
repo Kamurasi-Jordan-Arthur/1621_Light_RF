@@ -2,7 +2,7 @@ Scr/bt_SPC51_SM.o: ../Scr/bt_SPC51_SM.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_common.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h \
- c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h \
+ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h \
@@ -93,16 +93,18 @@ Scr/bt_SPC51_SM.o: ../Scr/bt_SPC51_SM.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_simple_led.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_led.h \
  C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x\autogen/sl_simple_led_instances.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/app.h \
  C:\qp\qpc/include/qpc.h C:\qp\qpc/ports/qep-only/qp_port.h \
  C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/qp_config.h \
  C:\qp\qpc/include/qp.h C:\qp\qpc/include/qsafe.h \
  C:\qp\qpc/include/qs_dummy.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/bt_SPC51_SM.h
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/app.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/bt_SPC51_SM.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/bsl_firmware_update.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/app_image.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\em_device.h:
-c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im40.h:
+c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32mg22\include\efr32mg22c224f512im32.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\core_cm33.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_version.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\cmsis\core\include\cmsis_compiler.h:
@@ -193,11 +195,13 @@ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x\autogen/sl_simple_button_i
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_simple_led.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_led.h:
 C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x\autogen/sl_simple_led_instances.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/app.h:
 C:\qp\qpc/include/qpc.h:
 C:\qp\qpc/ports/qep-only/qp_port.h:
 C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/qp_config.h:
 C:\qp\qpc/include/qp.h:
 C:\qp\qpc/include/qsafe.h:
 C:\qp\qpc/include/qs_dummy.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/app.h:
 C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/bt_SPC51_SM.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/bsl_firmware_update.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x/Inc/app_image.h:

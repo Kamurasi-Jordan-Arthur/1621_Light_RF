@@ -56,7 +56,7 @@ sl_bt_msg_t * event;
 //QEvent instance for button press events to the QMsh
 buttonEvt_t buttonEvt;
 
-static bool button_pressed = false;
+bool button_pressed = false;
 
 // Appliction SIG for blink expire
 static bool blink_expired;
@@ -119,7 +119,7 @@ SL_WEAK void app_process_action(void)
   }
 
   if(update_timer_expired){
-      button_pressed = false;
+      update_timer_expired = false;
       app_log_info("Update_timer_expired.\n");
 
       QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
@@ -131,7 +131,8 @@ SL_WEAK void app_process_action(void)
       // Highly encouraged to create time an implement a Qeueu in you appication (QMQEUEU)
       size_t bytes_read;
       switch (bsl_read) {
-        case BYTE_ACK:
+
+        case STATUS_CHECK:
           if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U), &bytes_read) == SL_STATUS_OK){
               QEvt UART_ARK_EVT = QEVT_INITIALIZER(UART_ARK_ID);
               QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
@@ -140,7 +141,7 @@ SL_WEAK void app_process_action(void)
 
           break;
 
-        case STATUS_CHECK:
+        case BYTE_ACK:
           if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U), &bytes_read) == SL_STATUS_OK){
               QEvt UART_ARK_EVT = QEVT_INITIALIZER(UART_ARK_ID);
               QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
@@ -153,6 +154,10 @@ SL_WEAK void app_process_action(void)
 
           if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK){
 
+              // Only way of asserting if its correct
+              app_assert_s(BSL_MAX_BUFFER_SIZE >= MAX_PACKET_SIZE);
+
+              // infom the statemachine
               QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
               QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
 
@@ -161,9 +166,12 @@ SL_WEAK void app_process_action(void)
           break;
 
         case UNLOCK_RSP:
-
           if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK) {
 
+//              Assert validility of operation
+              app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
+
+//              infom state machine
               QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
               QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
 
@@ -171,9 +179,60 @@ SL_WEAK void app_process_action(void)
 
           break;
 
+        case MASS_ERASE_RSP:
+          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK) {
+
+//              Assert validility of operation
+              app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
+
+//              inform the state machine
+//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+
+              sc = sl_sleeptimer_restart_timer_ms(
+                &updateTimer,
+                MASS_ERASE_DELAY,
+                updateTimerEx_Callback,
+                NULL,
+                0,      // priority
+                0       // option_flags
+              );
+              app_assert_status(sc);
+
+          }
+
+          break;
+        case DATA_WRITE_RSP:
+
+          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK) {
+
+//              Assert validility of operation
+              app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
+
+//              inform the state machine
+//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+
+              sc = sl_sleeptimer_restart_timer_ms(
+                &updateTimer,
+                BSL_NEXT_WRITE_DELAY,
+                updateTimerEx_Callback,
+                NULL,
+                0,      // priority
+                0       // option_flags
+              );
+              app_assert_status(sc);
+
+
+          }
+
+          break;
+
         default:
           break;
+
       }
+//      bsl_read = OTHER;
 
   }
   /////////////////////////////////////////////////////////////////////////////
