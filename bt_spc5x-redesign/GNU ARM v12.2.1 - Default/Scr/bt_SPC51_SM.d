@@ -93,12 +93,14 @@ Scr/bt_SPC51_SM.o: ../Scr/bt_SPC51_SM.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_simple_led.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_led.h \
  C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_simple_led_instances.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/app.h \
  C:\qp\qpc/include/qpc.h C:\qp\qpc/ports/qep-only/qp_port.h \
  C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/qp_config.h \
  C:\qp\qpc/include/qp.h C:\qp\qpc/include/qsafe.h \
  C:\qp\qpc/include/qs_dummy.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/bt_SPC51_SM.h
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/app.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/bt_SPC51_SM.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/bsl_firmware_update.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/app_image.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\em_device.h:
@@ -193,11 +195,13 @@ C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_simple
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_simple_led.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\leddrv\inc\sl_led.h:
 C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_simple_led_instances.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/app.h:
 C:\qp\qpc/include/qpc.h:
 C:\qp\qpc/ports/qep-only/qp_port.h:
 C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/qp_config.h:
 C:\qp\qpc/include/qp.h:
 C:\qp\qpc/include/qsafe.h:
 C:\qp\qpc/include/qs_dummy.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/app.h:
 C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/bt_SPC51_SM.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/bsl_firmware_update.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/app_image.h:

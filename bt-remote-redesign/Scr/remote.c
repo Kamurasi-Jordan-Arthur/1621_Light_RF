@@ -1300,6 +1300,7 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
         }
         //${SMs::bt_remote::SM::operational::openning::sl_bt_evt_connection_closed_id}
         case sl_bt_evt_connection_closed_id: {
+            me->add_type = INVALID_ADDRESS_TYPE;
             static struct {
                 QMState const *target;
                 QActionHandler act[3];

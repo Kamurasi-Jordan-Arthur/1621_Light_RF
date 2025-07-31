@@ -107,7 +107,6 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bgapi.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h \
- c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\debug\inc\sl_debug_swo.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h \
  ../autogen/sl_iostream_init_eusart_instances.h \
@@ -304,7 +303,6 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bgapi.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h:
-c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\driver\debug\inc\sl_debug_swo.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h:
 ../autogen/sl_iostream_init_eusart_instances.h:

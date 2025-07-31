@@ -83,7 +83,7 @@
 #define MAX_LED_INDEX (uint8_t)3U
 
 //${SMs::RUNNING_TIMEOUT} ....................................................
-#define RUNNING_TIMEOUT (1U * 5U * 1000U)
+#define RUNNING_TIMEOUT (1U * 10U * 1000U)
 
 //${SMs::INVALID_ADDRESS_TYPE} ...............................................
 #define INVALID_ADDRESS_TYPE 0xff

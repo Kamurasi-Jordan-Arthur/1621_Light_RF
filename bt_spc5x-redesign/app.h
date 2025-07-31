@@ -33,9 +33,30 @@
 //typedef struct sl_bt_msg sl_bt_msg_t;
 //typedef struct sl_sleeptimer_timer_handle sl_sleeptimer_timer_handle_t;
 
-
 // for matter of extention to the state machine handler
 extern sl_bt_msg_t * event;
+
+enum USER_SIGS {
+  BUTTON_ID = Q_USER_SIG,
+  NEXT_FIRMWARE_UPDATE_STATE_ID,
+  UART_ARK_ID,
+  TIMEOUT_ID,
+};
+
+typedef struct {
+    QEvt super;    /* inherits QEvt */
+
+    uint8_t keyId; /* event parameter (ID of the key depressed) */
+
+    uint8_t duration; /* how long has it been depressed*/
+
+} buttonEvt_t;
+
+// exporting of the button Evt varible holding the press configurations
+extern buttonEvt_t buttonEvt;
+
+//decision bool for to send a button pressed event
+extern bool button_pressed;
 
 //timer instance for new connections.
 extern sl_sleeptimer_timer_handle_t newConnectionTimer;

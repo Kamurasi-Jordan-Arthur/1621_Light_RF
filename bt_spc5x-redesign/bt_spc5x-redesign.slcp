@@ -50,7 +50,6 @@ component:
 - instance: [vcom]
   id: iostream_eusart
 - {id: mpu}
-- {id: rail_util_pti}
 - instance: [btn0, btn1, btn2]
   id: simple_button
 - instance: [led0]

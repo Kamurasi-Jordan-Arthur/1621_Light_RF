@@ -31,7 +31,6 @@ gecko_sdk_4.4.6/platform/bootloader/app_properties \
 gecko_sdk_4.4.6/platform/common/src \
 gecko_sdk_4.4.6/platform/common/toolchain/src \
 gecko_sdk_4.4.6/platform/driver/button/src \
-gecko_sdk_4.4.6/platform/driver/debug/src \
 gecko_sdk_4.4.6/platform/driver/leddrv/src \
 gecko_sdk_4.4.6/platform/emdrv/dmadrv/src \
 gecko_sdk_4.4.6/platform/emdrv/gpiointerrupt/src \

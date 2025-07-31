@@ -1,6 +1,0 @@
-#ifndef FIRMWARE_UPDATE_
-#define FIRMWARE_UPDATE_
-
-extern bool update_timer_expired;
-
-#endif

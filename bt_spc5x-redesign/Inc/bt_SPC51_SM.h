@@ -54,16 +54,25 @@ typedef struct {
     bd_addr address;
     uint8_t address_type;
     uint8_t system_id[8];
+    uint8_t section;
+    uint32_t TargetAddress;
+    uint16_t ui16BytesToWrite;
+    uint8_t * data;
+    uint8_t bsl_pwd [32];
 } bt_SPC51;
 
 // public:
 void bt_SPC51_ctor(bt_SPC51 * const me);
+
+// private:
+void bt_SPC51_Host_BSL_writeMemory(bt_SPC51 * const me);
 
 // protected:
 QState bt_SPC51_initial(bt_SPC51 * const me, void const * const par);
 QState bt_SPC51_INITIALIZING  (bt_SPC51 * const me, QEvt const * const e);
 extern QMState const bt_SPC51_INITIALIZING_s;
 QState bt_SPC51_OPERRATIONAL  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_OPERRATIONAL_e(bt_SPC51 * const me);
 QState bt_SPC51_OPERRATIONAL_i(bt_SPC51 * const me);
 extern QMState const bt_SPC51_OPERRATIONAL_s;
 QState bt_SPC51_ADVERTISING  (bt_SPC51 * const me, QEvt const * const e);
@@ -72,6 +81,43 @@ extern QMState const bt_SPC51_ADVERTISING_s;
 QState bt_SPC51_MANAGING_CONNECTION  (bt_SPC51 * const me, QEvt const * const e);
 QState bt_SPC51_MANAGING_CONNECTION_e(bt_SPC51 * const me);
 extern QMState const bt_SPC51_MANAGING_CONNECTION_s;
+QState bt_SPC51_FIRMWARE_UPDATE  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_FIRMWARE_UPDATE_x(bt_SPC51 * const me);
+QState bt_SPC51_FIRMWARE_UPDATE_i(bt_SPC51 * const me);
+extern QMState const bt_SPC51_FIRMWARE_UPDATE_s;
+QState bt_SPC51_SEND_CONN  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_SEND_CONN_e(bt_SPC51 * const me);
+QState bt_SPC51_SEND_CONN_x(bt_SPC51 * const me);
+extern QMState const bt_SPC51_SEND_CONN_s;
+QState bt_SPC51_GET_DEV_INFO  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_GET_DEV_INFO_e(bt_SPC51 * const me);
+QState bt_SPC51_GET_DEV_INFO_x(bt_SPC51 * const me);
+extern QMState const bt_SPC51_GET_DEV_INFO_s;
+QState bt_SPC51_UNLOCK  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_UNLOCK_e(bt_SPC51 * const me);
+QState bt_SPC51_UNLOCK_x(bt_SPC51 * const me);
+extern QMState const bt_SPC51_UNLOCK_s;
+QState bt_SPC51_UNLOCKED  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_UNLOCKED_i(bt_SPC51 * const me);
+extern QMState const bt_SPC51_UNLOCKED_s;
+QState bt_SPC51_MASS_ERASE  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_MASS_ERASE_e(bt_SPC51 * const me);
+QState bt_SPC51_MASS_ERASE_x(bt_SPC51 * const me);
+extern QMState const bt_SPC51_MASS_ERASE_s;
+QState bt_SPC51_PROGRAM_SECTION  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_PROGRAM_SECTION_e(bt_SPC51 * const me);
+QState bt_SPC51_PROGRAM_SECTION_x(bt_SPC51 * const me);
+extern QMState const bt_SPC51_PROGRAM_SECTION_s;
+QState bt_SPC51_PROG_VERIFICATION  (bt_SPC51 * const me, QEvt const * const e);
+extern QMState const bt_SPC51_PROG_VERIFICATION_s;
+QState bt_SPC51_START_APP  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_START_APP_e(bt_SPC51 * const me);
+QState bt_SPC51_START_APP_x(bt_SPC51 * const me);
+extern QMState const bt_SPC51_START_APP_s;
+QState bt_SPC51_CheckStaus  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_CheckStaus_e(bt_SPC51 * const me);
+QState bt_SPC51_CheckStaus_x(bt_SPC51 * const me);
+extern QMState const bt_SPC51_CheckStaus_s;
 
 //${SMs::bt_SPC51_inst} ......................................................
 extern bt_SPC51 bt_SPC51_inst;
@@ -96,10 +142,27 @@ extern bt_SPC51 bt_SPC51_inst;
 
 //${SMs::CONN_MAX_CE_LENGTH} .................................................
 #define CONN_MAX_CE_LENGTH 0xffff
+
+//${SMs::BSL_INVOCK_DELAY} ...................................................
+#define BSL_INVOCK_DELAY (1U * 1U* 1000U)
+
+//${SMs::BSL_CHECK_STATUS_WAIT} ..............................................
+#define BSL_CHECK_STATUS_WAIT (1U * 1U* 1000U)
+
+//${SMs::MASS_ERASE_DELAY} ...................................................
+#define MASS_ERASE_DELAY (1U * 1U* 1000U)
+
+//${SMs::BSL_NEXT_WRITE_DELAY} ...............................................
+#define BSL_NEXT_WRITE_DELAY (1U * 1U* 1000U)
 //$enddecl${SMs} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 //$declare(SMs::bt_SPC51)
 //$declare(SMs::remoteSM_ctor)
+
+//for power firmware update debugings
+//#define LED_DEB (void)0U;
+#define LED_DEB sl_led_toggle(&sl_led_led0);
+
 
 extern QMsm * const QMsm_bt_SPC51_p; // opaque pointer to the remoteSM HSM
 

@@ -73,7 +73,6 @@ autogen/sl_event_handler.o: ../autogen/sl_event_handler.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\pa-conversions\efr32xg22/sl_rail_util_pa_curves.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\pa-conversions\pa_curve_types_efr32.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\rail_util_power_manager_init\sl_rail_util_power_manager_init.h \
- c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\rail_util_pti\sl_rail_util_pti.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\bootloader\api\btl_interface.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\bootloader\api\btl_errorcode.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\bootloader\api\btl_reset_info.h \
@@ -271,7 +270,6 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\pa-conversions\efr32xg22/sl_rail_util_pa_curves.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\pa-conversions\pa_curve_types_efr32.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\rail_util_power_manager_init\sl_rail_util_power_manager_init.h:
-c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\radio\rail_lib\plugin\rail_util_pti\sl_rail_util_pti.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\bootloader\api\btl_interface.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\bootloader\api\btl_errorcode.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\bootloader\api\btl_reset_info.h:

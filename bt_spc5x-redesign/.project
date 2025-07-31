@@ -1681,16 +1681,6 @@
 			<locationURI>STUDIO_SDK_LOC/platform/radio/rail_lib/plugin/rail_util_power_manager_init/sl_rail_util_power_manager_init.h</locationURI>
 		</link>
 		<link>
-			<name>gecko_sdk_4.4.6/platform/radio/rail_lib/plugin/rail_util_pti/sl_rail_util_pti.c</name>
-			<type>1</type>
-			<locationURI>STUDIO_SDK_LOC/platform/radio/rail_lib/plugin/rail_util_pti/sl_rail_util_pti.c</locationURI>
-		</link>
-		<link>
-			<name>gecko_sdk_4.4.6/platform/radio/rail_lib/plugin/rail_util_pti/sl_rail_util_pti.h</name>
-			<type>1</type>
-			<locationURI>STUDIO_SDK_LOC/platform/radio/rail_lib/plugin/rail_util_pti/sl_rail_util_pti.h</locationURI>
-		</link>
-		<link>
 			<name>gecko_sdk_4.4.6/platform/radio/rail_lib/protocol/ble/rail_ble.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/radio/rail_lib/protocol/ble/rail_ble.h</locationURI>
