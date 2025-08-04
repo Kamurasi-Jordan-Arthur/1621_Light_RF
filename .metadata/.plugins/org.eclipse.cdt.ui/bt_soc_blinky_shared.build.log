@@ -1,7 +1,0 @@
-03:01:26 **** Clean-only build of configuration GNU ARM v12.2.1 - Default for project bt_soc_blinky_shared ****
-make -j8 clean 
-rm -rf bt_soc_blinky_shared.axf
- 
-
-03:01:32 Build Finished. 0 errors, 0 warnings. (took 5s.870ms)
-

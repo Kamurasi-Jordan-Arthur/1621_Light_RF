@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move &apos;app.h&apos; to &apos;bt_soc_blinky_shared&apos;" description="Move &apos;app.h&apos; to &apos;bt_soc_blinky_shared&apos;" destination="/bt_soc_blinky_shared" element1="Inc/app.h" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1752877272710" updateReferences="true"/>
-</session>
