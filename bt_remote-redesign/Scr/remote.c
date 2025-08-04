@@ -519,29 +519,9 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
         }
         //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
-            //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_p~::[databaseChanged]}
-            if (event->data.evt_gatt_procedure_completed.result == SL_STATUS_BT_ATT_OUT_OF_SYNC) {
-                app_log_warning("DataBase Changed!\n");
-                static struct {
-                    QMState const *target;
-                    QActionHandler act[4];
-                } const tatbl_ = { // tran-action table
-                    &bt_remote_discoveryAndSetup_s, // target state
-                    {
-                        Q_ACTION_CAST(&bt_remote_running_x), // exit
-                        Q_ACTION_CAST(&bt_remote_discoveryAndSetup_e), // entry
-                        Q_ACTION_CAST(&bt_remote_discoveryAndSetup_i), // initial tran.
-                        Q_ACTION_NULL // zero terminator
-                    }
-                };
-                status_ = QM_TRAN(&tatbl_);
-            }
-            //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_p~::[else]}
-            else {
-                app_button_press_enable();
-                app_log_warning("DataBase Intact!\n");
-                status_ = QM_HANDLED();
-            }
+            app_button_press_enable();
+            app_log_warning("DataBase Intact!\n");
+            status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_remote::SM::operational::running::TIMEOUT_ID}
@@ -559,19 +539,46 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
         }
         //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_characteristic_va~}
         case sl_bt_evt_gatt_characteristic_value_id: {
-            if (event->data.evt_gatt_characteristic_value.characteristic == me->led_conf_characteristic_handle) {
-              memcpy(me->led_conf,
-                     event->data.evt_gatt_characteristic_value.value.data,
-                     event->data.evt_gatt_characteristic_value.value.len);
+            //if (event->data.evt_gatt_characteristic_value.characteristic == me->led_conf_characteristic_handle) {
+            //  memcpy(me->led_conf,
+            //         event->data.evt_gatt_characteristic_value.value.data,
+            //         event->data.evt_gatt_characteristic_value.value.len);
+            //}
+
+            //app_log_info("Led_conf: 0x%02X, 0x%02X, 0x%02X, 0x%02X\n",
+            //             me->led_conf[0],
+            //             me->led_conf[1],
+            //             me->led_conf[2],
+            //             me->led_conf[3]);
+
+            //${SMs::bt_remote::SM::operational::running::sl_bt_evt_gatt_c~::[Service_change_indication!]}
+            if (event->data.evt_gatt_characteristic_value.att_opcode == sl_bt_gatt_handle_value_indication &&
+                event->data.evt_gatt_characteristic_value.characteristic == me->service_Changed_characteristic_hanlde)
+            {
+
+                me->sc = sl_bt_gatt_send_characteristic_confirmation(
+                                me->connection_handle
+                                );
+
+                app_assert_status(me->sc);
+
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[4];
+                } const tatbl_ = { // tran-action table
+                    &bt_remote_discoveryAndSetup_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_remote_running_x), // exit
+                        Q_ACTION_CAST(&bt_remote_discoveryAndSetup_e), // entry
+                        Q_ACTION_CAST(&bt_remote_discoveryAndSetup_i), // initial tran.
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
             }
-
-            app_log_info("Led_conf: 0x%02X, 0x%02X, 0x%02X, 0x%02X\n",
-                         me->led_conf[0],
-                         me->led_conf[1],
-                         me->led_conf[2],
-                         me->led_conf[3]);
-
-            status_ = QM_HANDLED();
+            else {
+                status_ = QM_UNHANDLED();
+            }
             break;
         }
         //${SMs::bt_remote::SM::operational::running::sl_bt_evt_connection_parameters_~}
@@ -756,7 +763,7 @@ QMState const bt_remote_discoveryAndSetup_s = {
 //${SMs::bt_remote::SM::operational::discoveryAndSetup}
 QState bt_remote_discoveryAndSetup_e(bt_remote * const me) {
     //listen to now button presses
-    //app_button_press_disable();
+    app_button_press_disable();
 
     Q_UNUSED_PAR(me);
     return QM_ENTRY(&bt_remote_discoveryAndSetup_s);
@@ -805,6 +812,9 @@ QState bt_remote_Service_discovery_e(bt_remote * const me) {
 
     app_log_info("Discovering Services.\n");
 
+    me->led_control_service_handle = SERVICE_HANDLE_INVALID;
+    me->generic_Attribute_Service_handle = SERVICE_HANDLE_INVALID;
+
     LED_DEB
     return QM_ENTRY(&bt_remote_Service_discovery_s);
 }
@@ -826,8 +836,8 @@ QState bt_remote_Service_discovery(bt_remote * const me, QEvt const * const e) {
                me->led_control_service_handle = event->data.evt_gatt_service.service;
                app_log_info("Led_ control Service handle gotten.\n");
 
-            }else if(memcmp(event->data.evt_gatt_service.uuid.data, robustCaching_service_UUID, sizeof(robustCaching_service_UUID)) == 0){
-               me->robust_caching_service_handle = event->data.evt_gatt_service.service;
+            }else if(memcmp(event->data.evt_gatt_service.uuid.data, generic_Attribute_Service_UUID, sizeof(generic_Attribute_Service_UUID)) == 0){
+               me->generic_Attribute_Service_handle = event->data.evt_gatt_service.service;
                 app_log_info("robustCaching_service handle gotten.\n");
 
             }else {
@@ -844,16 +854,16 @@ QState bt_remote_Service_discovery(bt_remote * const me, QEvt const * const e) {
         case sl_bt_evt_gatt_procedure_completed_id: {
             //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_discover~::sl_bt_evt_gatt_p~::[ServiceGotten]}
             if (me->led_control_service_handle &&
-                me->robust_caching_service_handle)
+                me->generic_Attribute_Service_handle)
             {
                 static struct {
                     QMState const *target;
                     QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
-                    &bt_remote_Enable_robust_caching_s, // target state
+                    &bt_remote_Service_change_indication_Enable_s, // target state
                     {
                         Q_ACTION_CAST(&bt_remote_Service_discovery_x), // exit
-                        Q_ACTION_CAST(&bt_remote_Enable_robust_caching_e), // entry
+                        Q_ACTION_CAST(&bt_remote_Service_change_indication_Enable_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
                 };
@@ -1004,58 +1014,58 @@ QState bt_remote_characteristic_discovery(bt_remote * const me, QEvt const * con
     return status_;
 }
 
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
-QMState const bt_remote_Enable_robust_caching_s = {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_indication_Enable}
+QMState const bt_remote_Service_change_indication_Enable_s = {
     &bt_remote_discoveryAndSetup_s, // superstate
-    Q_STATE_CAST(&bt_remote_Enable_robust_caching),
-    Q_ACTION_CAST(&bt_remote_Enable_robust_caching_e),
-    Q_ACTION_CAST(&bt_remote_Enable_robust_caching_x),
+    Q_STATE_CAST(&bt_remote_Service_change_indication_Enable),
+    Q_ACTION_CAST(&bt_remote_Service_change_indication_Enable_e),
+    Q_ACTION_CAST(&bt_remote_Service_change_indication_Enable_x),
     Q_ACTION_NULL  // no initial tran.
 };
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
-QState bt_remote_Enable_robust_caching_e(bt_remote * const me) {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_indication_Enable}
+QState bt_remote_Service_change_indication_Enable_e(bt_remote * const me) {
     //Enable Robust Caching by writing to the Client Supported Features characteristic of the server:
     me->sc = sl_bt_gatt_discover_characteristics_by_uuid(me->connection_handle,
-                        me->robust_caching_service_handle,
-                        sizeof(robustCaching_char_UUID),
-                        robustCaching_char_UUID);
+                        me->generic_Attribute_Service_handle,
+                        sizeof(service_Changed_characteristic_UUID),
+                        service_Changed_characteristic_UUID);
 
     app_assert_status(me->sc);
 
     app_log_info("Discovering robust caching Characteristic.\n");
 
-    me->robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
+    me->service_Changed_characteristic_hanlde = CHARACTERISTIC_HANDLE_INVALID;
 
     LED_DEB
-    return QM_ENTRY(&bt_remote_Enable_robust_caching_s);
+    return QM_ENTRY(&bt_remote_Service_change_indication_Enable_s);
 }
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
-QState bt_remote_Enable_robust_caching_x(bt_remote * const me) {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_indication_Enable}
+QState bt_remote_Service_change_indication_Enable_x(bt_remote * const me) {
     LED_DEB
     (void)me; // unused parameter
-    return QM_EXIT(&bt_remote_Enable_robust_caching_s);
+    return QM_EXIT(&bt_remote_Service_change_indication_Enable_s);
 }
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_caching}
-QState bt_remote_Enable_robust_caching(bt_remote * const me, QEvt const * const e) {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_indication_Enable}
+QState bt_remote_Service_change_indication_Enable(bt_remote * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_procedure_complet~}
+        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
-            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_p~::[CharacteristicGotten!!!]}
-            if (me->robust_caching_characteritic_handle) {
+            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::sl_bt_evt_gatt_p~::[CharacteristicGotten!!!]}
+            if (me->service_Changed_characteristic_hanlde) {
                 static struct {
                     QMState const *target;
                     QActionHandler act[2];
                 } const tatbl_ = { // tran-action table
-                    &bt_remote_write_To_It_s, // target state
+                    &bt_remote_Subcribe_to_It_s, // target state
                     {
-                        Q_ACTION_CAST(&bt_remote_write_To_It_e), // entry
+                        Q_ACTION_CAST(&bt_remote_Subcribe_to_It_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
                 };
                 status_ = QM_TRAN(&tatbl_);
             }
-            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_p~::[else]}
+            //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::sl_bt_evt_gatt_p~::[else]}
             else {
                 me->sc = sl_bt_connection_close(me->connection_handle);
                 app_assert_status(me->sc);
@@ -1069,9 +1079,9 @@ QState bt_remote_Enable_robust_caching(bt_remote * const me, QEvt const * const 
             }
             break;
         }
-        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::sl_bt_evt_gatt_characteristic_id}
+        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::sl_bt_evt_gatt_characteristic_id}
         case sl_bt_evt_gatt_characteristic_id: {
-            me->robust_caching_characteritic_handle = event->data.evt_gatt_characteristic.characteristic;
+            me->service_Changed_characteristic_hanlde = event->data.evt_gatt_characteristic.characteristic;
             app_log_info("Robust_caching_characteritic_handle found.\n");
 
             status_ = QM_HANDLED();
@@ -1085,38 +1095,46 @@ QState bt_remote_Enable_robust_caching(bt_remote * const me, QEvt const * const 
     return status_;
 }
 
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
-QMState const bt_remote_write_To_It_s = {
-    &bt_remote_Enable_robust_caching_s, // superstate
-    Q_STATE_CAST(&bt_remote_write_To_It),
-    Q_ACTION_CAST(&bt_remote_write_To_It_e),
-    Q_ACTION_CAST(&bt_remote_write_To_It_x),
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::Subcribe_to_It}
+QMState const bt_remote_Subcribe_to_It_s = {
+    &bt_remote_Service_change_indication_Enable_s, // superstate
+    Q_STATE_CAST(&bt_remote_Subcribe_to_It),
+    Q_ACTION_CAST(&bt_remote_Subcribe_to_It_e),
+    Q_ACTION_CAST(&bt_remote_Subcribe_to_It_x),
     Q_ACTION_NULL  // no initial tran.
 };
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
-QState bt_remote_write_To_It_e(bt_remote * const me) {
-    uint8_t enable_bit[1] = {0x01};
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::Subcribe_to_It}
+QState bt_remote_Subcribe_to_It_e(bt_remote * const me) {
+    //uint8_t enable_bit[1] = {0x01};
 
-    me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-                                        me->robust_caching_characteritic_handle,
-                                        sizeof(enable_bit), &enable_bit[0]);
+    //me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
+    //                                    me->service_Changed_characteristic_hanlde,
+    //                                    sizeof(enable_bit), &enable_bit[0]);
+    //app_assert_status(me->sc);
+    //app_log_info("Writing to Robust enable bit.\n");
+
+    me->sc = sl_bt_gatt_set_characteristic_notification(
+                                            me->connection_handle,
+                                            me->service_Changed_characteristic_hanlde,
+                                            sl_bt_gatt_indication
+                                            );
+
     app_assert_status(me->sc);
-    app_log_info("Writing to Robust enable bit.\n");
 
     LED_DEB
-    return QM_ENTRY(&bt_remote_write_To_It_s);
+    return QM_ENTRY(&bt_remote_Subcribe_to_It_s);
 }
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
-QState bt_remote_write_To_It_x(bt_remote * const me) {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::Subcribe_to_It}
+QState bt_remote_Subcribe_to_It_x(bt_remote * const me) {
     LED_DEB
     (void)me; // unused parameter
-    return QM_EXIT(&bt_remote_write_To_It_s);
+    return QM_EXIT(&bt_remote_Subcribe_to_It_s);
 }
-//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It}
-QState bt_remote_write_To_It(bt_remote * const me, QEvt const * const e) {
+//${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::Subcribe_to_It}
+QState bt_remote_Subcribe_to_It(bt_remote * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Enable_robust_ca~::write_To_It::sl_bt_evt_gatt_procedure_complet~}
+        //${SMs::bt_remote::SM::operational::discoveryAndSetu~::Service_change_i~::Subcribe_to_It::sl_bt_evt_gatt_procedure_complet~}
         case sl_bt_evt_gatt_procedure_completed_id: {
             static struct {
                 QMState const *target;
@@ -1124,8 +1142,8 @@ QState bt_remote_write_To_It(bt_remote * const me, QEvt const * const e) {
             } const tatbl_ = { // tran-action table
                 &bt_remote_characteristic_discovery_s, // target state
                 {
-                    Q_ACTION_CAST(&bt_remote_write_To_It_x), // exit
-                    Q_ACTION_CAST(&bt_remote_Enable_robust_caching_x), // exit
+                    Q_ACTION_CAST(&bt_remote_Subcribe_to_It_x), // exit
+                    Q_ACTION_CAST(&bt_remote_Service_change_indication_Enable_x), // exit
                     Q_ACTION_CAST(&bt_remote_characteristic_discovery_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }
@@ -1185,6 +1203,8 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
             app_log_info("Connection Opened.\n");
 
             me->led_conf_characteristic_handle = 0x01;
+            me->bonding_Handle = event->data.evt_connection_opened.bonding;
+
             //Change the phy
             //me->sc = sl_bt_connection_set_preferred_phy(me->connection_handle,
             //                                            0x02U,
@@ -1201,8 +1221,8 @@ QState bt_remote_openning(bt_remote * const me, QEvt const * const e) {
             if (SL_BT_INVALID_BONDING_HANDLE != event->data.evt_connection_opened.bonding
                 && me->changes_characteristic_handle
                 && me->led_control_service_handle
-                && me->robust_caching_service_handle
-                && me->robust_caching_characteritic_handle)
+                && me->service_Changed_characteristic_hanlde
+                && me->generic_Attribute_Service_handle)
             {
                 app_log_info("Already Bonded.\n");
                 me->bonding_Handle = event->data.evt_connection_opened.bonding;

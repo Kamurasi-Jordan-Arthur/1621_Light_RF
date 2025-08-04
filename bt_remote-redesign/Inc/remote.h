@@ -83,7 +83,7 @@
 #define MAX_LED_INDEX (uint8_t)3U
 
 //${SMs::RUNNING_TIMEOUT} ....................................................
-#define RUNNING_TIMEOUT (1U * 10U * 1000U)
+#define RUNNING_TIMEOUT (1U * 5U * 1000U)
 
 //${SMs::INVALID_ADDRESS_TYPE} ...............................................
 #define INVALID_ADDRESS_TYPE 0xff
@@ -99,8 +99,8 @@ typedef struct {
     uint32_t led_control_service_handle;
     uint16_t led_conf_characteristic_handle;
     uint16_t changes_characteristic_handle;
-    uint32_t robust_caching_service_handle;
-    uint16_t robust_caching_characteritic_handle;
+    uint32_t generic_Attribute_Service_handle;
+    uint16_t service_Changed_characteristic_hanlde;
     uint8_t connection_handle;
     uint8_t led_conf[MAX_LED_INDEX + 1U];
     uint8_t changes[3];
@@ -144,14 +144,14 @@ QState bt_remote_characteristic_discovery  (bt_remote * const me, QEvt const * c
 QState bt_remote_characteristic_discovery_e(bt_remote * const me);
 QState bt_remote_characteristic_discovery_x(bt_remote * const me);
 extern QMState const bt_remote_characteristic_discovery_s;
-QState bt_remote_Enable_robust_caching  (bt_remote * const me, QEvt const * const e);
-QState bt_remote_Enable_robust_caching_e(bt_remote * const me);
-QState bt_remote_Enable_robust_caching_x(bt_remote * const me);
-extern QMState const bt_remote_Enable_robust_caching_s;
-QState bt_remote_write_To_It  (bt_remote * const me, QEvt const * const e);
-QState bt_remote_write_To_It_e(bt_remote * const me);
-QState bt_remote_write_To_It_x(bt_remote * const me);
-extern QMState const bt_remote_write_To_It_s;
+QState bt_remote_Service_change_indication_Enable  (bt_remote * const me, QEvt const * const e);
+QState bt_remote_Service_change_indication_Enable_e(bt_remote * const me);
+QState bt_remote_Service_change_indication_Enable_x(bt_remote * const me);
+extern QMState const bt_remote_Service_change_indication_Enable_s;
+QState bt_remote_Subcribe_to_It  (bt_remote * const me, QEvt const * const e);
+QState bt_remote_Subcribe_to_It_e(bt_remote * const me);
+QState bt_remote_Subcribe_to_It_x(bt_remote * const me);
+extern QMState const bt_remote_Subcribe_to_It_s;
 QState bt_remote_openning  (bt_remote * const me, QEvt const * const e);
 QState bt_remote_openning_e(bt_remote * const me);
 QState bt_remote_openning_x(bt_remote * const me);

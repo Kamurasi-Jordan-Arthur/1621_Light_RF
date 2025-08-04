@@ -389,7 +389,7 @@ app_assert_status(me-&gt;sc);
        <action>switch (Q_EVT_CAST(buttonEvt_t)-&gt;duration) {
       case APP_BUTTON_PRESS_DURATION_SHORT:
 
-        if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId) == &amp;sl_button_btn1){
+        if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId) == &amp;sl_button_btn0){
 
             me-&gt;sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG &amp; ~(1U &lt;&lt; 4)), sl_bt_sm_io_capability_displayonly);
             app_assert_status(me-&gt;sc);
@@ -411,7 +411,7 @@ app_assert_status(me-&gt;sc);
             app_log_info(&quot;Connectable to new devices...\n&quot;);
 
         }
-        else if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId) == &amp;sl_button_btn0){
+        else if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId) == &amp;sl_button_btn1){
           
           // Stop the advertising.
           me-&gt;sc = sl_bt_advertiser_stop(me-&gt;advertising_set_handle);

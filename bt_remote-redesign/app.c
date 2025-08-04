@@ -62,12 +62,12 @@ const uint8_t led_cofig_char_UUID[16] = {
   0xbd, 0x40, 0x74, 0x27, 0x89, 0x56, 0xf5, 0x5f
 };
 
- const uint8_t robustCaching_service_UUID[2] = {
+ const uint8_t  generic_Attribute_Service_UUID[2] = {
      0x01, 0x18
  };
 
- const uint8_t robustCaching_char_UUID[2] = {
-     0x29, 0x2b
+ const uint8_t  service_Changed_characteristic_UUID[2] = {
+     0x05, 0x2A
  };
 
 //
@@ -152,10 +152,10 @@ SL_WEAK void app_process_action(void)
   }
 
   if(button_pressed){
-      button_pressed = false;
       app_log_info("button_pressed.\n");
 
       QASM_DISPATCH(QMsm_bt_remote_p, &buttonEvt.super, (void)0U);
+      button_pressed = false;
 
       //because we have no event Queue hence
 //      if (button_pressed){
@@ -340,7 +340,7 @@ void app_button_press_cb(uint8_t button, uint8_t duration){
   buttonEvt.duration = duration;
   buttonEvt.keyId = button;
 
-//  switch (duration) { }
-////    Make sure the button press handled correctly
-  app_button_press_disable();
+  //  switch (duration) { }
+  //    Make sure the button press handled correctly
+  //app_button_press_disable();
 }

@@ -103,7 +103,7 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    <code>(uint8_t)3U</code>
   </attribute>
   <attribute name="RUNNING_TIMEOUT" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 10U * 1000U)</code>
+   <code>(1U * 5U * 1000U)</code>
   </attribute>
   <attribute name="INVALID_ADDRESS_TYPE" type="" visibility="0x03" properties="0x00">
    <code>0xff</code>
@@ -124,10 +124,10 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    <attribute name="changes_characteristic_handle" type="uint16_t" visibility="0x02" properties="0x00">
     <code>CHARACTERISTIC_HANDLE_INVALID;</code>
    </attribute>
-   <attribute name="robust_caching_service_handle" type="uint32_t" visibility="0x02" properties="0x00">
+   <attribute name="generic_Attribute_Service_handle" type="uint32_t" visibility="0x02" properties="0x00">
     <code>SERVICE_HANDLE_INVALID;</code>
    </attribute>
-   <attribute name="robust_caching_characteritic_handle" type="uint16_t" visibility="0x02" properties="0x00">
+   <attribute name="service_Changed_characteristic_hanlde" type="uint16_t" visibility="0x02" properties="0x00">
     <code>CHARACTERISTIC_HANDLE_INVALID;</code>
    </attribute>
    <attribute name="connection_handle" type="uint8_t" visibility="0x02" properties="0x00">
@@ -315,7 +315,7 @@ if (event-&gt;data.evt_connection_closed.reason == SL_STATUS_BT_CTRL_REMOTE_USER
      </tran>
      <state name="running">
       <entry>//listen to button presses
-//app_button_press_enable();
+app_button_press_enable();
 
 //sl_led_turn_on(&amp;sl_led_led0);
 
@@ -488,7 +488,7 @@ sl_led_turn_off(&amp;sl_led_led0);
 
 //    app_log_append_info(&quot;Deleting bond.\n&quot;);
 
-    app_button_press_enable();
+//    app_button_press_enable();
 
     break;
 
@@ -507,21 +507,8 @@ sl_led_turn_off(&amp;sl_led_led0);
        </tran_glyph>
       </tran>
       <tran trig="sl_bt_evt_gatt_procedure_completed_id">
-       <choice target="../../../6">
-        <guard brief="databaseChanged">event-&gt;data.evt_gatt_procedure_completed.result == SL_STATUS_BT_ATT_OUT_OF_SYNC</guard>
-        <action>app_log_warning(&quot;DataBase Changed!\n&quot;);</action>
-        <choice_glyph conn="146,83,5,1,-16">
-         <action box="-16,1,15,2"/>
-        </choice_glyph>
-       </choice>
-       <choice>
-        <guard>else</guard>
-        <action>app_button_press_enable();
+       <action>app_button_press_enable();
 app_log_warning(&quot;DataBase Intact!\n&quot;);</action>
-        <choice_glyph conn="146,83,4,-1,-5">
-         <action box="-2,-8,10,2"/>
-        </choice_glyph>
-       </choice>
        <tran_glyph conn="153,83,1,-1,-7">
         <action box="-6,1,30,2"/>
        </tran_glyph>
@@ -533,25 +520,38 @@ me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
 app_assert_status(me-&gt;sc);
 app_log_info(&quot;Closing connection...\n&quot;);
 //me-&gt;add_type = INVALID_ADDRESS_TYPE;
-app_button_press_disable();
 </action>
        <tran_glyph conn="153,66,1,-1,-9">
         <action box="-9,-3,10,2"/>
        </tran_glyph>
       </tran>
       <tran trig="sl_bt_evt_gatt_characteristic_value_id">
-       <action>if (event-&gt;data.evt_gatt_characteristic_value.characteristic == me-&gt;led_conf_characteristic_handle) {
-  memcpy(me-&gt;led_conf,
-         event-&gt;data.evt_gatt_characteristic_value.value.data,
-         event-&gt;data.evt_gatt_characteristic_value.value.len);
-}
+       <action>//if (event-&gt;data.evt_gatt_characteristic_value.characteristic == me-&gt;led_conf_characteristic_handle) {
+//  memcpy(me-&gt;led_conf,
+//         event-&gt;data.evt_gatt_characteristic_value.value.data,
+//         event-&gt;data.evt_gatt_characteristic_value.value.len);
+//}
 
-app_log_info(&quot;Led_conf: 0x%02X, 0x%02X, 0x%02X, 0x%02X\n&quot;,
-             me-&gt;led_conf[0],
-             me-&gt;led_conf[1],
-             me-&gt;led_conf[2],
-             me-&gt;led_conf[3]);
+//app_log_info(&quot;Led_conf: 0x%02X, 0x%02X, 0x%02X, 0x%02X\n&quot;,
+//             me-&gt;led_conf[0],
+//             me-&gt;led_conf[1],
+//             me-&gt;led_conf[2],
+//             me-&gt;led_conf[3]);
 </action>
+       <choice target="../../../6">
+        <guard brief="Service_change_indication!">event-&gt;data.evt_gatt_characteristic_value.att_opcode == sl_bt_gatt_handle_value_indication &amp;&amp;
+event-&gt;data.evt_gatt_characteristic_value.characteristic == me-&gt;service_Changed_characteristic_hanlde</guard>
+        <action>
+me-&gt;sc = sl_bt_gatt_send_characteristic_confirmation(
+                me-&gt;connection_handle
+                );
+
+app_assert_status(me-&gt;sc);
+</action>
+        <choice_glyph conn="146,70,5,1,-16">
+         <action box="-23,-2,23,2"/>
+        </choice_glyph>
+       </choice>
        <tran_glyph conn="153,70,1,-1,-7">
         <action box="-6,-3,30,2"/>
        </tran_glyph>
@@ -592,8 +592,8 @@ app_log_info(&quot;Led_conf: 0x%02X, 0x%02X, 0x%02X, 0x%02X\n&quot;,
     default:
       break;
     }</action>
-       <tran_glyph conn="137,73,3,-1,9">
-        <action box="0,-2,30,2"/>
+       <tran_glyph conn="153,74,1,-1,-7">
+        <action box="-7,1,30,2"/>
        </tran_glyph>
       </tran>
       <state_glyph color="1" node="137,53,16,35">
@@ -680,7 +680,7 @@ app_log_info(&quot;Scaning timeout\n&quot;);</action>
      </state>
      <state name="discoveryAndSetup">
       <entry>//listen to now button presses
-//app_button_press_disable();
+app_button_press_disable();
 </entry>
       <initial target="../1">
        <initial_glyph conn="81,39,5,0,16,3">
@@ -694,6 +694,9 @@ app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Discovering Services.\n&quot;);
 
+me-&gt;led_control_service_handle = SERVICE_HANDLE_INVALID;
+me-&gt;generic_Attribute_Service_handle = SERVICE_HANDLE_INVALID;
+
 LED_DEB</entry>
        <exit>LED_DEB</exit>
        <tran trig="sl_bt_evt_gatt_service_id">
@@ -703,8 +706,8 @@ if(memcmp(event-&gt;data.evt_gatt_service.uuid.data, led_service_UUID, sizeof(le
    me-&gt;led_control_service_handle = event-&gt;data.evt_gatt_service.service;
    app_log_info(&quot;Led_ control Service handle gotten.\n&quot;);
 
-}else if(memcmp(event-&gt;data.evt_gatt_service.uuid.data, robustCaching_service_UUID, sizeof(robustCaching_service_UUID)) == 0){
-   me-&gt;robust_caching_service_handle = event-&gt;data.evt_gatt_service.service;
+}else if(memcmp(event-&gt;data.evt_gatt_service.uuid.data, generic_Attribute_Service_UUID, sizeof(generic_Attribute_Service_UUID)) == 0){
+   me-&gt;generic_Attribute_Service_handle = event-&gt;data.evt_gatt_service.service;
     app_log_info(&quot;robustCaching_service handle gotten.\n&quot;);
 
 }else {
@@ -721,7 +724,7 @@ if(memcmp(event-&gt;data.evt_gatt_service.uuid.data, led_service_UUID, sizeof(le
        <tran trig="sl_bt_evt_gatt_procedure_completed_id">
         <choice target="../../../3">
          <guard brief="ServiceGotten">me-&gt;led_control_service_handle &amp;&amp;
-me-&gt;robust_caching_service_handle</guard>
+me-&gt;generic_Attribute_Service_handle</guard>
          <choice_glyph conn="74,50,4,3,20,4">
           <action box="-2,5,13,2"/>
          </choice_glyph>
@@ -843,24 +846,24 @@ app_log_warning(&quot;Closing connection.\n&quot;);
         <exit box="0,5,6,2"/>
        </state_glyph>
       </state>
-      <state name="Enable_robust_caching">
+      <state name="Service_change_indication_Enable">
        <entry>//Enable Robust Caching by writing to the Client Supported Features characteristic of the server:
 me-&gt;sc = sl_bt_gatt_discover_characteristics_by_uuid(me-&gt;connection_handle,
-                    me-&gt;robust_caching_service_handle,
-                    sizeof(robustCaching_char_UUID),
-                    robustCaching_char_UUID);
+                    me-&gt;generic_Attribute_Service_handle,
+                    sizeof(service_Changed_characteristic_UUID),
+                    service_Changed_characteristic_UUID);
 
 app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Discovering robust caching Characteristic.\n&quot;);
 
-me-&gt;robust_caching_characteritic_handle = CHARACTERISTIC_HANDLE_INVALID;
+me-&gt;service_Changed_characteristic_hanlde = CHARACTERISTIC_HANDLE_INVALID;
 
 LED_DEB</entry>
        <exit>LED_DEB</exit>
        <tran trig="sl_bt_evt_gatt_procedure_completed_id">
         <choice target="../../2">
-         <guard brief="CharacteristicGotten!!!">me-&gt;robust_caching_characteritic_handle</guard>
+         <guard brief="CharacteristicGotten!!!">me-&gt;service_Changed_characteristic_hanlde</guard>
          <choice_glyph conn="102,71,5,1,-11">
           <action box="-13,-2,19,2"/>
          </choice_glyph>
@@ -884,21 +887,29 @@ app_log_warning(&quot;Closing connection.\n&quot;);
         </tran_glyph>
        </tran>
        <tran trig="sl_bt_evt_gatt_characteristic_id">
-        <action>me-&gt;robust_caching_characteritic_handle = event-&gt;data.evt_gatt_characteristic.characteristic;
+        <action>me-&gt;service_Changed_characteristic_hanlde = event-&gt;data.evt_gatt_characteristic.characteristic;
 app_log_info(&quot;Robust_caching_characteritic_handle found.\n&quot;);
 </action>
         <tran_glyph conn="115,63,1,-1,-20">
          <action box="-23,-2,25,2"/>
         </tran_glyph>
        </tran>
-       <state name="write_To_It">
-        <entry>uint8_t enable_bit[1] = {0x01};
+       <state name="Subcribe_to_It">
+        <entry>//uint8_t enable_bit[1] = {0x01};
 
-me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
-                                    me-&gt;robust_caching_characteritic_handle,
-                                    sizeof(enable_bit), &amp;enable_bit[0]);
+//me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
+//                                    me-&gt;service_Changed_characteristic_hanlde,
+//                                    sizeof(enable_bit), &amp;enable_bit[0]);
+//app_assert_status(me-&gt;sc);
+//app_log_info(&quot;Writing to Robust enable bit.\n&quot;);
+
+me-&gt;sc = sl_bt_gatt_set_characteristic_notification(
+                                        me-&gt;connection_handle,
+                                        me-&gt;service_Changed_characteristic_hanlde,
+                                        sl_bt_gatt_indication
+                                        );
+
 app_assert_status(me-&gt;sc);
-app_log_info(&quot;Writing to Robust enable bit.\n&quot;);
 
 LED_DEB</entry>
         <exit>LED_DEB</exit>
@@ -945,6 +956,8 @@ if(me-&gt;sc){
 app_log_info(&quot;Connection Opened.\n&quot;);
 
 me-&gt;led_conf_characteristic_handle = 0x01;
+me-&gt;bonding_Handle = event-&gt;data.evt_connection_opened.bonding;
+
 //Change the phy
 //me-&gt;sc = sl_bt_connection_set_preferred_phy(me-&gt;connection_handle,
 //                                            0x02U,
@@ -961,8 +974,8 @@ me-&gt;led_conf_characteristic_handle = 0x01;
         <guard brief="alreadyBonded">SL_BT_INVALID_BONDING_HANDLE != event-&gt;data.evt_connection_opened.bonding
 &amp;&amp; me-&gt;changes_characteristic_handle
 &amp;&amp; me-&gt;led_control_service_handle
-&amp;&amp; me-&gt;robust_caching_service_handle
-&amp;&amp; me-&gt;robust_caching_characteritic_handle</guard>
+&amp;&amp; me-&gt;service_Changed_characteristic_hanlde
+&amp;&amp; me-&gt;generic_Attribute_Service_handle</guard>
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
 me-&gt;bonding_Handle = event-&gt;data.evt_connection_opened.bonding;
 //app_log_info(&quot;Ensuring bond consistence on remote.\n&quot;);
@@ -1025,7 +1038,7 @@ app_assert_status(me-&gt;sc);
        <exit box="0,5,6,2"/>
       </state_glyph>
      </state>
-     <state_glyph node="11,30,145,75"/>
+     <state_glyph node="11,30,148,75"/>
     </state>
     <state name="max_idle_state">
      <entry>app_log_info(&quot;Sleeping...\n&quot;);
