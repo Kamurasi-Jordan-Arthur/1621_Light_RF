@@ -17,12 +17,11 @@ Thumbs.db
 *.log
 
 # Example: Ignore autogen or generated folders (if present)
-**/autogen/
+**/autogen*/
+**/GNU ARM*/
+
 
 # (Optional) Ignore other temporary or IDE-specific files#
-.settings/
 .metadata/
 outgoing/
-
 .browser/
-.metadata/
