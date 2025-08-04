@@ -1,8 +1,7 @@
 # Ignore directories
-*-Debug/
-*-Release/
-**/gecko_sdk*/
-**/*Default/
+*/*Debug*/
+**/*Release*/
+**/*gecko_sdk*/
 
 
 
