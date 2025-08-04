@@ -57,9 +57,16 @@ sl_bt_msg_t * event;
 buttonEvt_t buttonEvt;
 
 bool button_pressed = false;
+// variables synchronization of read in firmware update
+static size_t bytes_read = 0U;
+static size_t read_point = 0U;
 
 // Appliction SIG for blink expire
 static bool blink_expired;
+
+// Firmware Update state machine event
+static QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+
 
 uint8_t blink_count;
 
@@ -121,74 +128,95 @@ SL_WEAK void app_process_action(void)
   if(update_timer_expired){
       update_timer_expired = false;
       app_log_info("Update_timer_expired.\n");
-
-      QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
       QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
 
   }
+//  size_t gabage_length;
+//  sc = sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U), &gabage_length);
 
   if(bsl_read){
       // Highly encouraged to create time an implement a Qeueu in you appication (QMQEUEU)
-      size_t bytes_read;
+
+
+      if(sl_iostream_read(SL_IOSTREAM_STDIN, (uint8_t *)&BSL_RX_buffer[read_point], (size_t)(MAX_PACKET_SIZE + 2U), &bytes_read) == SL_STATUS_OK){
+          static QEvt UART_ARK_EVT = QEVT_INITIALIZER(UART_ARK_ID);
+
       switch (bsl_read) {
+        case BYTE_ACK:
+          // It should be one byte
+            app_assert_s(bytes_read == ACK_BYTE);
+            read_point = 0U;
+            QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
+
+          break;
 
         case STATUS_CHECK:
-          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U), &bytes_read) == SL_STATUS_OK){
-              QEvt UART_ARK_EVT = QEVT_INITIALIZER(UART_ARK_ID);
-              QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
-
-          }
-
-          break;
-
-        case BYTE_ACK:
-          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U), &bytes_read) == SL_STATUS_OK){
-              QEvt UART_ARK_EVT = QEVT_INITIALIZER(UART_ARK_ID);
-              QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
-
-          }
+          // It should be one byte
+            app_assert_s(bytes_read == 1U);
+            read_point = 0U;
+            QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
 
           break;
+
 
         case GetID_RSP:
-
-          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK){
-
-              // Only way of asserting if its correct
-              app_assert_s(BSL_MAX_BUFFER_SIZE >= MAX_PACKET_SIZE);
-
-              // infom the statemachine
-              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
-              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
-
-          }
+          read_point = 0U;
+          QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+//
+//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
+//              //Most times packet is not complete
+//              read_point += bytes_read;
+//
+//          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
+//              // Success case
+//              read_point = 0U;
+//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+//
+//          }else {
+//              // case of failure
+//              app_assert_s(false);
+//
+//          }
 
           break;
 
         case UNLOCK_RSP:
-          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK) {
+          read_point = 0U;
+          QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
 
-//              Assert validility of operation
-              app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
-
-//              infom state machine
-              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
-              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
-
-          }
+//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+//              //Most times packet is not complete
+//              read_point += bytes_read;
+//
+//          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+//              // Success case
+//              read_point = 0U;
+//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+//
+//          }else {
+//              // case of failure
+//              app_assert_s(false);
+//
+//          }
 
           break;
 
         case MASS_ERASE_RSP:
-          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK) {
 
-//              Assert validility of operation
-              app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
+//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+         if (false){
 
-//              inform the state machine
-//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
-//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+              //Most times packet is not complete
+              read_point += bytes_read;
+//         }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
 
+         }else if(true){
+              //Success case
+              read_point = 0U;
+
+              //Inform the statemachine in a given dela
               sc = sl_sleeptimer_restart_timer_ms(
                 &updateTimer,
                 MASS_ERASE_DELAY,
@@ -199,20 +227,27 @@ SL_WEAK void app_process_action(void)
               );
               app_assert_status(sc);
 
+          }else {
+              // case of failure
+              app_assert_s(false);
+
           }
+
 
           break;
         case DATA_WRITE_RSP:
 
-          if(sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),  &bytes_read) == SL_STATUS_OK) {
+//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+          if (false){
 
-//              Assert validility of operation
-              app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
+          //Most times packet is not complete
+              read_point += bytes_read;
 
-//              inform the state machine
-//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
-//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+//          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+          }else if(true){
 
+              //inform the state machine a
+              read_point = 0U;
               sc = sl_sleeptimer_restart_timer_ms(
                 &updateTimer,
                 BSL_NEXT_WRITE_DELAY,
@@ -223,15 +258,18 @@ SL_WEAK void app_process_action(void)
               );
               app_assert_status(sc);
 
+          }else {
+              // case of failure
+              app_assert_s(false);
 
           }
-
           break;
 
         default:
           break;
 
       }
+  }
 //      bsl_read = OTHER;
 
   }

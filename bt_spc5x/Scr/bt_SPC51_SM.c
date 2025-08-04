@@ -87,10 +87,21 @@ QMsm * const QMsm_bt_SPC51_p = &bt_SPC51_inst.super; // the opaque pointer
 void bt_SPC51_ctor(bt_SPC51 * const me) {
     //remoteSM *me = &remote_inst;
     QMsm_ctor(&me->super, Q_STATE_CAST(&bt_SPC51_initial));
+
+    // fill in the password
+    memcpy(me->bsl_pwd, (uint8_t[]){
+      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+    }, 32);
+
 }
 
 //${SMs::bt_SPC51::Host_BSL_writeMemory} .....................................
 void bt_SPC51_Host_BSL_writeMemory(bt_SPC51 * const me) {
+    //Indicate progress
+    LED_DEB
 
     uint16_t ui16DataLength;
     uint16_t ui16PayloadSize;
@@ -166,7 +177,7 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::INITIALIZING::sl_bt_evt_system_boot_id}
-        case sl_bt_evt_system_boot_id_SIG: {
+        case sl_bt_evt_system_boot_id: {
             //Stack verion display
             app_log_info("Stack version: %u.%u.%u\r\r\n",
                        event->data.evt_system_boot.major,
@@ -311,13 +322,13 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_gatt_server_attribute_~}
-        case sl_bt_evt_gatt_server_attribute_value_id_SIG: {
+        case sl_bt_evt_gatt_server_attribute_value_id: {
             send_notification();
             status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_connection_parameters_~}
-        case sl_bt_evt_connection_parameters_id_SIG: {
+        case sl_bt_evt_connection_parameters_id: {
             switch (event->data.evt_connection_parameters.security_mode)
                 {
                 case sl_bt_connection_mode1_level1:
@@ -339,21 +350,26 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_connection_closed_id}
-        case sl_bt_evt_connection_closed_id_SIG: {
+        case sl_bt_evt_connection_closed_id: {
             app_log_info("Connection Closed....\n");
 
             status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+            size_t gabage_length;
+            while (sl_iostream_read(SL_IOSTREAM_STDIN,
+                    BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),
+                    &gabage_length) == SL_STATUS_OK) {
+             //Just read and discard data until buffer is empty
+            }
             static struct {
                 QMState const *target;
-                QActionHandler act[3];
+                QActionHandler act[2];
             } const tatbl_ = { // tran-action table
                 &bt_SPC51_FIRMWARE_UPDATE_s, // target state
                 {
-                    Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_e), // entry
                     Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_i), // initial tran.
                     Q_ACTION_NULL // zero terminator
                 }
@@ -401,7 +417,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_connection_opened_id}
-        case sl_bt_evt_connection_opened_id_SIG: {
+        case sl_bt_evt_connection_opened_id: {
             app_log_info("Connection Opened....\n");
 
             me->sc = sl_sleeptimer_stop_timer(&newConnectionTimer);
@@ -460,7 +476,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_gatt_server_characteri~}
-        case sl_bt_evt_gatt_server_characteristic_status_id_SIG: {
+        case sl_bt_evt_gatt_server_characteristic_status_id: {
             if (event->data.evt_gatt_server_characteristic_status.status_flags == sl_bt_gatt_server_client_config) {
               if (event->data.evt_gatt_server_characteristic_status.client_config_flags == sl_bt_gatt_server_notification) {
                   // Notifications have been enabled by the client
@@ -474,7 +490,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::BUTTON_ID}
-        case BUTTON_ID_SIG: {
+        case BUTTON_ID: {
             switch (Q_EVT_CAST(buttonEvt_t)->duration) {
                   case APP_BUTTON_PRESS_DURATION_SHORT:
 
@@ -591,7 +607,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_passkey_display_id}
-        case sl_bt_evt_sm_passkey_display_id_SIG: {
+        case sl_bt_evt_sm_passkey_display_id: {
             app_log_info("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
             //sl_iostream_write(sl_iostream_vcom_handle, &(event->data.evt_sm_passkey_display.passkey), (size_t)6U);
             printf("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
@@ -599,7 +615,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_bonding_failed_id}
-        case sl_bt_evt_sm_bonding_failed_id_SIG: {
+        case sl_bt_evt_sm_bonding_failed_id: {
             //failed bonding close the connection.
             me->sc = sl_bt_connection_close(
                           event->data.evt_sm_bonding_failed.connection);
@@ -621,7 +637,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_confirm_bonding_id}
-        case sl_bt_evt_sm_confirm_bonding_id_SIG: {
+        case sl_bt_evt_sm_confirm_bonding_id: {
             me->sc = sl_bt_sm_bonding_confirm(event->data.evt_sm_confirm_bonding.connection, 1U);
             app_assert_status(me->sc);
 
@@ -630,7 +646,7 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_bonded_id}
-        case sl_bt_evt_sm_bonded_id_SIG: {
+        case sl_bt_evt_sm_bonded_id: {
             app_log_info("Bonded....\n");
 
 
@@ -659,16 +675,10 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
 QMState const bt_SPC51_FIRMWARE_UPDATE_s = {
     QM_STATE_NULL, // superstate (top)
     Q_STATE_CAST(&bt_SPC51_FIRMWARE_UPDATE),
-    Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_e),
+    Q_ACTION_NULL, // no entry action
     Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x),
     Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_i)
 };
-//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE}
-QState bt_SPC51_FIRMWARE_UPDATE_e(bt_SPC51 * const me) {
-    sl_led_turn_on(&sl_led_led0);
-    Q_UNUSED_PAR(me);
-    return QM_ENTRY(&bt_SPC51_FIRMWARE_UPDATE_s);
-}
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE}
 QState bt_SPC51_FIRMWARE_UPDATE_x(bt_SPC51 * const me) {
     bsl_read = OTHER;
@@ -709,21 +719,28 @@ QMState const bt_SPC51_SEND_CONN_s = {
     &bt_SPC51_FIRMWARE_UPDATE_s, // superstate
     Q_STATE_CAST(&bt_SPC51_SEND_CONN),
     Q_ACTION_CAST(&bt_SPC51_SEND_CONN_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN}
 QState bt_SPC51_SEND_CONN_e(bt_SPC51 * const me) {
     Host_BSL_Connection();
+    LED_DEB
     Q_UNUSED_PAR(me);
     return QM_ENTRY(&bt_SPC51_SEND_CONN_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN}
+QState bt_SPC51_SEND_CONN_x(bt_SPC51 * const me) {
+    //LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_SPC51_SEND_CONN_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN}
 QState bt_SPC51_SEND_CONN(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::UART_ARK_ID}
-        case UART_ARK_ID_SIG: {
+        case UART_ARK_ID: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
             //bsl_read = OTHER;
 
@@ -740,13 +757,14 @@ QState bt_SPC51_SEND_CONN(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
             static struct {
                 QMState const *target;
-                QActionHandler act[2];
+                QActionHandler act[3];
             } const tatbl_ = { // tran-action table
                 &bt_SPC51_CheckStaus_s, // target state
                 {
+                    Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x), // exit
                     Q_ACTION_CAST(&bt_SPC51_CheckStaus_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }
@@ -767,21 +785,28 @@ QMState const bt_SPC51_GET_DEV_INFO_s = {
     &bt_SPC51_FIRMWARE_UPDATE_s, // superstate
     Q_STATE_CAST(&bt_SPC51_GET_DEV_INFO),
     Q_ACTION_CAST(&bt_SPC51_GET_DEV_INFO_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_SPC51_GET_DEV_INFO_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::GET_DEV_INFO}
 QState bt_SPC51_GET_DEV_INFO_e(bt_SPC51 * const me) {
     Host_BSL_GetID();
+    LED_DEB
     Q_UNUSED_PAR(me);
     return QM_ENTRY(&bt_SPC51_GET_DEV_INFO_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::GET_DEV_INFO}
+QState bt_SPC51_GET_DEV_INFO_x(bt_SPC51 * const me) {
+    //LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_SPC51_GET_DEV_INFO_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::GET_DEV_INFO}
 QState bt_SPC51_GET_DEV_INFO(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::GET_DEV_INFO::UART_ARK_ID}
-        case UART_ARK_ID_SIG: {
+        case UART_ARK_ID: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = GetID_RSP;
@@ -790,9 +815,12 @@ QState bt_SPC51_GET_DEV_INFO(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::GET_DEV_INFO::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
             BSL_MAX_BUFFER_SIZE =
                 *(uint16_t *) &BSL_RX_buffer[HDR_LEN_CMD_BYTES + ID_BACK - 14];
+
+
+            // Only way of asserting if its correct
 
             //  the choosen max buffersize should accomadate the max packet size
             app_assert_s(BSL_MAX_BUFFER_SIZE >= MAX_PACKET_SIZE);
@@ -800,10 +828,11 @@ QState bt_SPC51_GET_DEV_INFO(bt_SPC51 * const me, QEvt const * const e) {
             //bsl_read = OTHER;
             static struct {
                 QMState const *target;
-                QActionHandler act[2];
+                QActionHandler act[3];
             } const tatbl_ = { // tran-action table
                 &bt_SPC51_UNLOCK_s, // target state
                 {
+                    Q_ACTION_CAST(&bt_SPC51_GET_DEV_INFO_x), // exit
                     Q_ACTION_CAST(&bt_SPC51_UNLOCK_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }
@@ -824,20 +853,27 @@ QMState const bt_SPC51_UNLOCK_s = {
     &bt_SPC51_FIRMWARE_UPDATE_s, // superstate
     Q_STATE_CAST(&bt_SPC51_UNLOCK),
     Q_ACTION_CAST(&bt_SPC51_UNLOCK_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_SPC51_UNLOCK_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK}
 QState bt_SPC51_UNLOCK_e(bt_SPC51 * const me) {
     Host_BSL_loadPassword((uint8_t *)(me->bsl_pwd));
+    LED_DEB
     return QM_ENTRY(&bt_SPC51_UNLOCK_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK}
+QState bt_SPC51_UNLOCK_x(bt_SPC51 * const me) {
+    //LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_SPC51_UNLOCK_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK}
 QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::UART_ARK_ID}
-        case UART_ARK_ID_SIG: {
+        case UART_ARK_ID: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = UNLOCK_RSP;
@@ -845,16 +881,20 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
             //bsl_read = OTHER;
+            app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UP~::[succesfull!!]}
-            if (BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success) {
+            if (/*BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success*/
+                true)
+            {
                 static struct {
                     QMState const *target;
-                    QActionHandler act[2];
+                    QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
                     &bt_SPC51_UNLOCKED_s, // target state
                     {
+                        Q_ACTION_CAST(&bt_SPC51_UNLOCK_x), // exit
                         Q_ACTION_CAST(&bt_SPC51_UNLOCKED_i), // initial tran.
                         Q_ACTION_NULL // zero terminator
                     }
@@ -865,10 +905,11 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
             else {
                 static struct {
                     QMState const *target;
-                    QActionHandler act[4];
+                    QActionHandler act[5];
                 } const tatbl_ = { // tran-action table
                     &bt_SPC51_OPERRATIONAL_s, // target state
                     {
+                        Q_ACTION_CAST(&bt_SPC51_UNLOCK_x), // exit
                         Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x), // exit
                         Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_e), // entry
                         Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_i), // initial tran.
@@ -928,21 +969,28 @@ QMState const bt_SPC51_MASS_ERASE_s = {
     &bt_SPC51_UNLOCKED_s, // superstate
     Q_STATE_CAST(&bt_SPC51_MASS_ERASE),
     Q_ACTION_CAST(&bt_SPC51_MASS_ERASE_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_SPC51_MASS_ERASE_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::MASS_ERASE}
 QState bt_SPC51_MASS_ERASE_e(bt_SPC51 * const me) {
     Host_BSL_MassErase();
+    LED_DEB
     Q_UNUSED_PAR(me);
     return QM_ENTRY(&bt_SPC51_MASS_ERASE_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::MASS_ERASE}
+QState bt_SPC51_MASS_ERASE_x(bt_SPC51 * const me) {
+    //LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_SPC51_MASS_ERASE_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::MASS_ERASE}
 QState bt_SPC51_MASS_ERASE(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::MASS_ERASE::UART_ARK_ID}
-        case UART_ARK_ID_SIG: {
+        case UART_ARK_ID: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = MASS_ERASE_RSP;
@@ -950,18 +998,19 @@ QState bt_SPC51_MASS_ERASE(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::MASS_ERASE::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
-            bsl_read = OTHER;
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+            app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
 
             //initialse the section variable
             me->section = 0x00U;
 
             static struct {
                 QMState const *target;
-                QActionHandler act[2];
+                QActionHandler act[3];
             } const tatbl_ = { // tran-action table
                 &bt_SPC51_PROGRAM_SECTION_s, // target state
                 {
+                    Q_ACTION_CAST(&bt_SPC51_MASS_ERASE_x), // exit
                     Q_ACTION_CAST(&bt_SPC51_PROGRAM_SECTION_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }
@@ -982,7 +1031,7 @@ QMState const bt_SPC51_PROGRAM_SECTION_s = {
     &bt_SPC51_UNLOCKED_s, // superstate
     Q_STATE_CAST(&bt_SPC51_PROGRAM_SECTION),
     Q_ACTION_CAST(&bt_SPC51_PROGRAM_SECTION_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_SPC51_PROGRAM_SECTION_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION}
@@ -997,11 +1046,17 @@ QState bt_SPC51_PROGRAM_SECTION_e(bt_SPC51 * const me) {
     return QM_ENTRY(&bt_SPC51_PROGRAM_SECTION_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION}
+QState bt_SPC51_PROGRAM_SECTION_x(bt_SPC51 * const me) {
+    //LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_SPC51_PROGRAM_SECTION_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION}
 QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::UART_ARK_ID}
-        case UART_ARK_ID_SIG: {
+        case UART_ARK_ID: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = DATA_WRITE_RSP;
@@ -1011,20 +1066,24 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+            app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
+            //   printf("\n");
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UP~::[unwrittenSectionBytes?]}
             if (me->ui16BytesToWrite > 0) {
                 bt_SPC51_Host_BSL_writeMemory((bt_SPC51 * )me);
+
                 status_ = QM_HANDLED();
             }
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UP~::[all_written?]}
-            else if (me->section == ((sizeof(App1_Addr) / sizeof(App1_Addr[0])))) {
+            else if (++me->section == ((sizeof(App1_Addr) / sizeof(App1_Addr[0])))) {
                 static struct {
                     QMState const *target;
-                    QActionHandler act[2];
+                    QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
                     &bt_SPC51_START_APP_s, // target state
                     {
+                        Q_ACTION_CAST(&bt_SPC51_PROGRAM_SECTION_x), // exit
                         Q_ACTION_CAST(&bt_SPC51_START_APP_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
@@ -1033,13 +1092,15 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
             }
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UP~::[pendingSections]}
             else {
-                me->section++;
+                LED_DEB
+                //me->section++;
                 static struct {
                     QMState const *target;
-                    QActionHandler act[2];
+                    QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
                     &bt_SPC51_PROGRAM_SECTION_s, // target state
                     {
+                        Q_ACTION_CAST(&bt_SPC51_PROGRAM_SECTION_x), // exit
                         Q_ACTION_CAST(&bt_SPC51_PROGRAM_SECTION_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
@@ -1082,29 +1143,37 @@ QMState const bt_SPC51_START_APP_s = {
     &bt_SPC51_UNLOCKED_s, // superstate
     Q_STATE_CAST(&bt_SPC51_START_APP),
     Q_ACTION_CAST(&bt_SPC51_START_APP_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_SPC51_START_APP_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::START_APP}
 QState bt_SPC51_START_APP_e(bt_SPC51 * const me) {
     Host_BSL_StartApp();
+    LED_DEB
     Q_UNUSED_PAR(me);
     return QM_ENTRY(&bt_SPC51_START_APP_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::START_APP}
+QState bt_SPC51_START_APP_x(bt_SPC51 * const me) {
+    LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_SPC51_START_APP_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::START_APP}
 QState bt_SPC51_START_APP(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::START_APP::UART_ARK_ID}
-        case UART_ARK_ID_SIG: {
+        case UART_ARK_ID: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             static struct {
                 QMState const *target;
-                QActionHandler act[4];
+                QActionHandler act[5];
             } const tatbl_ = { // tran-action table
                 &bt_SPC51_OPERRATIONAL_s, // target state
                 {
+                    Q_ACTION_CAST(&bt_SPC51_START_APP_x), // exit
                     Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x), // exit
                     Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_e), // entry
                     Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_i), // initial tran.
@@ -1127,40 +1196,62 @@ QMState const bt_SPC51_CheckStaus_s = {
     &bt_SPC51_FIRMWARE_UPDATE_s, // superstate
     Q_STATE_CAST(&bt_SPC51_CheckStaus),
     Q_ACTION_CAST(&bt_SPC51_CheckStaus_e),
-    Q_ACTION_NULL, // no exit action
+    Q_ACTION_CAST(&bt_SPC51_CheckStaus_x),
     Q_ACTION_NULL  // no initial tran.
 };
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::CheckStaus}
 QState bt_SPC51_CheckStaus_e(bt_SPC51 * const me) {
     // Check weather SPC%x is in BSL mode(SPC%x)
-    printf("%u", 0xBB);
+    BSL_TX_buffer[0] = (uint8_t) 0xBB;
+
+    // send the data
+    me->sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer, 1U);
+    app_assert_status(me->sc);
+
     bsl_read = STATUS_CHECK;
-    Q_UNUSED_PAR(me);
+    LED_DEB
     return QM_ENTRY(&bt_SPC51_CheckStaus_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::CheckStaus}
+QState bt_SPC51_CheckStaus_x(bt_SPC51 * const me) {
+    //LED_DEB
+    (void)me; // unused parameter
+    return QM_EXIT(&bt_SPC51_CheckStaus_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::CheckStaus}
 QState bt_SPC51_CheckStaus(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::CheckStaus::UART_ARK_ID}
-        case UART_ARK_ID_SIG: {
-            bsl_read = OTHER;
+        case UART_ARK_ID: {
+            //bsl_read = OTHER;
 
             //BSL running state
             app_assert_s(BSL_RX_buffer[0] == 0x51);
             //BSL mode 0x51; application mode 0x22
 
+
+            me->sc = sl_sleeptimer_restart_timer_ms(
+              &updateTimer,
+              BSL_CHECK_STATUS_WAIT,
+              updateTimerEx_Callback,
+              NULL,
+              0,      // priority
+              0       // option_flags
+            );
+            app_assert_status(me->sc);
             status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::CheckStaus::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
             static struct {
                 QMState const *target;
-                QActionHandler act[2];
+                QActionHandler act[3];
             } const tatbl_ = { // tran-action table
                 &bt_SPC51_GET_DEV_INFO_s, // target state
                 {
+                    Q_ACTION_CAST(&bt_SPC51_CheckStaus_x), // exit
                     Q_ACTION_CAST(&bt_SPC51_GET_DEV_INFO_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }

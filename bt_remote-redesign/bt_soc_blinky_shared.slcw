@@ -1,0 +1,6 @@
+---
+label: "bt_soc_blinky_shared"
+project:
+- id: "main"
+  path: "bt_remote-redesign.slcp"
+  output: "."

@@ -9,7 +9,9 @@ sl_sleeptimer_timer_handle_t updateTimer;
 
 // TX and RX buffers for use during transmit and receive
 uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
-uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
+//uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
+uint8_t BSL_RX_buffer[32U + 2U];
+
 
 // Variable to hold the Max buffer allowed by BSL core
 uint16_t BSL_MAX_BUFFER_SIZE;
@@ -18,7 +20,7 @@ uint16_t BSL_MAX_BUFFER_SIZE;
 bool update_timer_expired = false;
 
 // declaration of the bsl read type variable
-uint8_t bsl_read;
+uint8_t bsl_read = OTHER;
 
 sl_status_t sc;
 
@@ -33,7 +35,7 @@ void updateTimerEx_Callback(sl_sleeptimer_timer_handle_t *handle, void *data){
 void BSL_software_trigger(void)
 {
     /* Request for SW Invoke */
-  printf("%u", 0x22);
+  printf("%c", 0x22);
   app_log_info("BSL_software_triggered.\n");
 
 }
@@ -101,6 +103,7 @@ void Host_BSL_Connection(void)
     sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
     app_assert_status(sc);
     bsl_read = BYTE_ACK;
+
 
 
     // Write the packet to the target

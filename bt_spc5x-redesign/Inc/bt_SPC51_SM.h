@@ -144,16 +144,16 @@ extern bt_SPC51 bt_SPC51_inst;
 #define CONN_MAX_CE_LENGTH 0xffff
 
 //${SMs::BSL_INVOCK_DELAY} ...................................................
-#define BSL_INVOCK_DELAY (1U * 1U* 1000U)
+#define BSL_INVOCK_DELAY (1U * 1U* 500U)
 
 //${SMs::BSL_CHECK_STATUS_WAIT} ..............................................
-#define BSL_CHECK_STATUS_WAIT (1U * 1U* 1000U)
+#define BSL_CHECK_STATUS_WAIT (1U * 1U* 500U)
 
 //${SMs::MASS_ERASE_DELAY} ...................................................
-#define MASS_ERASE_DELAY (1U * 1U* 1000U)
+#define MASS_ERASE_DELAY (1U * 1U* 500U)
 
 //${SMs::BSL_NEXT_WRITE_DELAY} ...............................................
-#define BSL_NEXT_WRITE_DELAY (1U * 1U* 1000U)
+#define BSL_NEXT_WRITE_DELAY (1U * 1U* 500U)
 //$enddecl${SMs} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 //$declare(SMs::bt_SPC51)

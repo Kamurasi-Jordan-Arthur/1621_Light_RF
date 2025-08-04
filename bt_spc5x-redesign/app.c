@@ -205,7 +205,7 @@ SL_WEAK void app_process_action(void)
               //Success case
               read_point = 0U;
 
-              //Inform the statemachine in a given dela
+              //Inform the statemachine in a given delay time
               sc = sl_sleeptimer_restart_timer_ms(
                 &updateTimer,
                 MASS_ERASE_DELAY,

@@ -9,7 +9,9 @@ sl_sleeptimer_timer_handle_t updateTimer;
 
 // TX and RX buffers for use during transmit and receive
 uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
-uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
+//uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
+uint8_t BSL_RX_buffer[32U + 2U];
+
 
 // Variable to hold the Max buffer allowed by BSL core
 uint16_t BSL_MAX_BUFFER_SIZE;

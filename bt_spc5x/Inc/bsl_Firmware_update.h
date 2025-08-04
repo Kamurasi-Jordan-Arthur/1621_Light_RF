@@ -7,12 +7,18 @@ extern bool update_timer_expired;
 extern sl_sleeptimer_timer_handle_t updateTimer;
 
 
-#define MAX_PAYLOAD_DATA_SIZE (128)
-//MAX_PACKET_SIZE = MAX_PAYLOAD_DATA_SIZE + HDR_LEN_CMD_BYTES + CRC_BYTES = 128 + 8 = 136
-#define MAX_PACKET_SIZE (136)
+//#define MAX_PAYLOAD_DATA_SIZE (128U)
+#define MAX_PAYLOAD_DATA_SIZE (512U)
+
+//MAX_PACKET_SIZE = MAX_PAYLOAD_DATA_SIZE + HDR_LEN_CMD_BYTES + CRC_BYTES + ADDRS_BYTES = 128 + 12 = 140
+#define MAX_PACKET_SIZE (524U)
+//#define MAX_PACKET_SIZE (140U)
 
 extern uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
-extern uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
+//extern uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
+
+// Limited to only PASSWORD_SIZE + ID_BACK + CRC_BYTES = 32U
+extern uint8_t BSL_RX_buffer[32U + 2U];
 
 // ! Define BSL CORE commands
 #define CMD_CONNECTION (0x12)
@@ -30,8 +36,9 @@ extern uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
 #define CRC_BYTES (4U)
 #define PASSWORD_SIZE (uint8_t)(32U)
 #define ACK_BYTE (1U)
-#define ID_BACK (24)
-#define ADDRS_BYTES (4)
+#define ID_BACK (24U)
+#define ADDRS_BYTES (4U)
+
 
 //================================================================================
 // ! Conversion MACROS
@@ -75,8 +82,8 @@ typedef uint8_t uart_error_t;
 
 enum{
   OTHER,
-  STATUS_CHECK,
   BYTE_ACK,
+  STATUS_CHECK,
   GetID_RSP,
   UNLOCK_RSP,
   MASS_ERASE_RSP,

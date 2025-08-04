@@ -1041,6 +1041,16 @@ QState bt_SPC51_PROGRAM_SECTION_e(bt_SPC51 * const me) {
 
     bt_SPC51_Host_BSL_writeMemory((bt_SPC51 * )me);
 
+    //Inform the statemachine in a given delay time
+    //me->sc = sl_sleeptimer_restart_timer_ms(
+    //                        &updateTimer,
+    //                        BSL_NEXT_WRITE_DELAY,
+    //                        updateTimerEx_Callback,
+    //                        NULL,
+    //                        0,      // priority
+    //                        0       // option_flags
+    //                        );
+    //app_assert_status(me->sc);
     return QM_ENTRY(&bt_SPC51_PROGRAM_SECTION_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION}
@@ -1074,7 +1084,7 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
                 status_ = QM_HANDLED();
             }
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UP~::[all_written?]}
-            else if (me->section == ((sizeof(App1_Addr) / sizeof(App1_Addr[0])))) {
+            else if (++me->section == ((sizeof(App1_Addr) / sizeof(App1_Addr[0])))) {
                 static struct {
                     QMState const *target;
                     QActionHandler act[3];
@@ -1091,7 +1101,7 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UP~::[pendingSections]}
             else {
                 LED_DEB
-                me->section++;
+                //me->section++;
                 static struct {
                     QMState const *target;
                     QActionHandler act[3];

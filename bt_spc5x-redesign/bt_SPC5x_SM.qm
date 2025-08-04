@@ -676,7 +676,17 @@ me-&gt;ui16BytesToWrite = App1_Size[me-&gt;section];
 me-&gt;data = (uint8_t *)App1_Ptr[me-&gt;section];
 
 bt_SPC51_Host_BSL_writeMemory((bt_SPC51 * )me);
-</entry>
+
+//Inform the statemachine in a given delay time
+//me-&gt;sc = sl_sleeptimer_restart_timer_ms(
+//                        &amp;updateTimer,
+//                        BSL_NEXT_WRITE_DELAY,
+//                        updateTimerEx_Callback,
+//                        NULL,
+//                        0,      // priority
+//                        0       // option_flags
+//                        );
+//app_assert_status(me-&gt;sc);</entry>
        <exit>//LED_DEB</exit>
        <tran trig="UART_ARK_ID">
         <action>app_assert_s(BSL_RX_buffer[0] == uart_noError);
@@ -700,15 +710,15 @@ bsl_read = DATA_WRITE_RSP;
          </choice_glyph>
         </choice>
         <choice target="../../../4">
-         <guard brief=" all_written?">me-&gt;section == ((sizeof(App1_Addr) / sizeof(App1_Addr[0])))</guard>
+         <guard brief=" all_written?">++me-&gt;section == ((sizeof(App1_Addr) / sizeof(App1_Addr[0])))</guard>
          <choice_glyph conn="156,72,4,2,13,-25,-6">
-          <action box="3,8,11,2"/>
+          <action box="-17,11,11,2"/>
          </choice_glyph>
         </choice>
         <choice target="../..">
          <guard brief="pendingSections">else</guard>
          <action>LED_DEB
-me-&gt;section++;</action>
+//me-&gt;section++;</action>
          <choice_glyph conn="156,72,4,1,-3,20">
           <action box="6,-5,14,2"/>
          </choice_glyph>
@@ -815,16 +825,16 @@ app_assert_status(me-&gt;sc);</action>
    <code>0xffff</code>
   </attribute>
   <attribute name="BSL_INVOCK_DELAY" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 1000U)</code>
+   <code>(1U * 1U* 500U)</code>
   </attribute>
   <attribute name="BSL_CHECK_STATUS_WAIT" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 1000U)</code>
+   <code>(1U * 1U* 500U)</code>
   </attribute>
   <attribute name="MASS_ERASE_DELAY" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 1000U)</code>
+   <code>(1U * 1U* 500U)</code>
   </attribute>
   <attribute name="BSL_NEXT_WRITE_DELAY" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 1000U)</code>
+   <code>(1U * 1U* 500U)</code>
   </attribute>
  </package>
 </model>
