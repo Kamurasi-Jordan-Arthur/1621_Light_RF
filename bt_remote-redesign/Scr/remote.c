@@ -315,7 +315,7 @@ QMState const bt_remote_running_s = {
 //${SMs::bt_remote::SM::operational::running}
 QState bt_remote_running_e(bt_remote * const me) {
     //listen to button presses
-    //app_button_press_enable();
+    app_button_press_enable();
 
     //sl_led_turn_on(&sl_led_led0);
 
@@ -364,7 +364,8 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
     switch (e->sig) {
         //${SMs::bt_remote::SM::operational::running::BUTTON_ID}
         case BUTTON_ID: {
-              switch (Q_EVT_CAST(buttonEvt_t)->duration) {
+            uint16_t sent_len;
+            switch (Q_EVT_CAST(buttonEvt_t)->duration) {
               case APP_BUTTON_PRESS_DURATION_SHORT:
 
                 if (&sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
@@ -374,10 +375,11 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
                     me->changes[2] = 0x01U;
             //        me->changes[2] = (me->led_conf[me->current_led] & 0x80) ? 0x00U : 0x01U;
 
-                    me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-                                                          me->changes_characteristic_handle,
-                                                          (size_t)sizeof(me->changes),
-                                                          me->changes);
+                    me->sc = sl_bt_gatt_write_characteristic_value_without_response(me->connection_handle,
+                                                                                  me->changes_characteristic_handle,
+                                                                                  (size_t)sizeof(me->changes),
+                                                                                  me->changes,
+                                                                                  &sent_len);
                     app_assert_status(me->sc);
                     app_log_info("Status L%u, Toggled\n",
                                  (uint8_t)me->current_led);
@@ -391,10 +393,11 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
                         app_log_info("Increase L%u, Inc\n",
                                      (uint8_t)me->current_led);
 
-                        me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
+                        me->sc = sl_bt_gatt_write_characteristic_value_without_response(me->connection_handle,
                                                                         me->changes_characteristic_handle,
                                                                         (size_t)sizeof(me->changes),
-                                                                        me->changes);
+                                                                        me->changes,
+                                                                        &sent_len);
                         app_assert_status(me->sc);
 
                 } else if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
@@ -406,34 +409,30 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
                         app_log_info("Increase L%u, Dec\n",
                                      (uint8_t)me->current_led);
 
-                        me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
+                        me->sc = sl_bt_gatt_write_characteristic_value_without_response(me->connection_handle,
                                                                         me->changes_characteristic_handle,
                                                                         (size_t)sizeof(me->changes),
-                                                                        me->changes);
+                                                                        me->changes,
+                                                                        &sent_len);
                         app_assert_status(me->sc);
 
 
                 }
 
-                   //me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-                         //                                 me->changes_characteristic_handle,
-                       //                                   (size_t)sizeof(me->changes),
-                     //                                     me->changes);
-                   //app_assert_status(me->sc);
-                    //blink only once
 
+                    //blink only once
                     blink_count = 1U;
 
                     //turn led on
                     sl_led_toggle(&sl_led_led0);
 
                     me->sc = sl_sleeptimer_restart_periodic_timer_ms(
-                        &appTimer,
-                        BLINK_TIMEOUT,
-                        blinkTimerCallback,
-                        NULL,
-                        0U,
-                        0U);
+                                                                &appTimer,
+                                                                BLINK_TIMEOUT,
+                                                                blinkTimerCallback,
+                                                                NULL,
+                                                                0U,
+                                                                0U);
 
                     app_assert_status(me->sc);
                     app_log_info("Blink Ounce\n");
@@ -453,17 +452,18 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
                     me->changes[1] = me->current_led;
                     me->changes[2] =  (uint8_t)'S';
 
-                    me->sc = sl_bt_gatt_write_characteristic_value(me->connection_handle,
-                                                                    me->changes_characteristic_handle,
-                                                                    (size_t)sizeof(me->changes),
-                                                                    me->changes);
+                    me->sc = sl_bt_gatt_write_characteristic_value_without_response(me->connection_handle,
+                                                                                    me->changes_characteristic_handle,
+                                                                                    (size_t)sizeof(me->changes),
+                                                                                    me->changes,
+                                                                                    &sent_len);
                     app_assert_status(me->sc);
 
                     app_log_info("Status L%u, S%c \n",
                                  (uint8_t)me->current_led,
                                  (uint8_t)me->changes[2]);
 
-              //          Blink twice
+              //    Blink twice
                     blink_count = 2U;
 
                     //turn led on
@@ -480,12 +480,9 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
 
                     app_log_info("Blink Twice\n");
 
-                }else{
-                app_button_press_enable();
                 }
-
-
                 break;
+
 
               case APP_BUTTON_PRESS_DURATION_LONG:
                 //if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
@@ -500,7 +497,7 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
 
             //    app_log_append_info("Deleting bond.\n");
 
-                app_button_press_enable();
+            //    app_button_press_enable();
 
                 break;
 
@@ -532,7 +529,6 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
             app_assert_status(me->sc);
             app_log_info("Closing connection...\n");
             //me->add_type = INVALID_ADDRESS_TYPE;
-            app_button_press_disable();
 
             status_ = QM_HANDLED();
             break;

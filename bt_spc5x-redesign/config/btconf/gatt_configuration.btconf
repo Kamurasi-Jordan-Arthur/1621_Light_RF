@@ -19,7 +19,7 @@
     <characteristic const="false" id="Changes" name="Changes" sourceId="0" uuid="5ff55689-2774-40bd-9243-913a4451386d">
       <value length="3" type="utf-8" variable_length="false">P00</value>
       <properties>
-        <write authenticated="false" bonded="true" encrypted="true"/>
+        <write_no_response authenticated="false" bonded="true" encrypted="true"/>
       </properties>
     </characteristic>
   </service>

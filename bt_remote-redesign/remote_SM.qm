@@ -352,7 +352,8 @@ app_log_info(&quot;Running...\n&quot;);
 sl_led_turn_off(&amp;sl_led_led0);
 </exit>
       <tran trig="BUTTON_ID">
-       <action>  switch (Q_EVT_CAST(buttonEvt_t)-&gt;duration) {
+       <action>uint16_t sent_len;  
+switch (Q_EVT_CAST(buttonEvt_t)-&gt;duration) {
   case APP_BUTTON_PRESS_DURATION_SHORT:
 
     if (&amp;sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
@@ -362,10 +363,11 @@ sl_led_turn_off(&amp;sl_led_led0);
         me-&gt;changes[2] = 0x01U;
 //        me-&gt;changes[2] = (me-&gt;led_conf[me-&gt;current_led] &amp; 0x80) ? 0x00U : 0x01U;
 
-        me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
-                                              me-&gt;changes_characteristic_handle,
-                                              (size_t)sizeof(me-&gt;changes),
-                                              me-&gt;changes);
+        me-&gt;sc = sl_bt_gatt_write_characteristic_value_without_response(me-&gt;connection_handle,
+                                                                      me-&gt;changes_characteristic_handle,
+                                                                      (size_t)sizeof(me-&gt;changes),
+                                                                      me-&gt;changes,
+                                                                      &amp;sent_len);
         app_assert_status(me-&gt;sc);
         app_log_info(&quot;Status L%u, Toggled\n&quot;,
                      (uint8_t)me-&gt;current_led);
@@ -379,10 +381,11 @@ sl_led_turn_off(&amp;sl_led_led0);
             app_log_info(&quot;Increase L%u, Inc\n&quot;,
                          (uint8_t)me-&gt;current_led);
 
-            me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
+            me-&gt;sc = sl_bt_gatt_write_characteristic_value_without_response(me-&gt;connection_handle,
                                                             me-&gt;changes_characteristic_handle,
                                                             (size_t)sizeof(me-&gt;changes),
-                                                            me-&gt;changes);
+                                                            me-&gt;changes,
+                                                            &amp;sent_len);
             app_assert_status(me-&gt;sc);
 
     } else if (&amp;sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
@@ -394,34 +397,30 @@ sl_led_turn_off(&amp;sl_led_led0);
             app_log_info(&quot;Increase L%u, Dec\n&quot;,
                          (uint8_t)me-&gt;current_led);
 
-            me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
+            me-&gt;sc = sl_bt_gatt_write_characteristic_value_without_response(me-&gt;connection_handle,
                                                             me-&gt;changes_characteristic_handle,
                                                             (size_t)sizeof(me-&gt;changes),
-                                                            me-&gt;changes);
+                                                            me-&gt;changes,
+                                                            &amp;sent_len);
             app_assert_status(me-&gt;sc);
 
 
     }
 
-       //me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
-             //                                 me-&gt;changes_characteristic_handle,
-           //                                   (size_t)sizeof(me-&gt;changes),
-         //                                     me-&gt;changes);
-       //app_assert_status(me-&gt;sc);
-        //blink only once
 
+        //blink only once
         blink_count = 1U;
 
         //turn led on
         sl_led_toggle(&amp;sl_led_led0);
 
         me-&gt;sc = sl_sleeptimer_restart_periodic_timer_ms(
-            &amp;appTimer,
-            BLINK_TIMEOUT,
-            blinkTimerCallback,
-            NULL,
-            0U,
-            0U);
+                                                    &amp;appTimer,
+                                                    BLINK_TIMEOUT,
+                                                    blinkTimerCallback,
+                                                    NULL,
+                                                    0U,
+                                                    0U);
 
         app_assert_status(me-&gt;sc);
         app_log_info(&quot;Blink Ounce\n&quot;);
@@ -441,17 +440,18 @@ sl_led_turn_off(&amp;sl_led_led0);
         me-&gt;changes[1] = me-&gt;current_led;
         me-&gt;changes[2] =  (uint8_t)'S';
 
-        me-&gt;sc = sl_bt_gatt_write_characteristic_value(me-&gt;connection_handle,
-                                                        me-&gt;changes_characteristic_handle,
-                                                        (size_t)sizeof(me-&gt;changes),
-                                                        me-&gt;changes);
+        me-&gt;sc = sl_bt_gatt_write_characteristic_value_without_response(me-&gt;connection_handle,
+                                                                        me-&gt;changes_characteristic_handle,
+                                                                        (size_t)sizeof(me-&gt;changes),
+                                                                        me-&gt;changes,
+                                                                        &amp;sent_len);
         app_assert_status(me-&gt;sc);
 
         app_log_info(&quot;Status L%u, S%c \n&quot;,
                      (uint8_t)me-&gt;current_led,
                      (uint8_t)me-&gt;changes[2]);
 
-  //          Blink twice
+  //    Blink twice
         blink_count = 2U;
 
         //turn led on
@@ -468,12 +468,9 @@ sl_led_turn_off(&amp;sl_led_led0);
 
         app_log_info(&quot;Blink Twice\n&quot;);
 
-    }else{
-    app_button_press_enable();
     }
-
-
     break;
+
 
   case APP_BUTTON_PRESS_DURATION_LONG:
     //if (&amp;sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
