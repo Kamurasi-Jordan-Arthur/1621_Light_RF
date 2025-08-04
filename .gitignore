@@ -17,7 +17,6 @@ Thumbs.db
 
 # Example: Ignore autogen or generated folders (if present)
 **/autogen*/
-**/config*/
 **/GNU ARM*/
 
 
