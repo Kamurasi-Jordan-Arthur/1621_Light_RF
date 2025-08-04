@@ -3,8 +3,7 @@
 *-Release/
 **/gecko_sdk*/
 **/*Default/
-.browser/
-.metadata/
+
 
 
 
@@ -24,3 +23,6 @@ Thumbs.db
 .settings/
 .metadata/
 outgoing/
+
+.browser/
+.metadata/
