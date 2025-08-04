@@ -2,7 +2,7 @@ gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_retarget_stdio.o: \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/service/iostream/src/sl_iostream_retarget_stdio.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\em_device.h \
@@ -53,7 +53,7 @@ gecko_sdk_4.4.6/platform/service/iostream/src/sl_iostream_retarget_stdio.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\em_device.h:

@@ -46,12 +46,12 @@ gecko_sdk_4.4.6/platform/service/mpu/src/sl_mpu.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_ldmaxbar_defines.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/emlib_core_debug_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/emlib_core_debug_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\mpu\inc\sl_mpu.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
@@ -100,11 +100,11 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_ldmaxbar_defines.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/emlib_core_debug_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/emlib_core_debug_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\mpu\inc\sl_mpu.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:

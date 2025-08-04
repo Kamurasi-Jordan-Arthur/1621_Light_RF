@@ -1,19 +1,19 @@
 Scr/bsp.o: ../Scr/bsp.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  C:\qp\qpc/include/qpc.h C:\qp\qpc/ports/qep-only/qp_port.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/qp_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign/Inc/qp_config.h \
  C:\qp\qpc/include/qp.h C:\qp\qpc/include/qsafe.h \
  C:\qp\qpc/include/qs_dummy.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/bsp.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign/Inc/bsp.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\common\util\app_assert\app_assert.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/app_assert_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/app_assert_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\common\util\app_log\app_log.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_iostream_handles.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_iostream_init_eusart_instances.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_iostream_handles.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_iostream_init_eusart_instances.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream_uart.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\em_device.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22c222f352gn32.h \
@@ -64,19 +64,19 @@ Scr/bsp.o: ../Scr/bsp.c \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\dmadrv\inc\dmadrv.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\common\inc\ecode.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_ldma.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/dmadrv_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/dmadrv_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_power_manager_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_power_manager_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/app_log_config.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_bluetooth.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_bluetooth_config.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_bluetooth_connection_config.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_bluetooth_advertiser_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/app_log_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_bluetooth.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_bluetooth_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_bluetooth_connection_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_bluetooth_advertiser_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h \
@@ -85,20 +85,20 @@ Scr/bsp.o: ../Scr/bsp.c \
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 C:\qp\qpc/include/qpc.h:
 C:\qp\qpc/ports/qep-only/qp_port.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/qp_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign/Inc/qp_config.h:
 C:\qp\qpc/include/qp.h:
 C:\qp\qpc/include/qsafe.h:
 C:\qp\qpc/include/qs_dummy.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign/Inc/bsp.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign/Inc/bsp.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\common\util\app_assert\app_assert.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/app_assert_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/app_assert_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\app\common\util\app_log\app_log.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_iostream_handles.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_iostream_init_eusart_instances.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_iostream_handles.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_iostream_init_eusart_instances.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream_uart.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\em_device.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22c222f352gn32.h:
@@ -149,19 +149,19 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostre
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\dmadrv\inc\dmadrv.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\common\inc\ecode.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_ldma.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/dmadrv_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/dmadrv_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_power_manager_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_power_manager_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/app_log_config.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_bluetooth.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_bluetooth_config.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_bluetooth_connection_config.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_bluetooth_advertiser_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/app_log_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_bluetooth.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_bluetooth_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_bluetooth_connection_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_bluetooth_advertiser_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_stack_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_ll_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\protocol\bluetooth\inc\sl_bt_api.h:

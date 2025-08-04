@@ -46,7 +46,7 @@ autogen/sl_iostream_init_eusart_instances.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_ldmaxbar_defines.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h \
@@ -55,9 +55,9 @@ autogen/sl_iostream_init_eusart_instances.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\dmadrv\inc\dmadrv.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\common\inc\ecode.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_ldma.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/dmadrv_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/dmadrv_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_power_manager_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_power_manager_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h \
@@ -70,14 +70,14 @@ autogen/sl_iostream_init_eusart_instances.o: \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_bus.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/emlib_core_debug_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/emlib_core_debug_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu_compat.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\sli_em_cmu.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_eusart.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_eusart_compat.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_iostream_eusart_vcom_config.h
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_iostream_eusart_vcom_config.h
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\em_device.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22c222f352gn32.h:
@@ -124,7 +124,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_ldmaxbar_defines.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_enum.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:
@@ -133,9 +133,9 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\iostre
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\dmadrv\inc\dmadrv.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emdrv\common\inc\ecode.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_ldma.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/dmadrv_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/dmadrv_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_power_manager_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_power_manager_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_slist.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h:
@@ -148,11 +148,11 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_bus.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/emlib_core_debug_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/emlib_core_debug_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_cmu_compat.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\sli_em_cmu.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_gpio.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_eusart.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_eusart_compat.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_iostream_eusart_vcom_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_iostream_eusart_vcom_config.h:

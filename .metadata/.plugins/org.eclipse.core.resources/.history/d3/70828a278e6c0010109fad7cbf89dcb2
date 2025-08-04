@@ -1,0 +1,594 @@
+/***************************************************************************//**
+ * @file
+ * @brief Core application logic.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * SPDX-License-Identifier: Zlib
+ *
+ * The licensor of this software is Silicon Laboratories Inc.
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ *
+ ******************************************************************************/
+#include "em_common.h"
+#include <stdio.h>
+#include "app_assert.h"
+#include "sl_bluetooth.h"
+#include "gatt_db.h"
+
+#include "app_button_press.h"
+#include "sl_simple_button.h"
+#include "sl_simple_button_instances.h"
+
+#include "sl_simple_led.h"
+#include "sl_simple_led_instances.h"
+
+#include "qpc.h"
+#include "app.h"
+
+#include "bt_SPC51_SM.h"
+#include "sl_sleeptimer.h"
+#include "bsl_Firmware_update.h"
+
+// The advertising set handle allocated from Bluetooth stack.
+//static uint8_t advertising_set_handle = 0xff;
+
+//bt evt holding variable
+sl_bt_msg_t * event;
+
+//QEvent instance for button press events to the QMsh
+buttonEvt_t buttonEvt;
+
+bool button_pressed = false;
+// variables synchronization of read in firmware update
+static size_t bytes_read = 0U;
+static size_t read_point = 0U;
+
+// Appliction SIG for blink expire
+static bool blink_expired;
+
+// Firmware Update state machine event
+static QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+
+
+uint8_t blink_count;
+
+//Event pointer
+static QEvt btEvt;
+/**************************************************************************//**
+ * Application Init.
+ *****************************************************************************/
+SL_WEAK void app_init(void)
+{
+  sl_status_t sc;
+  sc = sl_iostream_set_default(sl_iostream_vcom_handle);
+  app_assert_status(sc);
+
+  // initialise the button event
+  QEvt_ctor((QEvt *)(&buttonEvt), BUTTON_ID);
+
+  bt_SPC51_ctor((bt_SPC51 *)QMsm_bt_SPC51_p);
+//  bt_SPC51_ctor((remoteSM *)QMsm_bt_SPC51_p);  // bt_SPC51_SM "constructor" invokes QMsm_ctor()
+
+  QASM_INIT(QMsm_bt_SPC51_p, 0U, 0U); // initial transition
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Put your additional application init code here!                         //
+  // This is called once during start-up.                                    //
+  /////////////////////////////////////////////////////////////////////////////
+}
+
+/**************************************************************************//**
+ * Application Process Action.
+ *****************************************************************************/
+SL_WEAK void app_process_action(void)
+{
+  sl_status_t sc;
+
+  if (blink_expired){
+      blink_expired = false;
+      sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U << 4)), sl_bt_sm_io_capability_displayonly);
+      app_assert_status(sc);
+
+      sc = sl_sleeptimer_stop_timer(&newConnectionTimer);
+      app_assert_status(sc);
+
+      sl_simple_button_enable(&sl_button_btn0);
+      blink_count = 0U;
+      app_log_info("New device connection window expired...\n");
+      app_log_info("Still advertising...\n");
+  }
+
+  if(button_pressed){
+      button_pressed = false;
+      app_log_info("button_pressed.\n");
+
+      QASM_DISPATCH(QMsm_bt_SPC51_p, &buttonEvt.super, (void)0U);
+
+      //because we have no event Queue hence
+  }
+
+  if(update_timer_expired){
+      update_timer_expired = false;
+      app_log_info("Update_timer_expired.\n");
+      QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+
+  }
+  size_t gabage_length;
+  sc = sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U), &gabage_length);
+
+  if(bsl_read){
+      // Highly encouraged to create time an implement a Qeueu in you appication (QMQEUEU)
+
+
+      if(sl_iostream_read(SL_IOSTREAM_STDIN, (uint8_t *)&BSL_RX_buffer[read_point], (size_t)(MAX_PACKET_SIZE + 2U), &bytes_read) == SL_STATUS_OK){
+          static QEvt UART_ARK_EVT = QEVT_INITIALIZER(UART_ARK_ID);
+
+      switch (bsl_read) {
+        case BYTE_ACK:
+          // It should be one byte
+              app_assert_s(bytes_read == ACK_BYTE);
+              read_point = 0U;
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
+
+          break;
+
+        case STATUS_CHECK:
+          // It should be one byte
+              app_assert_s(bytes_read == 1U);
+              read_point = 0U;
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
+
+          break;
+
+
+        case GetID_RSP:
+          if (read_point + bytes_read - 1U  <  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
+              //Most times packet is not complete
+              read_point += bytes_read;
+
+          }else if(bytes_read ==  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
+              // Success case
+              read_point = 0U;
+              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+
+          }else {
+              // case of failure
+              app_assert_s(false);
+
+          }
+
+          break;
+
+        case UNLOCK_RSP:
+          if (read_point + bytes_read - 1U  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              //Most times packet is not complete
+              read_point += bytes_read;
+
+          }else if(bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              // Success case
+              read_point = 0U;
+              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+
+          }else {
+              // case of failure
+              app_assert_s(false);
+
+          }
+
+          break;
+
+        case MASS_ERASE_RSP:
+          if (read_point + bytes_read - 1U  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              //Most times packet is not complete
+              read_point += bytes_read;
+          }else if(bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              //Success case
+              read_point = 0U;
+
+              //Inform the statemachine in a given dela
+              sc = sl_sleeptimer_restart_timer_ms(
+                &updateTimer,
+                MASS_ERASE_DELAY,
+                updateTimerEx_Callback,
+                NULL,
+                0,      // priority
+                0       // option_flags
+              );
+              app_assert_status(sc);
+
+          }else {
+              // case of failure
+              app_assert_s(false);
+
+          }
+
+
+          break;
+        case DATA_WRITE_RSP:
+
+          if (read_point + bytes_read - 1U  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              //Most times packet is not complete
+              read_point += bytes_read;
+
+          }else if(bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              //inform the state machine a
+              sc = sl_sleeptimer_restart_timer_ms(
+                &updateTimer,
+                BSL_NEXT_WRITE_DELAY,
+                updateTimerEx_Callback,
+                NULL,
+                0,      // priority
+                0       // option_flags
+              );
+              app_assert_status(sc);
+
+          }else {
+              // case of failure
+              app_assert_s(false);
+
+          }
+          break;
+
+        default:
+          break;
+
+      }
+  }
+//      bsl_read = OTHER;
+
+  }
+  /////////////////////////////////////////////////////////////////////////////
+  // Put your additional application code here!                              //
+  // This is called infinitely.                                              //
+  // Do not call blocking functions from here!                               //
+  /////////////////////////////////////////////////////////////////////////////
+}
+
+/**************************************************************************//**
+ * Bluetooth stack event handler.
+ * This overrides the dummy weak implementation.
+ *
+ * @param[in] evt Event coming from the Bluetooth stack.
+ *****************************************************************************/
+
+
+void sl_bt_on_event(sl_bt_msg_t *evt)
+{
+//  sl_status_t sc;
+
+  event = evt;
+
+  //construct the event
+  QEvt_ctor(&btEvt, SL_BT_MSG_ID(evt->header));
+
+//  btEvt = QEVT_INITIALIZER(SL_BT_MSG_ID(evt->header));
+
+  QASM_DISPATCH(QMsm_bt_SPC51_p, &btEvt, (void)0U);
+
+    // -------------------------------
+    // This event indicates the device has started and the radio is ready.
+    // Do not call any stack command before receiving this boot event!
+//  switch(SL_BT_MSG_ID(evt->header)){
+//    case sl_bt_evt_gatt_server_characteristic_status_id:
+//      notify_flag_change(
+//          event->data.evt_gatt_server_characteristic_status.characteristic,
+//          event->data.evt_gatt_server_characteristic_status.connection);
+//
+//      break;
+//    case sl_bt_evt_connection_opened_id:
+//      evt->data.evt_connection_opened.connection
+//      send_notification();
+//      break;
+//
+//  }
+
+}
+
+void notify_flag_change(void){
+//  (void) connection;
+//  sl_status_t sc;
+//  size_t data_len;
+//  uint8_t data[5U];
+
+  switch (event->data.evt_gatt_server_characteristic_status.characteristic){
+    case gattdb_Led_config:
+      app_log_info("Led_config notification enabled.\n");
+
+      break;
+
+    case gattdb_Changes:
+        app_log_info("Changes notification enabled.\n");
+
+      break;
+
+    default:
+      app_log_append_warning("Unknown characteristic: notify_flag_change\n");
+      break;
+
+  }
+
+//   Read status characteristic stored in local GATT database.
+
+//  sc = sl_bt_gatt_server_read_attribute_value(event->data.evt_gatt_server_characteristic_status.characteristic,
+//                                              0,
+//                                              (size_t)sizeof(data),
+//                                              &data_len,
+//                                              data);
+//  app_assert_status(sc);
+//  // alert the send of data
+//  sc = sl_bt_gatt_server_send_notification(event->data.evt_gatt_server_characteristic_status.connection,
+//                                           event->data.evt_gatt_server_characteristic_status.characteristic,
+//                                           data_len,
+//                                           data);
+//  app_assert_status(sc);
+
+
+
+    return;
+  }
+
+
+
+
+void parse_dataAndProcess(void){
+  sl_status_t sc;
+  size_t data_len;
+  uint8_t data[7U];
+  uint8_t Percetage;
+
+  //led to change
+  uint8_t Led = (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[1]);
+  // Value to change to
+  uint8_t value = (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2]);
+
+
+
+  // Read status characteristic stored in local GATT database.
+  sc = sl_bt_gatt_server_read_attribute_value(gattdb_Led_config,
+                                              0,
+                                              (size_t)sizeof(data),
+                                              &data_len,
+                                              data);
+  app_assert_status(sc);
+
+  switch (event->data.evt_gatt_server_attribute_value.value.data[0]) {
+    case 'P':
+
+      switch (value) {
+//        Increment sign
+        case '+':
+          Percetage = data[Led] & 0x7FU;
+
+          if(Percetage < 0x64U){
+              Percetage += 7U;
+
+              data[Led] &= 0x80U;
+
+//        case when increament is results to a value greater than 100
+              if(Percetage < 0x64U){
+                  data[Led] |= Percetage;
+              }else{
+                  data[Led] |= 0x64U;
+
+              }
+          }else {
+//              Avoid changes to configuration
+              return;
+          }
+
+          break;
+
+//          Deduct sign
+        case '-':
+          Percetage = data[Led] & 0x7FU;
+
+          if(Percetage > 0x00U){
+              Percetage -= 7U;
+
+              data[Led] &= 0x80U;
+
+//        cater for case when the deduction results to increment
+              if(Percetage < 0x64U){
+                  data[Led] |= Percetage;
+              }
+          }else{
+ //              Avoid changes to configuration
+              return;
+          }
+
+          break;
+        default:
+          //Update the value
+          data[Led] =        //What led configuration to change
+              (
+              (data[Led]                                                                //Led configuration to be changed
+              & 0x80)                                                                   // For percentage clear the percentage bits
+              | value    // Then fill them with the required bits for percentage
+              );
+
+          break;
+      }
+
+
+      //Finally we should alert the SPC5x about the change
+      printf("L%u %u %u\n",
+                   Led,
+                   data[Led] & 0x7FU,
+                   (data[Led] & 0x80U) ? 1U : 0U);
+
+
+
+      break;
+    case 'S':
+      //TODO think of toggling the status instead
+//      data[Led] =                //What led configuration to change
+//          ((data[Led]            //Led configuration to be changed
+//             & 0x7F)                                                                           // For status clear the status bits (bit 8)
+//          | (value) << 7U);      // Then fill them with the required bits for status
+//      Is it a switch btw leds or not
+      switch (value) {
+//        Switch btw leds
+        case 'S':
+          printf("L%u\n", Led);
+          return;
+
+        default:
+          data[Led] ^=  0x80U;             //Toggle the led
+          break;
+
+      }
+
+//      Finally we should alert the SPC5x about the change
+      printf("L%u %u %u\n",
+                   Led,
+                   data[Led] & 0x7FU,
+                   (data[Led] & 0x80U) ? 1U : 0U);
+
+      //printf("L%u S%u\n",
+      //             Led,
+      //             (uint8_t)((data[Led] & 0x80U) >> 7u));
+      break;
+
+
+    default:
+
+      // copy the received configuration command into the data variable
+      memcpy(data,
+             event->data.evt_gatt_server_attribute_value.value.data,
+             1U);
+
+      data[1U] = '\0'; // Null-terminate
+
+      app_log_warning("Unknown configuration: %s%u%u\n",
+                      data, // the change
+                      Led, // the led
+                      value);// the value
+
+      return;
+//      break;
+  }
+
+//  Update your database of the change
+  sc = sl_bt_gatt_server_write_attribute_value(gattdb_Led_config,
+                                               0U,
+                                               data_len,
+                                               data);
+  app_assert_status(sc);
+
+  sc = sl_bt_gatt_server_notify_all(gattdb_Led_config, data_len, data);
+  app_assert_status(sc);
+
+}
+
+
+
+
+
+
+//void send_notification(uint8_t gattdb_X, uint8array data){
+void send_notification(void){
+
+   sl_status_t sc;
+
+
+   switch (event->data.evt_gatt_server_attribute_value.attribute) {
+     case gattdb_Changes:
+       parse_dataAndProcess();
+//       if(!parse_data()){
+//           return;
+//       }
+       break;
+
+
+     case gattdb_Led_config:
+       // Read led values characteristic stored in local GATT database.
+//       sc = sl_bt_gatt_server_write_attribute_value(event->data.evt_gatt_server_attribute_value.attribute,
+//                                                    event->data.evt_gatt_server_attribute_value.offset,
+//                                                   (size_t)event->data.evt_gatt_server_attribute_value.value.len,
+//                                                   event->data.evt_gatt_server_attribute_value.value.data);
+//       app_assert_status(sc);
+
+       // Send characteristic notification.
+       sc = sl_bt_gatt_server_notify_all(event->data.evt_gatt_server_attribute_value.attribute,
+                                         (size_t)event->data.evt_gatt_server_attribute_value.value.len,
+                                         event->data.evt_gatt_server_attribute_value.value.data);
+       app_assert_status(sc);
+       break;
+
+    default:
+      app_log_warning("Unknown characteristic : send_notification\n");
+       break;
+   }
+
+   return;
+ }
+
+
+
+
+
+
+
+sl_sleeptimer_timer_handle_t newConnectionTimer;
+
+
+void newConnectionTimerCallback(sl_sleeptimer_timer_handle_t *handle, void *data){
+  (void)data;
+  (void)handle;
+
+  if(blink_count < (uint8_t)120U){
+      sl_led_toggle(&sl_led_led0);
+      blink_count++;
+
+  }else{
+      blink_expired = true;
+
+  }
+}
+
+
+
+void app_button_press_cb(uint8_t button, uint8_t duration){
+//    QStateHandler state;
+//    state = QMsm_state(QMsm_bt_SPC51_p);
+
+    app_log_info("Pressed.\n");
+
+    button_pressed = true;
+    buttonEvt.duration = duration;
+    buttonEvt.keyId = button;
+
+}
+
+
+
+// function call back for application reply if sleeping is okay
+bool app_is_ok_to_sleep(void)
+{
+  if (blink_expired | update_timer_expired | button_pressed)
+    return false;
+  else
+    return true;
+}
+
+

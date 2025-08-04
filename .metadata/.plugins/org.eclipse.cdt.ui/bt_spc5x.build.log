@@ -1,0 +1,6 @@
+08:18:04 **** Incremental Build of configuration GNU ARM v12.2.1 - Default for project bt_spc5x ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+
+08:18:30 Build Finished. 0 errors, 0 warnings. (took 26s.895ms)
+

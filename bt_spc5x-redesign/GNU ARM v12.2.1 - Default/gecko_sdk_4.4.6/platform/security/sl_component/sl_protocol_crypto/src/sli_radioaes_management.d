@@ -46,7 +46,7 @@ gecko_sdk_4.4.6/platform/security/sl_component/sl_protocol_crypto/src/sli_radioa
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_prs_signals.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_dma_descriptor.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_ldmaxbar_defines.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h \
  C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/security/sl_component/sl_protocol_crypto/src/sli_radioaes_management.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\se_manager\src\sli_se_manager_osal.h \
@@ -58,22 +58,22 @@ gecko_sdk_4.4.6/platform/security/sl_component/sl_protocol_crypto/src/sli_radioa
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/emlib_core_debug_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/emlib_core_debug_config.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto_platform.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\mbedtls\private_access.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\build_info.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\mbedtls\build_info.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_mbedtls_config.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_mbedtls_config_autogen.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_mbedtls_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_mbedtls_config_autogen.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_mbedtls_support\config\sli_mbedtls_omnipresent.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_mbedtls_support\config\sli_mbedtls_acceleration.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_mbedtls_device_config.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_mbedtls_config_transform_autogen.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/psa_crypto_config.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_psa_config_autogen.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_mbedtls_device_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_mbedtls_config_transform_autogen.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/psa_crypto_config.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_psa_config_autogen.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_mbedtls_support\config\sli_psa_acceleration.h \
- C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_psa_builtin_config_autogen.h \
+ C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_psa_builtin_config_autogen.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\mbedtls\config_psa.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto_legacy.h \
  c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto_adjust_config_synonyms.h \
@@ -177,7 +177,7 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\silicon
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_prs_signals.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_dma_descriptor.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\device\siliconlabs\efr32bg22\include\efr32bg22_ldmaxbar_defines.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sl_component_catalog.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sl_component_catalog.h:
 C:/SiliconLabs/SimplicityStudio/v5/offline/sdk/gecko-sdk/platform/security/sl_component/sl_protocol_crypto/src/sli_radioaes_management.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_status.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\se_manager\src\sli_se_manager_osal.h:
@@ -189,22 +189,22 @@ c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_c
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\emlib\inc\em_core_generic.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_common.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\common\inc\sl_assert.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/emlib_core_debug_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/emlib_core_debug_config.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto_platform.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\mbedtls\private_access.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\build_info.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\mbedtls\build_info.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_mbedtls_config.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_mbedtls_config_autogen.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_mbedtls_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_mbedtls_config_autogen.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_mbedtls_support\config\sli_mbedtls_omnipresent.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_mbedtls_support\config\sli_mbedtls_acceleration.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/sl_mbedtls_device_config.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_mbedtls_config_transform_autogen.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\config/psa_crypto_config.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_psa_config_autogen.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/sl_mbedtls_device_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_mbedtls_config_transform_autogen.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\config/psa_crypto_config.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_psa_config_autogen.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\platform\security\sl_component\sl_mbedtls_support\config\sli_psa_acceleration.h:
-C:\Users\Admin\SimplicityStudio\v5_workspace\bt_spc5x-redesign\autogen/sli_psa_builtin_config_autogen.h:
+C:\Users\Admin\SimplicityStudio\v5_workspace2\bt_spc5x-redesign\autogen/sli_psa_builtin_config_autogen.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\mbedtls\config_psa.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto_legacy.h:
 c:\siliconlabs\simplicitystudio\v5\offline\sdk\gecko-sdk\util\third_party\mbedtls\include\psa\crypto_adjust_config_synonyms.h:
