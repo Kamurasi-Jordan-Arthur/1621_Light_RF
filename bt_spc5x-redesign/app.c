@@ -381,7 +381,7 @@ void parse_dataAndProcess(void){
           Percetage = data[Led] & 0x7FU;
 
           if(Percetage < 0x64U){
-              Percetage += 7U;
+              Percetage += 17U;
 
               data[Led] &= 0x80U;
 
@@ -392,6 +392,12 @@ void parse_dataAndProcess(void){
                   data[Led] |= 0x64U;
 
               }
+
+// Lastly put on the lights if they are off for the case of increasing
+              if(!(data[Led] & 0x80U)){
+                  data[Led] ^=  0x80U;             //Put it on
+              }
+
           }else {
 //              Avoid changes to configuration
               return;
@@ -404,7 +410,7 @@ void parse_dataAndProcess(void){
           Percetage = data[Led] & 0x7FU;
 
           if(Percetage > 0x00U){
-              Percetage -= 7U;
+              Percetage -= 14U;
 
               data[Led] &= 0x80U;
 
@@ -450,7 +456,12 @@ void parse_dataAndProcess(void){
       switch (value) {
 //        Switch btw leds
         case 'S':
-          printf("L%u\n", Led);
+//          printf("L%u\n", Led);
+          printf("L%u %u %u\n",
+                       Led,
+                       data[Led] & 0x7FU,
+                       (data[Led] & 0x80U) ? 1U : 0U);
+
           return;
 
         default:

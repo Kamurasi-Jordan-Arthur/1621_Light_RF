@@ -428,6 +428,12 @@ switch (Q_EVT_CAST(buttonEvt_t)-&gt;duration) {
 
     break;
 
+  case APP_BUTTON_PRESS_DURATION_LONG:
+  case APP_BUTTON_PRESS_DURATION_VERYLONG:
+    
+    //Intetional fall through
+
+
   case APP_BUTTON_PRESS_DURATION_MEDIUM:
     if (&amp;sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
         if (me-&gt;current_led &lt; MAX_LED_INDEX){
@@ -472,7 +478,7 @@ switch (Q_EVT_CAST(buttonEvt_t)-&gt;duration) {
     break;
 
 
-  case APP_BUTTON_PRESS_DURATION_LONG:
+//  case APP_BUTTON_PRESS_DURATION_LONG:
     //if (&amp;sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)-&gt;keyId)) {
     //    //me-&gt;sc = sl_bt_sm_delete_bonding(me-&gt;bonding_Handle);
     //    me-&gt;sc = sl_bt_connection_close(me-&gt;connection_handle);
@@ -487,12 +493,12 @@ switch (Q_EVT_CAST(buttonEvt_t)-&gt;duration) {
 
 //    app_button_press_enable();
 
-    break;
+//    break;
 
-  case APP_BUTTON_PRESS_DURATION_VERYLONG:
-    app_log_append_info(&quot;Resetting...\n&quot;);
-    sl_bt_system_reset(sl_bt_system_boot_mode_normal);
-    break;
+//  case APP_BUTTON_PRESS_DURATION_VERYLONG:
+//    app_log_append_info(&quot;Resetting...\n&quot;);
+//    sl_bt_system_reset(sl_bt_system_boot_mode_normal);
+//    break;
 
   default:
     break;

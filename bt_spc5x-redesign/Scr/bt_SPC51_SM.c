@@ -368,9 +368,9 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
                 QMState const *target;
                 QActionHandler act[2];
             } const tatbl_ = { // tran-action table
-                &bt_SPC51_FIRMWARE_UPDATE_s, // target state
+                &bt_SPC51_UNLOCKED_s, // target state
                 {
-                    Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_i), // initial tran.
+                    Q_ACTION_CAST(&bt_SPC51_UNLOCKED_i), // initial tran.
                     Q_ACTION_NULL // zero terminator
                 }
             };

@@ -73,7 +73,7 @@
 
 // <e APP_LOG_ENABLE> Application Logging
 // <i> Enables Logging.
-#define APP_LOG_ENABLE            0
+#define APP_LOG_ENABLE            1
 
 // <h> General
 
@@ -254,7 +254,7 @@
 
 // <e APP_LOG_COLOR_ENABLE> Colors for terminal logging
 // <i> Enables color prefixing for logging to terminal.
-#define APP_LOG_COLOR_ENABLE                    0
+#define APP_LOG_COLOR_ENABLE                    1
 
 // <h> Text color
 

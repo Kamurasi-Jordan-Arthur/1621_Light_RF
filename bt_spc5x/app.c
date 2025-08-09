@@ -144,79 +144,68 @@ SL_WEAK void app_process_action(void)
       switch (bsl_read) {
         case BYTE_ACK:
           // It should be one byte
-            app_assert_s(bytes_read == ACK_BYTE);
-            read_point = 0U;
-            QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
+              app_assert_s(bytes_read == ACK_BYTE);
+              read_point = 0U;
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
 
           break;
 
         case STATUS_CHECK:
           // It should be one byte
-            app_assert_s(bytes_read == 1U);
-            read_point = 0U;
-            QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
+              app_assert_s(bytes_read == 1U);
+              read_point = 0U;
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
 
           break;
 
 
         case GetID_RSP:
-          read_point = 0U;
-          QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
-//
-//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
-//              //Most times packet is not complete
-//              read_point += bytes_read;
-//
-//          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
-//              // Success case
-//              read_point = 0U;
-//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
-//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
-//
-//          }else {
-//              // case of failure
-//              app_assert_s(false);
-//
-//          }
+          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
+              //Most times packet is not complete
+              read_point += bytes_read;
+
+          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ID_BACK + CRC_BYTES){
+              // Success case
+              read_point = 0U;
+              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+
+          }else {
+              // case of failure
+              app_assert_s(false);
+
+          }
 
           break;
 
         case UNLOCK_RSP:
-          read_point = 0U;
-          QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              //Most times packet is not complete
+              read_point += bytes_read;
 
-//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
-//              //Most times packet is not complete
-//              read_point += bytes_read;
-//
-//          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
-//              // Success case
-//              read_point = 0U;
-//              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
-//              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
-//
-//          }else {
-//              // case of failure
-//              app_assert_s(false);
-//
-//          }
+          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              // Success case
+              read_point = 0U;
+              QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
+              QASM_DISPATCH(QMsm_bt_SPC51_p, &NXT_F_STATE, (void)0U);
+
+          }else {
+              // case of failure
+              app_assert_s(false);
+
+          }
 
           break;
 
         case MASS_ERASE_RSP:
-
-//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
-         if (false){
-
+          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
               //Most times packet is not complete
               read_point += bytes_read;
-//         }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
-
-         }else if(true){
+          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
               //Success case
               read_point = 0U;
 
-              //Inform the statemachine in a given dela
+              //Inform the statemachine in a given delay time
               sc = sl_sleeptimer_restart_timer_ms(
                 &updateTimer,
                 MASS_ERASE_DELAY,
@@ -237,15 +226,11 @@ SL_WEAK void app_process_action(void)
           break;
         case DATA_WRITE_RSP:
 
-//          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
-          if (false){
-
-          //Most times packet is not complete
+          if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+              //Most times packet is not complete
               read_point += bytes_read;
 
-//          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
-          }else if(true){
-
+          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
               //inform the state machine a
               read_point = 0U;
               sc = sl_sleeptimer_restart_timer_ms(
@@ -396,7 +381,7 @@ void parse_dataAndProcess(void){
           Percetage = data[Led] & 0x7FU;
 
           if(Percetage < 0x64U){
-              Percetage += 7U;
+              Percetage += 17U;
 
               data[Led] &= 0x80U;
 
@@ -407,6 +392,12 @@ void parse_dataAndProcess(void){
                   data[Led] |= 0x64U;
 
               }
+
+// Lastly put on the lights if they are off for the case of increasing
+              if(!(data[Led] & 0x80U)){
+                  data[Led] ^=  0x80U;             //Put it on
+              }
+
           }else {
 //              Avoid changes to configuration
               return;
@@ -419,7 +410,7 @@ void parse_dataAndProcess(void){
           Percetage = data[Led] & 0x7FU;
 
           if(Percetage > 0x00U){
-              Percetage -= 7U;
+              Percetage -= 14U;
 
               data[Led] &= 0x80U;
 
@@ -465,7 +456,12 @@ void parse_dataAndProcess(void){
       switch (value) {
 //        Switch btw leds
         case 'S':
-          printf("L%u\n", Led);
+//          printf("L%u\n", Led);
+          printf("L%u %u %u\n",
+                       Led,
+                       data[Led] & 0x7FU,
+                       (data[Led] & 0x80U) ? 1U : 0U);
+
           return;
 
         default:

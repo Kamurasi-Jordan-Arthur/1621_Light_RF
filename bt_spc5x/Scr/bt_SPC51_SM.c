@@ -494,7 +494,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             switch (Q_EVT_CAST(buttonEvt_t)->duration) {
                   case APP_BUTTON_PRESS_DURATION_SHORT:
 
-                    if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId) == &sl_button_btn1){
+                    if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId) == &sl_button_btn0){
 
                         me->sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG & ~(1U << 4)), sl_bt_sm_io_capability_displayonly);
                         app_assert_status(me->sc);
@@ -516,7 +516,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
                         app_log_info("Connectable to new devices...\n");
 
                     }
-                    else if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId) == &sl_button_btn0){
+                    else if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId) == &sl_button_btn1){
 
                       // Stop the advertising.
                       me->sc = sl_bt_advertiser_stop(me->advertising_set_handle);

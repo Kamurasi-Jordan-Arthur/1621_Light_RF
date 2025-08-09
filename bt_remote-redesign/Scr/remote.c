@@ -440,6 +440,12 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
 
                 break;
 
+              case APP_BUTTON_PRESS_DURATION_LONG:
+              case APP_BUTTON_PRESS_DURATION_VERYLONG:
+
+                //Intetional fall through
+
+
               case APP_BUTTON_PRESS_DURATION_MEDIUM:
                 if (&sl_button_btn0 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
                     if (me->current_led < MAX_LED_INDEX){
@@ -484,7 +490,7 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
                 break;
 
 
-              case APP_BUTTON_PRESS_DURATION_LONG:
+            //  case APP_BUTTON_PRESS_DURATION_LONG:
                 //if (&sl_button_btn2 == SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId)) {
                 //    //me->sc = sl_bt_sm_delete_bonding(me->bonding_Handle);
                 //    me->sc = sl_bt_connection_close(me->connection_handle);
@@ -499,12 +505,12 @@ QState bt_remote_running(bt_remote * const me, QEvt const * const e) {
 
             //    app_button_press_enable();
 
-                break;
+            //    break;
 
-              case APP_BUTTON_PRESS_DURATION_VERYLONG:
-                app_log_append_info("Resetting...\n");
-                sl_bt_system_reset(sl_bt_system_boot_mode_normal);
-                break;
+            //  case APP_BUTTON_PRESS_DURATION_VERYLONG:
+            //    app_log_append_info("Resetting...\n");
+            //    sl_bt_system_reset(sl_bt_system_boot_mode_normal);
+            //    break;
 
               default:
                 break;
