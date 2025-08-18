@@ -363,7 +363,6 @@ void parse_dataAndProcess(void){
   uint8_t value = (uint8_t)(event->data.evt_gatt_server_attribute_value.value.data[2]);
 
 
-
   // Read status characteristic stored in local GATT database.
   sc = sl_bt_gatt_server_read_attribute_value(gattdb_Led_config,
                                               0,

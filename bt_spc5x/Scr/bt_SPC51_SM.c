@@ -177,7 +177,7 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::INITIALIZING::sl_bt_evt_system_boot_id}
-        case sl_bt_evt_system_boot_id: {
+        case sl_bt_evt_system_boot_id_SIG: {
             //Stack verion display
             app_log_info("Stack version: %u.%u.%u\r\r\n",
                        event->data.evt_system_boot.major,
@@ -247,6 +247,7 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
                                             0U, 0U);    // duration, max events
             app_assert_status(me->sc);
 
+            me->sc = sl_bt_sm_configure(INITIAL_FLAG_CONFIG, sl_bt_sm_io_capability_displayonly);
 
 
             //Delete any preivious bonding on start up if any
@@ -322,13 +323,13 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_gatt_server_attribute_~}
-        case sl_bt_evt_gatt_server_attribute_value_id: {
+        case sl_bt_evt_gatt_server_attribute_value_id_SIG: {
             send_notification();
             status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_connection_parameters_~}
-        case sl_bt_evt_connection_parameters_id: {
+        case sl_bt_evt_connection_parameters_id_SIG: {
             switch (event->data.evt_connection_parameters.security_mode)
                 {
                 case sl_bt_connection_mode1_level1:
@@ -350,14 +351,15 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_connection_closed_id}
-        case sl_bt_evt_connection_closed_id: {
+        case sl_bt_evt_connection_closed_id_SIG: {
             app_log_info("Connection Closed....\n");
 
+            app_log_info("Clossing reason: 0x%06X\n", event->data.evt_connection_closed.reason);
             status_ = QM_HANDLED();
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
             size_t gabage_length;
             while (sl_iostream_read(SL_IOSTREAM_STDIN,
                     BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U),
@@ -377,11 +379,29 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             status_ = QM_TRAN(&tatbl_);
             break;
         }
+        //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_sm_confirm_bonding_id}
+        case sl_bt_evt_sm_confirm_bonding_id_SIG: {
+            me->sc = sl_bt_sm_bonding_confirm(event->data.evt_sm_confirm_bonding.connection, 1U);
+            app_assert_status(me->sc);
+
+            app_log_info("Remote bonding reqeust confirmed.\n");
+            status_ = QM_HANDLED();
+            break;
+        }
+        //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_sm_passkey_display_id}
+        case sl_bt_evt_sm_passkey_display_id_SIG: {
+            app_log_info("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
+            //sl_iostream_write(sl_iostream_vcom_handle, &(event->data.evt_sm_passkey_display.passkey), (size_t)6U);
+            printf("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
+            status_ = QM_HANDLED();
+            break;
+        }
         default: {
             status_ = QM_SUPER();
             break;
         }
     }
+    Q_UNUSED_PAR(me);
     return status_;
 }
 
@@ -396,13 +416,15 @@ QMState const bt_SPC51_ADVERTISING_s = {
 //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING}
 QState bt_SPC51_ADVERTISING_e(bt_SPC51 * const me) {
     //after that restrict new connections
-    me->sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U << 4)), sl_bt_sm_io_capability_displayonly);
-    app_assert_status(me->sc);
+    //me->sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U << 4)), sl_bt_sm_io_capability_displayonly);
+    //app_assert_status(me->sc);
+
+    //me->sc = sl_bt_sm_set_bondable_mode(false);
+    //app_assert_status(me->sc);
 
     me->sc = sl_bt_legacy_advertiser_start(me->advertising_set_handle,
                                      sl_bt_legacy_advertiser_connectable);
     app_assert_status(me->sc);
-
 
     app_log_info("Advertising....\n");
 
@@ -417,7 +439,7 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_connection_opened_id}
-        case sl_bt_evt_connection_opened_id: {
+        case sl_bt_evt_connection_opened_id_SIG: {
             app_log_info("Connection Opened....\n");
 
             me->sc = sl_sleeptimer_stop_timer(&newConnectionTimer);
@@ -475,29 +497,18 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             }
             break;
         }
-        //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_gatt_server_characteri~}
-        case sl_bt_evt_gatt_server_characteristic_status_id: {
-            if (event->data.evt_gatt_server_characteristic_status.status_flags == sl_bt_gatt_server_client_config) {
-              if (event->data.evt_gatt_server_characteristic_status.client_config_flags == sl_bt_gatt_server_notification) {
-                  // Notifications have been enabled by the client
-
-                   notify_flag_change();
-
-
-              }
-            }
-            status_ = QM_HANDLED();
-            break;
-        }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::BUTTON_ID}
-        case BUTTON_ID: {
+        case BUTTON_ID_SIG: {
             switch (Q_EVT_CAST(buttonEvt_t)->duration) {
                   case APP_BUTTON_PRESS_DURATION_SHORT:
 
                     if(SL_SIMPLE_BUTTON_INSTANCE(Q_EVT_CAST(buttonEvt_t)->keyId) == &sl_button_btn0){
 
-                        me->sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG & ~(1U << 4)), sl_bt_sm_io_capability_displayonly);
-                        app_assert_status(me->sc);
+                        //me->sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG & ~(1U << 4)), sl_bt_sm_io_capability_displayonly);
+                        //app_assert_status(me->sc);
+
+                        //me->sc = sl_bt_sm_set_bondable_mode(true);
+                        //app_assert_status(me->sc);
 
 
                         //de
@@ -574,11 +585,26 @@ QState bt_SPC51_ADVERTISING(bt_SPC51 * const me, QEvt const * const e) {
             status_ = QM_HANDLED();
             break;
         }
+        //${SMs::bt_SPC51::SM::OPERRATIONAL::ADVERTISING::sl_bt_evt_gatt_server_characteri~}
+        case sl_bt_evt_gatt_server_characteristic_status_id_SIG: {
+            if (event->data.evt_gatt_server_characteristic_status.status_flags == sl_bt_gatt_server_client_config) {
+              if (event->data.evt_gatt_server_characteristic_status.client_config_flags == sl_bt_gatt_server_notification) {
+                  // Notifications have been enabled by the client
+
+                   notify_flag_change();
+
+
+              }
+            }
+            status_ = QM_HANDLED();
+            break;
+        }
         default: {
             status_ = QM_SUPER();
             break;
         }
     }
+    Q_UNUSED_PAR(me);
     return status_;
 }
 
@@ -606,16 +632,8 @@ QState bt_SPC51_MANAGING_CONNECTION_e(bt_SPC51 * const me) {
 QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
-        //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_passkey_display_id}
-        case sl_bt_evt_sm_passkey_display_id: {
-            app_log_info("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
-            //sl_iostream_write(sl_iostream_vcom_handle, &(event->data.evt_sm_passkey_display.passkey), (size_t)6U);
-            printf("PK: %06lu\n", event->data.evt_sm_passkey_display.passkey);
-            status_ = QM_HANDLED();
-            break;
-        }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_bonding_failed_id}
-        case sl_bt_evt_sm_bonding_failed_id: {
+        case sl_bt_evt_sm_bonding_failed_id_SIG: {
             //failed bonding close the connection.
             me->sc = sl_bt_connection_close(
                           event->data.evt_sm_bonding_failed.connection);
@@ -636,19 +654,13 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
             status_ = QM_TRAN(&tatbl_);
             break;
         }
-        //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_confirm_bonding_id}
-        case sl_bt_evt_sm_confirm_bonding_id: {
-            me->sc = sl_bt_sm_bonding_confirm(event->data.evt_sm_confirm_bonding.connection, 1U);
-            app_assert_status(me->sc);
-
-            app_log_info("Remote bonding reqeust confirmed.\n");
-            status_ = QM_HANDLED();
-            break;
-        }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::MANAGING_CONNECT~::sl_bt_evt_sm_bonded_id}
-        case sl_bt_evt_sm_bonded_id: {
-            app_log_info("Bonded....\n");
-
+        case sl_bt_evt_sm_bonded_id_SIG: {
+            if (event->data.evt_sm_bonded.bonding == 0xFFU){
+                app_log_info("Pairing completed without bonding.");
+            }else{
+                app_log_info("Bonded....\n");
+            }
 
             static struct {
                 QMState const *target;
@@ -740,7 +752,7 @@ QState bt_SPC51_SEND_CONN(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::UART_ARK_ID}
-        case UART_ARK_ID: {
+        case UART_ARK_ID_SIG: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
             //bsl_read = OTHER;
 
@@ -757,7 +769,7 @@ QState bt_SPC51_SEND_CONN(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
             static struct {
                 QMState const *target;
                 QActionHandler act[3];
@@ -806,7 +818,7 @@ QState bt_SPC51_GET_DEV_INFO(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::GET_DEV_INFO::UART_ARK_ID}
-        case UART_ARK_ID: {
+        case UART_ARK_ID_SIG: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = GetID_RSP;
@@ -815,7 +827,7 @@ QState bt_SPC51_GET_DEV_INFO(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::GET_DEV_INFO::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
             BSL_MAX_BUFFER_SIZE =
                 *(uint16_t *) &BSL_RX_buffer[HDR_LEN_CMD_BYTES + ID_BACK - 14];
 
@@ -873,7 +885,7 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::UART_ARK_ID}
-        case UART_ARK_ID: {
+        case UART_ARK_ID_SIG: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = UNLOCK_RSP;
@@ -881,7 +893,7 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
             //bsl_read = OTHER;
             app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UP~::[succesfull!!]}
@@ -990,7 +1002,7 @@ QState bt_SPC51_MASS_ERASE(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::MASS_ERASE::UART_ARK_ID}
-        case UART_ARK_ID: {
+        case UART_ARK_ID_SIG: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = MASS_ERASE_RSP;
@@ -998,7 +1010,7 @@ QState bt_SPC51_MASS_ERASE(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::MASS_ERASE::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
             app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
 
             //initialse the section variable
@@ -1056,7 +1068,7 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::UART_ARK_ID}
-        case UART_ARK_ID: {
+        case UART_ARK_ID_SIG: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             bsl_read = DATA_WRITE_RSP;
@@ -1066,7 +1078,7 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
             app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
             //   printf("\n");
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::NEXT_FIRMWARE_UP~::[unwrittenSectionBytes?]}
@@ -1164,7 +1176,7 @@ QState bt_SPC51_START_APP(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::START_APP::UART_ARK_ID}
-        case UART_ARK_ID: {
+        case UART_ARK_ID_SIG: {
             app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
             static struct {
@@ -1223,7 +1235,7 @@ QState bt_SPC51_CheckStaus(bt_SPC51 * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::CheckStaus::UART_ARK_ID}
-        case UART_ARK_ID: {
+        case UART_ARK_ID_SIG: {
             //bsl_read = OTHER;
 
             //BSL running state
@@ -1244,7 +1256,7 @@ QState bt_SPC51_CheckStaus(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::CheckStaus::NEXT_FIRMWARE_UPDATE_STATE_ID}
-        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+        case NEXT_FIRMWARE_UPDATE_STATE_ID_SIG: {
             static struct {
                 QMState const *target;
                 QActionHandler act[3];
