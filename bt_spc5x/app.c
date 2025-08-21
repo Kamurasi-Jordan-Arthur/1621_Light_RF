@@ -70,6 +70,12 @@ static QEvt NXT_F_STATE = QEVT_INITIALIZER(NEXT_FIRMWARE_UPDATE_STATE_ID);
 
 uint8_t blink_count;
 
+
+
+// A flag to check if the total firmware size has been received
+uint8_t A = 0;
+
+
 //Event pointer
 static QEvt btEvt;
 /**************************************************************************//**
@@ -91,7 +97,7 @@ SL_WEAK void app_init(void)
 
   /////////////////////////////////////////////////////////////////////////////
   // Put your additional application init code here!                         //
-  // This is called once during start-up.                                    //
+   // This is called once during start-up.                                    //
   /////////////////////////////////////////////////////////////////////////////
 }
 
@@ -104,8 +110,8 @@ SL_WEAK void app_process_action(void)
 
   if (blink_expired){
       blink_expired = false;
-      sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U << 4)), sl_bt_sm_io_capability_displayonly);
-      app_assert_status(sc);
+      //sc = sl_bt_sm_configure((INITIAL_FLAG_CONFIG || (1U << 4)), sl_bt_sm_io_capability_displayonly);
+      //app_assert_status(sc);
 
       sc = sl_sleeptimer_stop_timer(&newConnectionTimer);
       app_assert_status(sc);
@@ -199,6 +205,7 @@ SL_WEAK void app_process_action(void)
 
         case MASS_ERASE_RSP:
           if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+
               //Most times packet is not complete
               read_point += bytes_read;
           }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
@@ -224,9 +231,12 @@ SL_WEAK void app_process_action(void)
 
 
           break;
+
         case DATA_WRITE_RSP:
 
           if (read_point + bytes_read  <  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
+
+
               //Most times packet is not complete
               read_point += bytes_read;
 
@@ -272,7 +282,6 @@ SL_WEAK void app_process_action(void)
  * @param[in] evt Event coming from the Bluetooth stack.
  *****************************************************************************/
 
-
 void sl_bt_on_event(sl_bt_msg_t *evt)
 {
 //  sl_status_t sc;
@@ -289,21 +298,18 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
     // -------------------------------
     // This event indicates the device has started and the radio is ready.
     // Do not call any stack command before receiving this boot event!
-//  switch(SL_BT_MSG_ID(evt->header)){
-//    case sl_bt_evt_gatt_server_characteristic_status_id:
-//      notify_flag_change(
-//          event->data.evt_gatt_server_characteristic_status.characteristic,
-//          event->data.evt_gatt_server_characteristic_status.connection);
 //
-//      break;
-//    case sl_bt_evt_connection_opened_id:
-//      evt->data.evt_connection_opened.connection
-//      send_notification();
-//      break;
 //
-//  }
+//
+
+
+
+
+
 
 }
+
+
 
 void notify_flag_change(void){
 //  (void) connection;
@@ -312,6 +318,7 @@ void notify_flag_change(void){
 //  uint8_t data[5U];
 
   switch (event->data.evt_gatt_server_characteristic_status.characteristic){
+
     case gattdb_Led_config:
       app_log_info("Led_config notification enabled.\n");
 
@@ -327,21 +334,6 @@ void notify_flag_change(void){
       break;
 
   }
-
-//   Read status characteristic stored in local GATT database.
-
-//  sc = sl_bt_gatt_server_read_attribute_value(event->data.evt_gatt_server_characteristic_status.characteristic,
-//                                              0,
-//                                              (size_t)sizeof(data),
-//                                              &data_len,
-//                                              data);
-//  app_assert_status(sc);
-//  // alert the send of data
-//  sc = sl_bt_gatt_server_send_notification(event->data.evt_gatt_server_characteristic_status.connection,
-//                                           event->data.evt_gatt_server_characteristic_status.characteristic,
-//                                           data_len,
-//                                           data);
-//  app_assert_status(sc);
 
 
 
@@ -521,16 +513,11 @@ void parse_dataAndProcess(void){
 void send_notification(void){
 
    sl_status_t sc;
-
-
    switch (event->data.evt_gatt_server_attribute_value.attribute) {
      case gattdb_Changes:
        parse_dataAndProcess();
-//       if(!parse_data()){
-//           return;
-//       }
-       break;
 
+       break;
 
      case gattdb_Led_config:
        // Read led values characteristic stored in local GATT database.
@@ -552,13 +539,32 @@ void send_notification(void){
        break;
    }
 
+
    return;
  }
 
+/* void send_size(void){
+
+   //sl_status_t sc;
 
 
+   switch (event->data.evt_gatt_server_attribute_value.attribute) {
+     case gattdb_firmware_update_cmd:
+
+        uint8_t size = event->data.evt_gatt_server_attribute_value.value.data[0];
+
+        printf("The size is %u", size);
+
+       break;
 
 
+    default:
+      app_log_warning("Unknown characteristic : \n");
+       break;
+   }
+
+   return;
+ }  */
 
 
 sl_sleeptimer_timer_handle_t newConnectionTimer;

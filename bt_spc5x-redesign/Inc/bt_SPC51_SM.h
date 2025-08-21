@@ -59,6 +59,7 @@ typedef struct {
     uint16_t ui16BytesToWrite;
     uint8_t * data;
     uint8_t bsl_pwd [32];
+    uint8_t update_connection;
 } bt_SPC51;
 
 // public:
@@ -108,8 +109,6 @@ QState bt_SPC51_PROGRAM_SECTION  (bt_SPC51 * const me, QEvt const * const e);
 QState bt_SPC51_PROGRAM_SECTION_e(bt_SPC51 * const me);
 QState bt_SPC51_PROGRAM_SECTION_x(bt_SPC51 * const me);
 extern QMState const bt_SPC51_PROGRAM_SECTION_s;
-QState bt_SPC51_PROG_VERIFICATION  (bt_SPC51 * const me, QEvt const * const e);
-extern QMState const bt_SPC51_PROG_VERIFICATION_s;
 QState bt_SPC51_START_APP  (bt_SPC51 * const me, QEvt const * const e);
 QState bt_SPC51_START_APP_e(bt_SPC51 * const me);
 QState bt_SPC51_START_APP_x(bt_SPC51 * const me);
@@ -144,16 +143,16 @@ extern bt_SPC51 bt_SPC51_inst;
 #define CONN_MAX_CE_LENGTH 0xffff
 
 //${SMs::BSL_INVOCK_DELAY} ...................................................
-#define BSL_INVOCK_DELAY (1U * 1U* 500U)
+#define BSL_INVOCK_DELAY (1U * 1U* 100U)
 
 //${SMs::BSL_CHECK_STATUS_WAIT} ..............................................
-#define BSL_CHECK_STATUS_WAIT (1U * 1U* 500U)
+#define BSL_CHECK_STATUS_WAIT (1U * 1U* 100U)
 
 //${SMs::MASS_ERASE_DELAY} ...................................................
-#define MASS_ERASE_DELAY (1U * 1U* 500U)
+#define MASS_ERASE_DELAY (1U * 1U* 100U)
 
 //${SMs::BSL_NEXT_WRITE_DELAY} ...............................................
-#define BSL_NEXT_WRITE_DELAY (1U * 1U* 500U)
+#define BSL_NEXT_WRITE_DELAY (1U * 1U* 100U)
 //$enddecl${SMs} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 //$declare(SMs::bt_SPC51)
