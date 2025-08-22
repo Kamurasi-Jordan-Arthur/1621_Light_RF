@@ -98,6 +98,7 @@ typedef struct {
     uint16_t bytes_sent;
     uint16_t chunk_size;
     uint32_t total_firmware_size;
+    uint8_t Ucomplete;
 } ota_data_t;
 
 //Declare an extern instance of this structure

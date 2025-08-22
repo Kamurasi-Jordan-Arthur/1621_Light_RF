@@ -40,6 +40,8 @@
 
 // for matter of extention to the state machine handler
 extern sl_bt_msg_t * event;
+extern size_t read_point;
+
 
 enum USER_SIGS {
 

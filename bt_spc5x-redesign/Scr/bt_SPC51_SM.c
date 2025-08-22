@@ -297,6 +297,7 @@ QState bt_SPC51_OPERRATIONAL_e(bt_SPC51 * const me) {
 
     //remove energy restriction on IO stream recieve
     sl_iostream_uart_set_rx_energy_mode_restriction(sl_iostream_uart_vcom_handle, false);
+    sl_led_turn_off(&sl_led_led0);
 
     Q_UNUSED_PAR(me);
     return QM_ENTRY(&bt_SPC51_OPERRATIONAL_s);
@@ -365,17 +366,34 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             }
 
 
-            static struct {
-                QMState const *target;
-                QActionHandler act[2];
-            } const tatbl_ = { // tran-action table
-                &bt_SPC51_FIRMWARE_UPDATE_s, // target state
-                {
-                    Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_i), // initial tran.
-                    Q_ACTION_NULL // zero terminator
-                }
-            };
-            status_ = QM_TRAN(&tatbl_);
+            //${SMs::bt_SPC51::SM::OPERRATIONAL::NEXT_FIRMWARE_UP~::[g_ota_data.Ucomplete]}
+            if (g_ota_data.Ucomplete) {
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[2];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_FIRMWARE_UPDATE_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_i), // initial tran.
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
+            //${SMs::bt_SPC51::SM::OPERRATIONAL::NEXT_FIRMWARE_UP~::[INCOPLETE_UPDATE]}
+            else {
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[2];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_UNLOCK_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_UNLOCK_e), // entry
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
             break;
         }
         //${SMs::bt_SPC51::SM::OPERRATIONAL::sl_bt_evt_gatt_server_user_write~}
@@ -740,16 +758,39 @@ QState bt_SPC51_FIRMWARE_UPDATE(bt_SPC51 * const me, QEvt const * const e) {
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::sl_bt_evt_connection_closed_id}
         case sl_bt_evt_connection_closed_id: {
-            app_log_info("Connection Closed....\n");
-
-            app_log_info("Clossing reason: 0x%06X\n", event->data.evt_connection_closed.reason);
-            status_ = QM_HANDLED();
+            //TUrn the led off
+            sl_led_turn_off(&sl_led_led0);
+            //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::sl_bt_evt_connec~::[updateConnectioLost]}
+            if (me->update_connection == event->data.evt_connection_closed.connection &&
+                g_ota_data.bytes_sent != g_ota_data.total_firmware_size)
+            {
+                g_ota_data.Ucomplete = false;
+                bsl_read = OTHER;
+                read_point = 0U;
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[4];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_OPERRATIONAL_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x), // exit
+                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_e), // entry
+                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_i), // initial tran.
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
+            else {
+                status_ = QM_UNHANDLED();
+            }
             break;
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::BUTTON_ID}
         case BUTTON_ID: {
-            //TUrn the led off
-            sl_led_turn_off(&sl_led_led0);
+            g_ota_data.Ucomplete = false;
+            bsl_read = OTHER;
+            read_point = 0U;
             static struct {
                 QMState const *target;
                 QActionHandler act[4];
@@ -1123,8 +1164,8 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROGRAM_SECTION::UART_ARK_ID}
         case UART_ARK_ID: {
             // This is the low-level check for a successful acknowledgment
-                 app_assert_s(BSL_RX_buffer[0] == uart_noError);
-                 bsl_read = DATA_WRITE_RSP;
+            app_assert_s(BSL_RX_buffer[0] == uart_noError);
+            bsl_read = DATA_WRITE_RSP;
 
 
 
@@ -1277,11 +1318,15 @@ QState bt_SPC51_START_APP(bt_SPC51 * const me, QEvt const * const e) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::START_APP::UART_ARK_ID}
         case UART_ARK_ID: {
             //app_assert_s(BSL_RX_buffer[0] == uart_noError);
-                        app_log_info("Firmware update complete. SPC51 is running the new application.\n");
+            app_log_info("Firmware update complete. SPC51 is running the new application.\n");
 
-                        // Acknowledge the run command
-                        // Transition back to the OPERRATIONAL state, which will automatically
-                        // enter the ADVERTISING substate due to its initial transition.
+            // Acknowledge the run command
+            // Transition back to the OPERRATIONAL state, which will automatically
+            // enter the ADVERTISING substate due to its initial transition.
+
+            //TUrn the led off
+
+            g_ota_data.Ucomplete = true;
 
             static struct {
                 QMState const *target;

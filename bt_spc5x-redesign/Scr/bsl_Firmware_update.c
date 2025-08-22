@@ -27,7 +27,7 @@ bool update_timer_expired = false;
 uint8_t bsl_read = OTHER;
 
 // Define the global instance of the OTA data structure
-ota_data_t g_ota_data;
+ota_data_t g_ota_data  = {0U,0U,0U,1U};
 
 sl_status_t sc;
 
