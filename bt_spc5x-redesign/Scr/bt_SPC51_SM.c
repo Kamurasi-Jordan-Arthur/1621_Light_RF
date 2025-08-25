@@ -87,13 +87,6 @@ void bt_SPC51_ctor(bt_SPC51 * const me) {
     //remoteSM *me = &remote_inst;
     QMsm_ctor(&me->super, Q_STATE_CAST(&bt_SPC51_initial));
 
-    // fill in the password
-    memcpy(me->bsl_pwd, (uint8_t[]){
-      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-      0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-    }, 32);
 
 }
 
@@ -365,7 +358,7 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
              //Just read and discard data until buffer is empty
             }
 
-
+            g_ota_data.CorrectPassword=true;
             //${SMs::bt_SPC51::SM::OPERRATIONAL::NEXT_FIRMWARE_UP~::[g_ota_data.Ucomplete]}
             if (g_ota_data.Ucomplete) {
                 static struct {
@@ -403,6 +396,8 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
 
                 g_ota_data.total_firmware_size = *(uint32_t *) (&(event->data.evt_gatt_server_user_write_request.value.data[3]));
                 g_ota_data.chunk_size = *(uint16_t *) (&(event->data.evt_gatt_server_user_write_request.value.data[1]));
+                 // fill in the password
+                memcpy(me->bsl_pwd, (uint8_t *) &(event->data.evt_gatt_server_user_write_request.value.data[7]), 32);
 
                 app_log_info(" The total firmware size is %lu and chunk size %u: ",g_ota_data.total_firmware_size, g_ota_data.chunk_size);
 
@@ -762,11 +757,13 @@ QState bt_SPC51_FIRMWARE_UPDATE(bt_SPC51 * const me, QEvt const * const e) {
             sl_led_turn_off(&sl_led_led0);
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::sl_bt_evt_connec~::[updateConnectioLost]}
             if (me->update_connection == event->data.evt_connection_closed.connection &&
-                g_ota_data.bytes_sent != g_ota_data.total_firmware_size)
+                g_ota_data.bytes_sent != g_ota_data.total_firmware_size &&
+                g_ota_data.CorrectPassword)
             {
                 g_ota_data.Ucomplete = false;
                 bsl_read = OTHER;
                 read_point = 0U;
+
                 static struct {
                     QMState const *target;
                     QActionHandler act[4];
@@ -791,6 +788,12 @@ QState bt_SPC51_FIRMWARE_UPDATE(bt_SPC51 * const me, QEvt const * const e) {
             g_ota_data.Ucomplete = false;
             bsl_read = OTHER;
             read_point = 0U;
+
+            me->sc = sl_bt_gatt_server_send_user_write_response(me->update_connection,
+                                                                       gattdb_firmware_update_cmd,
+                                                                       0U);
+            app_assert_status(me->sc);
+
             static struct {
                 QMState const *target;
                 QActionHandler act[4];
@@ -959,7 +962,10 @@ QMState const bt_SPC51_UNLOCK_s = {
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK}
 QState bt_SPC51_UNLOCK_e(bt_SPC51 * const me) {
     Host_BSL_loadPassword((uint8_t *)(me->bsl_pwd));
+
     LED_DEB
+
+    g_ota_data.CorrectPassword = true;
     return QM_ENTRY(&bt_SPC51_UNLOCK_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK}
@@ -983,9 +989,10 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UPDATE_STATE_ID}
         case NEXT_FIRMWARE_UPDATE_STATE_ID: {
             //bsl_read = OTHER;
-            app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
+            //app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UP~::[succesfull!!]}
             if (BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success) {
+                g_ota_data.CorrectPassword = true;
                 static struct {
                     QMState const *target;
                     QActionHandler act[3];
@@ -999,18 +1006,44 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
                 };
                 status_ = QM_TRAN(&tatbl_);
             }
+            //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UP~::[Wrong_Password]}
+            else if (g_ota_data.CorrectPassword) {
+                //password wrong
+                g_ota_data.CorrectPassword = false;
+
+                me->sc = sl_bt_gatt_server_send_user_write_response(me->update_connection,
+                                                                   gattdb_firmware_update_cmd,
+                                                                   0U);
+                app_assert_status(me->sc);
+
+
+                //close connection.
+                me->sc = sl_bt_connection_close(
+                              me->update_connection);
+
+                app_assert_status(me->sc);
+
+                me->sc = sl_sleeptimer_restart_timer_ms(
+                            &updateTimer,
+                            (2010U),
+                            updateTimerEx_Callback,
+                            NULL,
+                            0,      // priority
+                            0       // option_flags
+                        );
+                app_assert_status(me->sc);
+                status_ = QM_HANDLED();
+            }
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UP~::[else]}
             else {
                 static struct {
                     QMState const *target;
-                    QActionHandler act[5];
+                    QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
-                    &bt_SPC51_OPERRATIONAL_s, // target state
+                    &bt_SPC51_START_APP_s, // target state
                     {
                         Q_ACTION_CAST(&bt_SPC51_UNLOCK_x), // exit
-                        Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x), // exit
-                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_e), // entry
-                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_i), // initial tran.
+                        Q_ACTION_CAST(&bt_SPC51_START_APP_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
                 };
@@ -1317,7 +1350,8 @@ QState bt_SPC51_START_APP(bt_SPC51 * const me, QEvt const * const e) {
     switch (e->sig) {
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::START_APP::UART_ARK_ID}
         case UART_ARK_ID: {
-            //app_assert_s(BSL_RX_buffer[0] == uart_noError);
+            app_assert_s(BSL_RX_buffer[0] == uart_noError);
+
             app_log_info("Firmware update complete. SPC51 is running the new application.\n");
 
             // Acknowledge the run command

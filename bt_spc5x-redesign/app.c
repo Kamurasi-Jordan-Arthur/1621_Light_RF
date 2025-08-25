@@ -153,10 +153,10 @@ SL_WEAK void app_process_action(void)
               //app_assert_s(bytes_read == ACK_BYTE);
               QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
 
-              if(read_point>1U){
-                memcpy(BSL_RX_buffer ,&BSL_RX_buffer[1],bytes_read);
+              if(bytes_read>1U){
+                memcpy(BSL_RX_buffer ,(uint8_t *)&BSL_RX_buffer[1],bytes_read);
 
-                 read_point--;
+                 read_point = bytes_read - 1U;
                 }else{
 
                      read_point= 0U;

@@ -95,13 +95,6 @@ extern QMsm * const QMsm_bt_SPC51_p; // opaque pointer to the remoteSM HSM
     <code>//remoteSM *me = &amp;remote_inst;
 QMsm_ctor(&amp;me-&gt;super, Q_STATE_CAST(&amp;bt_SPC51_initial));
 
-// fill in the password
-memcpy(me-&gt;bsl_pwd, (uint8_t[]){
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-}, 32);
 </code>
    </operation>
    <operation name="Host_BSL_writeMemory" type="void" visibility="0x02" properties="0x00">
@@ -309,7 +302,7 @@ while (sl_iostream_read(SL_IOSTREAM_STDIN,
  //Just read and discard data until buffer is empty
 }
 
-</action>
+g_ota_data.CorrectPassword=true;</action>
       <choice target="../../../3">
        <guard>g_ota_data.Ucomplete</guard>
        <choice_glyph conn="97,32,4,3,-11,10">
@@ -318,7 +311,7 @@ while (sl_iostream_read(SL_IOSTREAM_STDIN,
       </choice>
       <choice target="../../../3/5">
        <guard brief="INCOPLETE_UPDATE">else</guard>
-       <choice_glyph conn="97,32,4,2,4,77,-3">
+       <choice_glyph conn="97,32,4,3,4,76">
         <action box="5,2,22,2"/>
        </choice_glyph>
       </choice>
@@ -332,6 +325,8 @@ while (sl_iostream_read(SL_IOSTREAM_STDIN,
        <action>
 g_ota_data.total_firmware_size = *(uint32_t *) (&amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[3]));
 g_ota_data.chunk_size = *(uint16_t *) (&amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[1]));
+ // fill in the password
+memcpy(me-&gt;bsl_pwd, (uint8_t *) &amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[7]), 32);
 
 app_log_info(&quot; The total firmware size is %lu and chunk size %u: &quot;,g_ota_data.total_firmware_size, g_ota_data.chunk_size);
 
@@ -592,10 +587,12 @@ app_log_info(&quot;Closing connection....\n&quot;);</action>
 sl_led_turn_off(&amp;sl_led_led0);</action>
       <choice target="../../../2">
        <guard brief="updateConnectioLost">me-&gt;update_connection == event-&gt;data.evt_connection_closed.connection &amp;&amp;
-g_ota_data.bytes_sent != g_ota_data.total_firmware_size</guard>
+g_ota_data.bytes_sent != g_ota_data.total_firmware_size &amp;&amp;
+g_ota_data.CorrectPassword</guard>
        <action>g_ota_data.Ucomplete = false;
 bsl_read = OTHER;
-read_point = 0U;</action>
+read_point = 0U;
+</action>
        <choice_glyph conn="118,100,4,2,-3,-87,-22">
         <action box="-53,-6,18,2"/>
        </choice_glyph>
@@ -607,7 +604,13 @@ read_point = 0U;</action>
      <tran trig="BUTTON_ID" target="../../2">
       <action>g_ota_data.Ucomplete = false;
 bsl_read = OTHER;
-read_point = 0U;</action>
+read_point = 0U;
+
+me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
+                                                           gattdb_firmware_update_cmd,
+                                                           0U);
+app_assert_status(me-&gt;sc);
+</action>
       <tran_glyph conn="107,63,3,1,-18">
        <action box="-16,-3,18,2"/>
       </tran_glyph>
@@ -678,7 +681,10 @@ app_assert_s(BSL_MAX_BUFFER_SIZE &gt;= MAX_PACKET_SIZE);
      </state>
      <state name="UNLOCK">
       <entry>Host_BSL_loadPassword((uint8_t *)(me-&gt;bsl_pwd));
-LED_DEB</entry>
+
+LED_DEB
+
+g_ota_data.CorrectPassword = true;</entry>
       <exit>//LED_DEB</exit>
       <tran trig="UART_ARK_ID">
        <action>app_assert_s(BSL_RX_buffer[0] == uart_noError);
@@ -690,24 +696,55 @@ bsl_read = UNLOCK_RSP;</action>
       </tran>
       <tran trig="NEXT_FIRMWARE_UPDATE_STATE_ID">
        <action>//bsl_read = OTHER;
-app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);</action>
+//app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success);</action>
        <choice target="../../../6">
         <guard brief="succesfull!!">BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success</guard>
-        <choice_glyph conn="180,37,4,0,6,-1,2">
-         <action box="1,2,16,2"/>
+        <action>g_ota_data.CorrectPassword = true;</action>
+        <choice_glyph conn="184,37,4,0,8">
+         <action box="0,6,16,2"/>
         </choice_glyph>
        </choice>
-       <choice target="../../../../2">
+       <choice>
+        <guard brief="Wrong_Password">g_ota_data.CorrectPassword</guard>
+        <action>//password wrong 
+g_ota_data.CorrectPassword = false;
+
+me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
+                                                   gattdb_firmware_update_cmd,
+                                                   0U);
+app_assert_status(me-&gt;sc);
+
+
+//close connection.
+me-&gt;sc = sl_bt_connection_close(
+              me-&gt;update_connection);
+
+app_assert_status(me-&gt;sc);
+
+me-&gt;sc = sl_sleeptimer_restart_timer_ms(
+            &amp;updateTimer,
+            (2010U),
+            updateTimerEx_Callback,
+            NULL,
+            0,      // priority
+            0       // option_flags
+        );
+app_assert_status(me-&gt;sc);</action>
+        <choice_glyph conn="184,37,4,-1,-4,-4">
+         <action box="0,-6,20,2"/>
+        </choice_glyph>
+       </choice>
+       <choice target="../../../6/3">
         <guard>else</guard>
-        <choice_glyph conn="180,37,5,1,-91">
-         <action box="-38,3,10,2"/>
+        <choice_glyph conn="184,37,5,0,-56,24">
+         <action box="-26,1,10,2"/>
         </choice_glyph>
        </choice>
-       <tran_glyph conn="180,33,2,-1,4">
-        <action box="-3,2,30,2"/>
+       <tran_glyph conn="195,37,1,-1,-11">
+        <action box="-9,1,30,2"/>
        </tran_glyph>
       </tran>
-      <state_glyph node="173,23,14,10">
+      <state_glyph node="173,23,22,18">
        <entry box="0,3,6,2"/>
        <exit box="0,5,6,2"/>
       </state_glyph>
@@ -889,7 +926,8 @@ Host_BSL_StartApp();
 </entry>
        <exit>LED_DEB</exit>
        <tran trig="UART_ARK_ID" target="../../../../2">
-        <action>//app_assert_s(BSL_RX_buffer[0] == uart_noError);
+        <action>app_assert_s(BSL_RX_buffer[0] == uart_noError);
+
 app_log_info(&quot;Firmware update complete. SPC51 is running the new application.\n&quot;);
 
 // Acknowledge the run command
