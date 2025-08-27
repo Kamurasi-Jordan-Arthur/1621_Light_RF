@@ -202,13 +202,13 @@ app_assert_status(me-&gt;sc);
 
 
 //Setting the default connection parameters for subsequent connections on peripheral
-//me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
-//                                           CONN_INTERVAL_MAX,
-//                                           CONN_RESPONDER_LATENCY,
-//                                           CONN_TIMEOUT,
-//                                           CONN_MIN_CE_LENGTH,
-//                                           CONN_MAX_CE_LENGTH);
-//app_assert_status(me-&gt;sc);
+me-&gt;sc = sl_bt_connection_set_default_parameters(CONN_INTERVAL_MIN,
+                            CONN_INTERVAL_MAX,
+                            CONN_RESPONDER_LATENCY,
+                            CONN_TIMEOUT,
+                            CONN_MIN_CE_LENGTH,
+                            CONN_MAX_CE_LENGTH);
+app_assert_status(me-&gt;sc);
 
 
 
@@ -322,7 +322,19 @@ g_ota_data.CorrectPassword=true;</action>
      <tran trig="sl_bt_evt_gatt_server_user_write_request_id">
       <choice>
        <guard brief="UPDATE_CMD!!!">event-&gt;data.evt_gatt_server_user_write_request.value.data[0] ==  100U</guard>
-       <action>
+       <action>me-&gt;update_connection = event-&gt;data.evt_gatt_server_user_write_request.connection;
+
+//optimum connection parameter for firmware update
+me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;update_connection ,
+                                          30U,
+                                          165U,
+                                          0U,
+                                          200U,
+                                          CONN_MIN_CE_LENGTH,
+                                          CONN_MAX_CE_LENGTH);
+app_assert_status(me-&gt;sc);
+
+
 g_ota_data.total_firmware_size = *(uint32_t *) (&amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[3]));
 g_ota_data.chunk_size = *(uint16_t *) (&amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[1]));
  // fill in the password
@@ -356,9 +368,6 @@ app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;UpdateTimer Started\n&quot;);
 
-
-
-me-&gt;update_connection = event-&gt;data.evt_gatt_server_user_write_request.connection;
 
 app_log_info(&quot;Update char : %u\n&quot;, event-&gt;data.evt_gatt_server_user_write_request.characteristic);
 
@@ -447,6 +456,16 @@ if(me-&gt;sc == SL_STATUS_OK){
         <action>app_log_info(&quot;Already Bonded.\n&quot;);
 
 me-&gt;sc = sl_bt_sm_increase_security(event-&gt;data.evt_connection_opened.connection);
+app_assert_status(me-&gt;sc);
+
+//Request for optimum communication parameter value
+me-&gt;sc =  sl_bt_connection_set_parameters(event-&gt;data.evt_connection_opened.connection,
+                                          CONN_INTERVAL_MIN,
+                                          CONN_INTERVAL_MAX,
+                                          CONN_RESPONDER_LATENCY,
+                                          CONN_TIMEOUT,
+                                          CONN_MIN_CE_LENGTH,
+                                          CONN_MAX_CE_LENGTH);
 app_assert_status(me-&gt;sc);
 
 //me-&gt;sc = sl_bt_legacy_advertiser_start(me-&gt;advertising_set_handle,
@@ -578,7 +597,7 @@ app_log_info(&quot;Closing connection....\n&quot;);</action>
      <exit>bsl_read = OTHER;
 </exit>
      <initial target="../3">
-      <initial_glyph conn="121,11,5,0,10,2">
+      <initial_glyph conn="121,11,5,0,11,2">
        <action box="0,-2,10,2"/>
       </initial_glyph>
      </initial>
@@ -601,17 +620,19 @@ read_point = 0U;
        <action box="-14,1,26,2"/>
       </tran_glyph>
      </tran>
-     <tran trig="BUTTON_ID" target="../../2">
-      <action>g_ota_data.Ucomplete = false;
+     <tran trig="BUTTON_ID">
+      <action>
+
+/* g_ota_data.Ucomplete = false;
 bsl_read = OTHER;
 read_point = 0U;
 
 me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
                                                            gattdb_firmware_update_cmd,
                                                            0U);
-app_assert_status(me-&gt;sc);
+app_assert_status(me-&gt;sc); */
 </action>
-      <tran_glyph conn="107,63,3,1,-18">
+      <tran_glyph conn="107,63,3,-1,-8">
        <action box="-16,-3,18,2"/>
       </tran_glyph>
      </tran>
@@ -736,7 +757,7 @@ app_assert_status(me-&gt;sc);</action>
        </choice>
        <choice target="../../../6/3">
         <guard>else</guard>
-        <choice_glyph conn="184,37,5,0,-56,24">
+        <choice_glyph conn="184,37,5,0,-56,23">
          <action box="-26,1,10,2"/>
         </choice_glyph>
        </choice>
@@ -751,7 +772,7 @@ app_assert_status(me-&gt;sc);</action>
      </state>
      <state name="UNLOCKED">
       <initial target="../1">
-       <initial_glyph conn="180,57,5,0,11,3">
+       <initial_glyph conn="180,57,5,0,11,8">
         <action box="0,-2,10,2"/>
        </initial_glyph>
       </initial>
@@ -765,7 +786,7 @@ LED_DEB</entry>
 bsl_read = MASS_ERASE_RSP;
 
 </action>
-        <tran_glyph conn="182,67,3,-1,10">
+        <tran_glyph conn="182,72,3,-1,10">
          <action box="0,-2,13,2"/>
         </tran_glyph>
        </tran>
@@ -775,11 +796,11 @@ bsl_read = MASS_ERASE_RSP;
 //initialse the section variable 
 //me-&gt;section = 0x00U;
 </action>
-        <tran_glyph conn="189,70,2,2,19,-16,-5">
-         <action box="-14,8,31,2"/>
+        <tran_glyph conn="189,75,2,2,12,-16,-3">
+         <action box="-19,13,31,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph node="182,60,16,10">
+       <state_glyph node="182,65,16,10">
         <entry box="0,3,6,2"/>
         <exit box="0,5,6,2"/>
        </state_glyph>
@@ -808,12 +829,14 @@ bsl_read = DATA_WRITE_RSP;
 
 
 </action>
-        <tran_glyph conn="136,57,3,-1,23">
+        <tran_glyph conn="136,57,3,-1,11">
          <action box="2,-2,12,2"/>
         </tran_glyph>
        </tran>
        <tran trig="sl_bt_evt_gatt_server_user_write_request_id">
-        <action>
+        <choice>
+         <guard brief="update_connection">me-&gt;update_connection == event-&gt;data.evt_gatt_server_user_write_request.connection</guard>
+         <action>
 
 app_log_info(&quot; _user_write_reques\n&quot;);
 
@@ -856,8 +879,21 @@ if((((MAX_PAYLOAD_DATA_SIZE * 2U) - me-&gt;ui16BytesToWrite) &gt; g_ota_data.chu
 
 
 </action>
-        <tran_glyph conn="177,63,1,-1,-13">
-         <action box="-20,-4,30,2"/>
+         <choice_glyph conn="159,63,4,-1,-7">
+          <action box="1,-7,16,2"/>
+         </choice_glyph>
+        </choice>
+        <choice>
+         <guard>else</guard>
+         <action>//close this other connection.
+me-&gt;sc = sl_bt_connection_close(
+              event-&gt;data.evt_gatt_server_user_write_request.connection);</action>
+         <choice_glyph conn="159,63,4,-1,4">
+          <action box="0,2,6,2"/>
+         </choice_glyph>
+        </choice>
+        <tran_glyph conn="177,63,1,-1,-18">
+         <action box="-15,-2,30,2"/>
         </tran_glyph>
        </tran>
        <tran trig="NEXT_FIRMWARE_UPDATE_STATE_ID">
@@ -882,8 +918,8 @@ me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
 app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Waiting for other chunks \n&quot;);</action>
-         <choice_glyph conn="157,69,4,-1,-7">
-          <action box="-6,-5,6,2"/>
+         <choice_glyph conn="152,74,4,-1,-11">
+          <action box="-6,-9,6,2"/>
          </choice_glyph>
         </choice>
         <choice>
@@ -891,8 +927,8 @@ app_log_info(&quot;Waiting for other chunks \n&quot;);</action>
          <action>app_log_info(&quot;UnwritenBytesToWrite&quot;);
 bt_SPC51_Host_BSL_writeMemory(me);
 </action>
-         <choice_glyph conn="157,69,5,-1,16">
-          <action box="2,2,17,2"/>
+         <choice_glyph conn="152,74,5,-1,10">
+          <action box="0,1,17,2"/>
          </choice_glyph>
         </choice>
         <choice target="../../../3">
@@ -901,12 +937,12 @@ bt_SPC51_Host_BSL_writeMemory(me);
                                                    gattdb_firmware_update_cmd,
                                                    0U);
 app_assert_status(me-&gt;sc);</action>
-         <choice_glyph conn="157,69,4,2,7,-31,-5">
+         <choice_glyph conn="152,74,4,2,5,-26,-9">
           <action box="-20,8,13,2"/>
          </choice_glyph>
         </choice>
-        <tran_glyph conn="136,69,3,-1,21">
-         <action box="-8,1,30,2"/>
+        <tran_glyph conn="136,74,3,-1,16">
+         <action box="-9,-3,30,2"/>
         </tran_glyph>
        </tran>
        <state_glyph node="136,51,41,33">
@@ -930,6 +966,19 @@ Host_BSL_StartApp();
 
 app_log_info(&quot;Firmware update complete. SPC51 is running the new application.\n&quot;);
 
+if(g_ota_data.CorrectPassword ){
+                //Request for optimum communication parameter value after update from the upade connection
+                me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;update_connection,
+                                                          CONN_INTERVAL_MIN,
+                                                          CONN_INTERVAL_MAX,
+                                                          CONN_RESPONDER_LATENCY,
+                                                          CONN_TIMEOUT,
+                                                          CONN_MIN_CE_LENGTH,
+                                                          CONN_MAX_CE_LENGTH);
+                app_assert_status(me-&gt;sc);
+
+}
+
 // Acknowledge the run command
 // Transition back to the OPERRATIONAL state, which will automatically
 // enter the ADVERTISING substate due to its initial transition.
@@ -938,16 +987,16 @@ app_log_info(&quot;Firmware update complete. SPC51 is running the new applicatio
 
 g_ota_data.Ucomplete = true;
 </action>
-        <tran_glyph conn="121,71,2,2,11,-36,-7">
+        <tran_glyph conn="121,70,2,2,11,-36,-6">
          <action box="-26,8,14,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph node="117,61,16,10">
+       <state_glyph node="117,60,16,10">
         <entry box="0,3,6,2"/>
         <exit box="0,5,6,2"/>
        </state_glyph>
       </state>
-      <state_glyph node="114,45,85,48"/>
+      <state_glyph node="114,45,86,48"/>
      </state>
      <state name="CheckStaus">
       <entry>// Check weather SPC%x is in BSL mode(SPC%x)

@@ -59,7 +59,7 @@ buttonEvt_t buttonEvt;
 bool button_pressed = false;
 // variables synchronization of read in firmware update
 static size_t bytes_read = 0U;
-static size_t read_point = 0U;
+size_t read_point = 0U;
 
 // Appliction SIG for blink expire
 static bool blink_expired;
@@ -150,9 +150,18 @@ SL_WEAK void app_process_action(void)
       switch (bsl_read) {
         case BYTE_ACK:
           // It should be one byte
-              app_assert_s(bytes_read == ACK_BYTE);
-              read_point = 0U;
+              //app_assert_s(bytes_read == ACK_BYTE);
               QASM_DISPATCH(QMsm_bt_SPC51_p, &UART_ARK_EVT, (void)0U);
+
+              if(bytes_read>1U){
+                memcpy(BSL_RX_buffer ,(uint8_t *)&BSL_RX_buffer[1],bytes_read);
+
+                 read_point = bytes_read - 1U;
+                }else{
+
+                     read_point= 0U;
+                }
+
 
           break;
 
@@ -242,7 +251,7 @@ SL_WEAK void app_process_action(void)
 
           }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + ACK_BYTE + CRC_BYTES){
               //inform the state machine a
-              read_point = 0U;
+               read_point = 0U;
               sc = sl_sleeptimer_restart_timer_ms(
                 &updateTimer,
                 BSL_NEXT_WRITE_DELAY,
@@ -261,6 +270,7 @@ SL_WEAK void app_process_action(void)
           break;
 
         default:
+
           break;
 
       }
@@ -299,7 +309,8 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
     // This event indicates the device has started and the radio is ready.
     // Do not call any stack command before receiving this boot event!
 //
-//
+    //event->data.evt_connection_closed.connection;
+
 //
 
 
