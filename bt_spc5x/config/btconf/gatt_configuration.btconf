@@ -24,6 +24,19 @@
     </characteristic>
   </service>
 
+  <!--Firmware Update-->
+  <service advertise="true" id="Firmware_Update" name="Firmware Update" requirement="mandatory" sourceId="" type="primary" uuid="222c444c-8fc9-4318-b4a6-3214cf2200c0">
+
+    <!--Firmware Update Command-->
+    <characteristic const="false" id="firmware_update_cmd" name="Firmware Update Command" sourceId="" uuid="85342c44-a1ac-43fd-8610-f4bec833e11d">
+      <value length="3" type="user" variable_length="false">00</value>
+      <properties>
+        <write authenticated="true" bonded="true" encrypted="true"/>
+        <reliable_write authenticated="true" bonded="true" encrypted="true"/>
+      </properties>
+    </characteristic>
+  </service>
+
   <!--Device Information-->
   <service advertise="false" id="device_information" name="Device Information" requirement="mandatory" sourceId="org.bluetooth.service.device_information" type="primary" uuid="180A">
     <informativeText>Abstract: The Device Information Service exposes manufacturer and/or vendor information about a device. Summary: This service exposes manufacturer information about a device. The Device Information Service is instantiated as a Primary Service. Only one instance of the Device Information Service is exposed on a device.</informativeText>

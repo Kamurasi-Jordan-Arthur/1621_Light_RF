@@ -5,12 +5,16 @@
 //#include "bt_SPC51_SM.h"
 #include "bsl_firmware_update.h"
 
+
 sl_sleeptimer_timer_handle_t updateTimer;
 
 // TX and RX buffers for use during transmit and receive
 uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
 //uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
 uint8_t BSL_RX_buffer[32U + 2U];
+
+// A buffer to hold incoming firmware data
+uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE * 2U];
 
 
 // Variable to hold the Max buffer allowed by BSL core
@@ -21,6 +25,9 @@ bool update_timer_expired = false;
 
 // declaration of the bsl read type variable
 uint8_t bsl_read = OTHER;
+
+// Define the global instance of the OTA data structure
+ota_data_t g_ota_data  = {0U,0U,0U,1U,1U};
 
 sl_status_t sc;
 
