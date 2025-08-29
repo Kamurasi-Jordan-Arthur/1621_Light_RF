@@ -131,7 +131,7 @@ extern bt_SPC51 bt_SPC51_inst;
 #define CONN_INTERVAL_MAX 300U
 
 //${SMs::CONN_RESPONDER_LATENCY} .............................................
-#define CONN_RESPONDER_LATENCY 0U
+#define CONN_RESPONDER_LATENCY 1U
 
 //${SMs::CONN_TIMEOUT} .......................................................
 #define CONN_TIMEOUT 500U
@@ -153,6 +153,9 @@ extern bt_SPC51 bt_SPC51_inst;
 
 //${SMs::BSL_NEXT_WRITE_DELAY} ...............................................
 #define BSL_NEXT_WRITE_DELAY (1U * 1U* 100U)
+
+//${SMs::CONN_RSP_WINDOW} ....................................................
+#define CONN_RSP_WINDOW (1U * 1U* 100U)
 //$enddecl${SMs} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 //$declare(SMs::bt_SPC51)

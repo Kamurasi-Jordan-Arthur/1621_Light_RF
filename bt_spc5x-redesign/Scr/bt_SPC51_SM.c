@@ -714,6 +714,15 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
         case sl_bt_evt_sm_bonded_id: {
             app_log_info("Bonded....\n");
 
+            //Request for optimum communication parameter value
+            me->sc =  sl_bt_connection_set_parameters(event->data.evt_connection_opened.connection,
+                                                      CONN_INTERVAL_MIN,
+                                                      CONN_INTERVAL_MAX,
+                                                      CONN_RESPONDER_LATENCY,
+                                                      CONN_TIMEOUT,
+                                                      CONN_MIN_CE_LENGTH,
+                                                      CONN_MAX_CE_LENGTH);
+            app_assert_status(me->sc);
 
             static struct {
                 QMState const *target;
@@ -838,7 +847,21 @@ QMState const bt_SPC51_SEND_CONN_s = {
 QState bt_SPC51_SEND_CONN_e(bt_SPC51 * const me) {
     Host_BSL_Connection();
     LED_DEB
-    Q_UNUSED_PAR(me);
+
+    me->sc = sl_sleeptimer_restart_timer_ms(
+      &updateTimer,
+      CONN_RSP_WINDOW,
+      updateTimerEx_Callback,
+      NULL,
+      0,      // priority
+      0       // option_flags
+    );
+
+    app_assert_status(me->sc);
+
+    //DROP A FLAG
+    BSL_RX_buffer[0] = 1U;
+
     return QM_ENTRY(&bt_SPC51_SEND_CONN_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN}
@@ -870,18 +893,45 @@ QState bt_SPC51_SEND_CONN(bt_SPC51 * const me, QEvt const * const e) {
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UPDATE_STATE_ID}
         case NEXT_FIRMWARE_UPDATE_STATE_ID: {
-            static struct {
-                QMState const *target;
-                QActionHandler act[3];
-            } const tatbl_ = { // tran-action table
-                &bt_SPC51_CheckStaus_s, // target state
-                {
-                    Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x), // exit
-                    Q_ACTION_CAST(&bt_SPC51_CheckStaus_e), // entry
-                    Q_ACTION_NULL // zero terminator
-                }
-            };
-            status_ = QM_TRAN(&tatbl_);
+            //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UP~::[FLAGSTILLPRESENT!!!]}
+            if (BSL_RX_buffer[0] == 1U) {
+                LED_DEB
+
+                //Device is in wrong state to update
+
+                me->sc = sl_bt_gatt_server_send_user_write_response(me->update_connection,
+                                                               gattdb_firmware_update_cmd,
+                                                               0x0181U);
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[5];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_OPERRATIONAL_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x), // exit
+                        Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x), // exit
+                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_e), // entry
+                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_i), // initial tran.
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
+            //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UP~::[else]}
+            else {
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[3];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_CheckStaus_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x), // exit
+                        Q_ACTION_CAST(&bt_SPC51_CheckStaus_e), // entry
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
             break;
         }
         default: {
@@ -1182,7 +1232,8 @@ QState bt_SPC51_PROGRAM_SECTION_e(bt_SPC51 * const me) {
     // Actions on entering the state, regardless of trigger (button or BLE)
 
     me->TargetAddress = BSL_START_ADDRESS;
-    g_ota_data.bytes_sent = 0;
+    g_ota_data.bytes_sent = 0U;
+    me->ui16BytesToWrite = 0U;
     // The total firmware size must be set here
 
 
@@ -1231,8 +1282,9 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
 
                 //copy the data into buffer
                 memcpy(&app_firmware_data_buffer[me->ui16BytesToWrite],
-                       event->data.evt_gatt_server_user_write_request.value.data,
+                      event->data.evt_gatt_server_user_write_request.value.data,
                        app_firmware_data_len);
+
 
                 // Update the total bytes sent
                 g_ota_data.bytes_sent += app_firmware_data_len;
@@ -1246,7 +1298,9 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
                                                                            0U);
                         app_assert_status(me->sc);
 
-                } else{
+                }
+
+                 else{
 
                         me->data = app_firmware_data_buffer;
 

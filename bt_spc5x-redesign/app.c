@@ -140,7 +140,7 @@ SL_WEAK void app_process_action(void)
 //  size_t gabage_length;
 //  sc = sl_iostream_read(SL_IOSTREAM_STDIN, BSL_RX_buffer, (size_t)(MAX_PACKET_SIZE + 2U), &gabage_length);
 
-  if(bsl_read){
+  //if(bsl_read){
       // Highly encouraged to create time an implement a Qeueu in you appication (QMQEUEU)
 
 
@@ -276,7 +276,7 @@ SL_WEAK void app_process_action(void)
   }
 //      bsl_read = OTHER;
 
-  }
+  //}
   /////////////////////////////////////////////////////////////////////////////
   // Put your additional application code here!                              //
   // This is called infinitely.                                              //
@@ -310,10 +310,7 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 //
     //event->data.evt_connection_closed.connection;
 
-//
-
-
-
+//SL_STATUS_BT_CTRL_REMOTE_USER_TERMINATED
 
 
 

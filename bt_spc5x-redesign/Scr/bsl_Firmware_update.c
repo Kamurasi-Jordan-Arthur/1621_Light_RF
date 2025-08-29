@@ -15,6 +15,9 @@ uint8_t BSL_RX_buffer[32U + 2U];
 
 // A buffer to hold incoming firmware data
 uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE * 2U];
+//uint8_t app_firmware_data_buffer[4080];
+
+
 
 
 // Variable to hold the Max buffer allowed by BSL core
