@@ -29,6 +29,7 @@ extern uint8_t BSL_RX_buffer[32U + 2U];
 // ! Define BSL CORE commands
 #define CMD_CONNECTION (0x12)
 #define CMD_GET_ID (0x19)
+#define CMD_BAUDRATE (0X52)
 #define CMD_RX_PASSWORD (0x21)
 #define CMD_MASS_ERASE (0x15)
 #define CMD_PROGRAMDATA (0x20)
@@ -41,6 +42,7 @@ extern uint8_t BSL_RX_buffer[32U + 2U];
 #define HDR_LEN_CMD_BYTES (4U)
 #define CRC_BYTES (4U)
 #define PASSWORD_SIZE (uint8_t)(32U)
+#define CMD_BAUDRATE_SIZE (2U)
 #define ACK_BYTE (1U)
 #define ID_BACK (24U)
 #define ADDRS_BYTES (4U)
@@ -125,6 +127,7 @@ void BSL_software_trigger(void);
 void Host_BSL_Connection(void);
 void Host_BSL_GetID(void);
 void Host_BSL_loadPassword(uint8_t* pPassword);
+void Host_BSL_BaudrateChange(uint8_t  baudrate);
 void Host_BSL_MassErase(void);
 //void Host_BSL_writeMemory(void);
 void Host_BSL_StartApp(void);

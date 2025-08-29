@@ -311,6 +311,9 @@ g_ota_data.CorrectPassword=true;</action>
       </choice>
       <choice target="../../../3/5">
        <guard brief="INCOPLETE_UPDATE">else</guard>
+       <action>
+//resetting baud rate back to 115200
+EUSART_BaudrateSet(EUART0, 0U, 115200U);</action>
        <choice_glyph conn="97,32,4,3,4,76">
         <action box="5,2,22,2"/>
        </choice_glyph>
@@ -604,6 +607,10 @@ app_assert_status(me-&gt;sc);
     </state>
     <state name="FIRMWARE_UPDATE">
      <exit>bsl_read = OTHER;
+
+//revrting to default baudrate value for application
+EUSART_BaudrateSet(EUART0, 0U, 9600U);
+
 </exit>
      <initial target="../3">
       <initial_glyph conn="121,11,5,0,11,2">
@@ -764,7 +771,7 @@ bsl_read = UNLOCK_RSP;</action>
        <choice target="../../../6">
         <guard brief="succesfull!!">BSL_RX_buffer[HDR_LEN_CMD_BYTES + ACK_BYTE - 1] == eBSL_success</guard>
         <action>g_ota_data.CorrectPassword = true;</action>
-        <choice_glyph conn="184,37,4,0,8">
+        <choice_glyph conn="184,37,4,0,12">
          <action box="0,6,16,2"/>
         </choice_glyph>
        </choice>
@@ -800,7 +807,9 @@ app_assert_status(me-&gt;sc);</action>
        </choice>
        <choice target="../../../6/3">
         <guard>else</guard>
-        <choice_glyph conn="184,37,5,0,-56,23">
+        <action>//revrting to default baudrate value for BSL
+EUSART_BaudrateSet(EUART0, 0U, 9600U);</action>
+        <choice_glyph conn="184,37,5,0,-56,27">
          <action box="-26,1,10,2"/>
         </choice_glyph>
        </choice>
@@ -814,8 +823,8 @@ app_assert_status(me-&gt;sc);</action>
       </state_glyph>
      </state>
      <state name="UNLOCKED">
-      <initial target="../1">
-       <initial_glyph conn="180,57,5,0,11,8">
+      <initial target="../4">
+       <initial_glyph conn="186,53,5,0,5,5">
         <action box="0,-2,10,2"/>
        </initial_glyph>
       </initial>
@@ -829,7 +838,7 @@ LED_DEB</entry>
 bsl_read = MASS_ERASE_RSP;
 
 </action>
-        <tran_glyph conn="182,72,3,-1,10">
+        <tran_glyph conn="183,79,3,-1,12">
          <action box="0,-2,13,2"/>
         </tran_glyph>
        </tran>
@@ -839,11 +848,11 @@ bsl_read = MASS_ERASE_RSP;
 //initialse the section variable 
 //me-&gt;section = 0x00U;
 </action>
-        <tran_glyph conn="189,75,2,2,12,-16,-3">
-         <action box="-19,13,31,2"/>
+        <tran_glyph conn="190,84,2,2,6,-17,-2">
+         <action box="-22,6,31,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph node="182,65,16,10">
+       <state_glyph node="183,72,16,12">
         <entry box="0,3,6,2"/>
         <exit box="0,5,6,2"/>
        </state_glyph>
@@ -873,7 +882,7 @@ bsl_read = DATA_WRITE_RSP;
 
 
 </action>
-        <tran_glyph conn="136,57,3,-1,11">
+        <tran_glyph conn="136,61,3,-1,11">
          <action box="2,-2,12,2"/>
         </tran_glyph>
        </tran>
@@ -926,7 +935,7 @@ if((((MAX_PAYLOAD_DATA_SIZE * 2U) - me-&gt;ui16BytesToWrite) &gt; g_ota_data.chu
 
 
 </action>
-         <choice_glyph conn="159,63,4,-1,-7">
+         <choice_glyph conn="159,67,4,-1,-7">
           <action box="1,-7,17,2"/>
          </choice_glyph>
         </choice>
@@ -935,12 +944,12 @@ if((((MAX_PAYLOAD_DATA_SIZE * 2U) - me-&gt;ui16BytesToWrite) &gt; g_ota_data.chu
          <action>//close this other connection.
 me-&gt;sc = sl_bt_connection_close(
               event-&gt;data.evt_gatt_server_user_write_request.connection);</action>
-         <choice_glyph conn="159,63,4,-1,4">
+         <choice_glyph conn="159,67,4,-1,4">
           <action box="0,2,6,2"/>
          </choice_glyph>
         </choice>
-        <tran_glyph conn="177,63,1,-1,-18">
-         <action box="-15,-2,30,2"/>
+        <tran_glyph conn="177,67,1,-1,-18">
+         <action box="-25,-3,30,2"/>
         </tran_glyph>
        </tran>
        <tran trig="NEXT_FIRMWARE_UPDATE_STATE_ID">
@@ -965,7 +974,7 @@ me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
 app_assert_status(me-&gt;sc);
 
 app_log_info(&quot;Waiting for other chunks \n&quot;);</action>
-         <choice_glyph conn="152,74,4,-1,-11">
+         <choice_glyph conn="152,78,4,-1,-11">
           <action box="-6,-9,6,2"/>
          </choice_glyph>
         </choice>
@@ -974,7 +983,7 @@ app_log_info(&quot;Waiting for other chunks \n&quot;);</action>
          <action>app_log_info(&quot;UnwritenBytesToWrite&quot;);
 bt_SPC51_Host_BSL_writeMemory(me);
 </action>
-         <choice_glyph conn="152,74,5,-1,10">
+         <choice_glyph conn="152,78,5,-1,10">
           <action box="0,1,17,2"/>
          </choice_glyph>
         </choice>
@@ -984,15 +993,15 @@ bt_SPC51_Host_BSL_writeMemory(me);
                                                    gattdb_firmware_update_cmd,
                                                    0U);
 app_assert_status(me-&gt;sc);</action>
-         <choice_glyph conn="152,74,4,2,5,-26,-9">
+         <choice_glyph conn="152,78,4,2,5,-26,-9">
           <action box="-20,8,13,2"/>
          </choice_glyph>
         </choice>
-        <tran_glyph conn="136,74,3,-1,16">
+        <tran_glyph conn="136,78,3,-1,16">
          <action box="-9,-3,30,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph node="136,51,41,33">
+       <state_glyph node="136,55,41,33">
         <entry box="0,3,6,2"/>
         <exit box="0,5,6,2"/>
        </state_glyph>
@@ -1034,16 +1043,32 @@ if(g_ota_data.CorrectPassword ){
 
 g_ota_data.Ucomplete = true;
 </action>
-        <tran_glyph conn="121,70,2,2,11,-36,-6">
+        <tran_glyph conn="121,74,2,2,11,-36,-10">
          <action box="-26,8,14,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph node="117,60,16,10">
+       <state_glyph node="117,64,16,10">
         <entry box="0,3,6,2"/>
         <exit box="0,5,6,2"/>
        </state_glyph>
       </state>
-      <state_glyph node="114,45,86,48"/>
+      <state name="BAUDRATE">
+       <entry>//Requesting Baudrate to id 6 value 115200
+Host_BSL_BaudrateChange(6U);</entry>
+       <tran trig="UART_ARK_ID" target="../../1">
+        <action>app_assert_s(BSL_RX_buffer[0] == uart_noError);
+
+//setting baud rate to 115200
+EUSART_BaudrateSet(EUART0, 0U, 115200U);</action>
+        <tran_glyph conn="191,65,2,0,7">
+         <action box="0,2,14,2"/>
+        </tran_glyph>
+       </tran>
+       <state_glyph node="184,58,14,7">
+        <entry box="0,3,6,2"/>
+       </state_glyph>
+      </state>
+      <state_glyph node="114,49,86,48"/>
      </state>
      <state name="CheckStaus">
       <entry>// Check weather SPC%x is in BSL mode(SPC%x)

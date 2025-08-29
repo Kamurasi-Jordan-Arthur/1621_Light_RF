@@ -375,6 +375,9 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             }
             //${SMs::bt_SPC51::SM::OPERRATIONAL::NEXT_FIRMWARE_UP~::[INCOPLETE_UPDATE]}
             else {
+
+                //resetting baud rate back to 115200
+                EUSART_BaudrateSet(EUART0, 0U, 115200U);
                 static struct {
                     QMState const *target;
                     QActionHandler act[2];
@@ -757,6 +760,10 @@ QMState const bt_SPC51_FIRMWARE_UPDATE_s = {
 QState bt_SPC51_FIRMWARE_UPDATE_x(bt_SPC51 * const me) {
     bsl_read = OTHER;
 
+    //revrting to default baudrate value for application
+    EUSART_BaudrateSet(EUART0, 0U, 9600U);
+
+
     (void)me; // unused parameter
     return QM_EXIT(&bt_SPC51_FIRMWARE_UPDATE_s);
 }
@@ -1095,6 +1102,8 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
             }
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UP~::[else]}
             else {
+                //revrting to default baudrate value for BSL
+                EUSART_BaudrateSet(EUART0, 0U, 9600U);
                 static struct {
                     QMState const *target;
                     QActionHandler act[3];
@@ -1133,9 +1142,9 @@ QState bt_SPC51_UNLOCKED_i(bt_SPC51 * const me) {
         QMState const *target;
         QActionHandler act[2];
     } const tatbl_ = { // tran-action table
-        &bt_SPC51_MASS_ERASE_s, // target state
+        &bt_SPC51_BAUDRATE_s, // target state
         {
-            Q_ACTION_CAST(&bt_SPC51_MASS_ERASE_e), // entry
+            Q_ACTION_CAST(&bt_SPC51_BAUDRATE_e), // entry
             Q_ACTION_NULL // zero terminator
         }
     };
@@ -1458,6 +1467,52 @@ QState bt_SPC51_START_APP(bt_SPC51 * const me, QEvt const * const e) {
                     Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x), // exit
                     Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_e), // entry
                     Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_i), // initial tran.
+                    Q_ACTION_NULL // zero terminator
+                }
+            };
+            status_ = QM_TRAN(&tatbl_);
+            break;
+        }
+        default: {
+            status_ = QM_SUPER();
+            break;
+        }
+    }
+    return status_;
+}
+
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE} ..................
+QMState const bt_SPC51_BAUDRATE_s = {
+    &bt_SPC51_UNLOCKED_s, // superstate
+    Q_STATE_CAST(&bt_SPC51_BAUDRATE),
+    Q_ACTION_CAST(&bt_SPC51_BAUDRATE_e),
+    Q_ACTION_NULL, // no exit action
+    Q_ACTION_NULL  // no initial tran.
+};
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE}
+QState bt_SPC51_BAUDRATE_e(bt_SPC51 * const me) {
+    //Requesting Baudrate to id 6 value 115200
+    Host_BSL_BaudrateChange(6U);
+    Q_UNUSED_PAR(me);
+    return QM_ENTRY(&bt_SPC51_BAUDRATE_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE}
+QState bt_SPC51_BAUDRATE(bt_SPC51 * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE::UART_ARK_ID}
+        case UART_ARK_ID: {
+            app_assert_s(BSL_RX_buffer[0] == uart_noError);
+
+            //setting baud rate to 115200
+            EUSART_BaudrateSet(EUART0, 0U, 115200U);
+            static struct {
+                QMState const *target;
+                QActionHandler act[2];
+            } const tatbl_ = { // tran-action table
+                &bt_SPC51_MASS_ERASE_s, // target state
+                {
+                    Q_ACTION_CAST(&bt_SPC51_MASS_ERASE_e), // entry
                     Q_ACTION_NULL // zero terminator
                 }
             };

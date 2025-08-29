@@ -158,13 +158,30 @@ void Host_BSL_loadPassword(uint8_t *pPassword)
 
     bsl_read = BYTE_ACK;
 
-//    uart_ack = UART_writeBuffer(
-//        BSL_TX_buffer, HDR_LEN_CMD_BYTES + PASSWORD_SIZE + CRC_BYTES);
-//    if (uart_ack != uart_noError) {
-//        Firmware_assert_false();
-//    }
+}
 
-//    bsl_err = Host_BSL_getResponse();
+void Host_BSL_BaudrateChange(uint8_t  baudrate)
+{
+
+    uint32_t ui32CRC;
+
+    BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
+    BSL_TX_buffer[1] = LSB(CMD_BAUDRATE_SIZE);
+    BSL_TX_buffer[2] = 0x00;
+    BSL_TX_buffer[3] = CMD_BAUDRATE;
+    BSL_TX_buffer[4] = baudrate;
+
+    // Calculate CRC on the PAYLOAD (CMD + Data)
+    ui32CRC = softwareCRC(&BSL_TX_buffer[3], CMD_BAUDRATE_SIZE);
+
+    // Insert the CRC into the packet
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + 1U ] = ui32CRC;
+
+    // Write the packet to the target
+    sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer ,HDR_LEN_CMD_BYTES + 1U + CRC_BYTES);
+    app_assert_status(sc);
+
+    bsl_read = BYTE_ACK;
 
 }
 
