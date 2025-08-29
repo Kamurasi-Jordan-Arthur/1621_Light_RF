@@ -5,6 +5,7 @@
   <directory name="./Scr">
    <file name="bt_SPC51_SM.c">
     <text>#include &quot;em_common.h&quot;
+#include &quot;em_eusart.h&quot;
 #include &lt;stdio.h&gt;
 
 #include &quot;app_assert.h&quot;
@@ -329,8 +330,8 @@ EUSART_BaudrateSet(EUART0, 0U, 115200U);</action>
 
 //optimum connection parameter for firmware update
 me-&gt;sc =  sl_bt_connection_set_parameters(me-&gt;update_connection ,
-                                          30U,
-                                          165U,
+                                          6U,
+                                          11U,
                                           0U,
                                           200U,
                                           CONN_MIN_CE_LENGTH,
@@ -340,8 +341,11 @@ app_assert_status(me-&gt;sc);
 
 g_ota_data.total_firmware_size = *(uint32_t *) (&amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[3]));
 g_ota_data.chunk_size = *(uint16_t *) (&amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[1]));
+
  // fill in the password
 memcpy(me-&gt;bsl_pwd, (uint8_t *) &amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[7]), 32);
+//GET THE PROGRAM CRC
+g_ota_data.ProgramCRC = *(uint32_t *) (&amp;(event-&gt;data.evt_gatt_server_user_write_request.value.data[39]));
 
 app_log_info(&quot; The total firmware size is %lu and chunk size %u: &quot;,g_ota_data.total_firmware_size, g_ota_data.chunk_size);
 
@@ -628,11 +632,11 @@ g_ota_data.CorrectPassword</guard>
 bsl_read = OTHER;
 read_point = 0U;
 </action>
-       <choice_glyph conn="118,100,4,2,-3,-87,-22">
+       <choice_glyph conn="112,100,4,2,-3,-81,-22">
         <action box="-53,-6,18,2"/>
        </choice_glyph>
       </choice>
-      <tran_glyph conn="106,100,3,-1,12">
+      <tran_glyph conn="106,100,3,-1,6">
        <action box="-14,1,26,2"/>
       </tran_glyph>
      </tran>
@@ -697,7 +701,7 @@ app_assert_status(me-&gt;sc);</action>
 
 me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
                                                gattdb_firmware_update_cmd,
-                                               0x0181U);</action>
+                                               (uint8_t)0x0181U);</action>
         <choice_glyph conn="142,24,5,0,-63,4">
          <action box="-36,-2,17,2"/>
         </choice_glyph>
@@ -839,7 +843,7 @@ bsl_read = MASS_ERASE_RSP;
 
 </action>
         <tran_glyph conn="183,79,3,-1,12">
-         <action box="0,-2,13,2"/>
+         <action box="1,2,13,2"/>
         </tran_glyph>
        </tran>
        <tran trig="NEXT_FIRMWARE_UPDATE_STATE_ID" target="../../2">
@@ -848,11 +852,11 @@ bsl_read = MASS_ERASE_RSP;
 //initialse the section variable 
 //me-&gt;section = 0x00U;
 </action>
-        <tran_glyph conn="190,84,2,2,6,-17,-2">
-         <action box="-22,6,31,2"/>
+        <tran_glyph conn="190,84,2,2,7,-17,-3">
+         <action box="-22,8,31,2"/>
         </tran_glyph>
        </tran>
-       <state_glyph node="183,72,16,12">
+       <state_glyph node="183,74,16,10">
         <entry box="0,3,6,2"/>
         <exit box="0,5,6,2"/>
        </state_glyph>
@@ -908,7 +912,7 @@ memcpy(&amp;app_firmware_data_buffer[me-&gt;ui16BytesToWrite],
 g_ota_data.bytes_sent += app_firmware_data_len;
 me-&gt;ui16BytesToWrite  += app_firmware_data_len;
 
-if((((MAX_PAYLOAD_DATA_SIZE * 2U) - me-&gt;ui16BytesToWrite) &gt; g_ota_data.chunk_size)
+if((((MAX_PAYLOAD_DATA_SIZE ) - me-&gt;ui16BytesToWrite) &gt; g_ota_data.chunk_size)
     &amp;&amp; (g_ota_data.bytes_sent &lt; g_ota_data.total_firmware_size) ){
 
         me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
@@ -987,14 +991,14 @@ bt_SPC51_Host_BSL_writeMemory(me);
           <action box="0,1,17,2"/>
          </choice_glyph>
         </choice>
-        <choice target="../../../3">
+        <choice target="../../../5">
          <guard brief="MORE_DATA!!">g_ota_data.bytes_sent == g_ota_data.total_firmware_size </guard>
          <action>me-&gt;sc = sl_bt_gatt_server_send_user_write_response(me-&gt;update_connection,
                                                    gattdb_firmware_update_cmd,
                                                    0U);
 app_assert_status(me-&gt;sc);</action>
-         <choice_glyph conn="152,78,4,2,5,-26,-9">
-          <action box="-20,8,13,2"/>
+         <choice_glyph conn="152,78,4,0,16">
+          <action box="-13,8,15,2"/>
          </choice_glyph>
         </choice>
         <tran_glyph conn="136,78,3,-1,16">
@@ -1053,14 +1057,14 @@ g_ota_data.Ucomplete = true;
        </state_glyph>
       </state>
       <state name="BAUDRATE">
-       <entry>//Requesting Baudrate to id 6 value 115200
-Host_BSL_BaudrateChange(6U);</entry>
+       <entry>//Requesting Baudrate to id 7 value 1000000
+Host_BSL_BaudrateChange(7U);</entry>
        <tran trig="UART_ARK_ID" target="../../1">
         <action>app_assert_s(BSL_RX_buffer[0] == uart_noError);
 
-//setting baud rate to 115200
-EUSART_BaudrateSet(EUART0, 0U, 115200U);</action>
-        <tran_glyph conn="191,65,2,0,7">
+//setting baud rate to 1000000
+EUSART_BaudrateSet(EUART0, 0U, 1000000U);</action>
+        <tran_glyph conn="191,65,2,0,9">
          <action box="0,2,14,2"/>
         </tran_glyph>
        </tran>
@@ -1068,7 +1072,30 @@ EUSART_BaudrateSet(EUART0, 0U, 115200U);</action>
         <entry box="0,3,6,2"/>
        </state_glyph>
       </state>
-      <state_glyph node="114,49,86,48"/>
+      <state name="PROG_VERIFICATION">
+       <entry>Host_BSL_CRCstandaloneVerification();
+</entry>
+       <tran trig="NEXT_FIRMWARE_UPDATE_STATE_ID" target="../../3">
+        <action>app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES - ACK_BYTE] == 0x32U);
+
+//app_assert_s(*(uint32_t *)&amp;BSL_RX_buffer[HDR_LEN_CMD_BYTES] == g_ota_data.ProgramCRC);
+</action>
+        <tran_glyph conn="142,100,3,2,-17,-26">
+         <action box="-28,-8,29,2"/>
+        </tran_glyph>
+       </tran>
+       <tran trig="UART_ARK_ID">
+        <action>app_assert_s(BSL_RX_buffer[0] == uart_noError);
+bsl_read = VERIFICATION_RSP;</action>
+        <tran_glyph conn="167,102,1,-1,-14">
+         <action box="-13,-3,13,2"/>
+        </tran_glyph>
+       </tran>
+       <state_glyph node="142,94,25,11">
+        <entry box="0,3,6,2"/>
+       </state_glyph>
+      </state>
+      <state_glyph node="114,49,86,58"/>
      </state>
      <state name="CheckStaus">
       <entry>// Check weather SPC%x is in BSL mode(SPC%x)
@@ -1112,7 +1139,7 @@ app_assert_status(me-&gt;sc);</action>
        <exit box="0,5,6,2"/>
       </state_glyph>
      </state>
-     <state_glyph color="3" node="106,7,98,98">
+     <state_glyph color="3" node="106,7,98,103">
       <exit box="0,3,6,2"/>
      </state_glyph>
     </state>
@@ -1130,7 +1157,7 @@ app_assert_status(me-&gt;sc);</action>
    <code>300U</code>
   </attribute>
   <attribute name="CONN_RESPONDER_LATENCY" type="" visibility="0x03" properties="0x00">
-   <code>1U</code>
+   <code>0U</code>
   </attribute>
   <attribute name="CONN_TIMEOUT" type="" visibility="0x03" properties="0x00">
    <code>500U</code>
@@ -1142,19 +1169,19 @@ app_assert_status(me-&gt;sc);</action>
    <code>0xffff</code>
   </attribute>
   <attribute name="BSL_INVOCK_DELAY" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 100U)</code>
+   <code>(1U * 1U* 50U)</code>
   </attribute>
   <attribute name="BSL_CHECK_STATUS_WAIT" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 100U)</code>
+   <code>(1U * 1U* 10U)</code>
   </attribute>
   <attribute name="MASS_ERASE_DELAY" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 100U)</code>
+   <code>(1U * 1U* 10U)</code>
   </attribute>
   <attribute name="BSL_NEXT_WRITE_DELAY" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 100U)</code>
+   <code>(1U * 1U* 10U)</code>
   </attribute>
   <attribute name="CONN_RSP_WINDOW" type="" visibility="0x03" properties="0x00">
-   <code>(1U * 1U* 100U)</code>
+   <code>(1U * 1U* 10U)</code>
   </attribute>
  </package>
 </model>

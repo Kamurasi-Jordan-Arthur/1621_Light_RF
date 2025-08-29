@@ -116,6 +116,9 @@ extern QMState const bt_SPC51_START_APP_s;
 QState bt_SPC51_BAUDRATE  (bt_SPC51 * const me, QEvt const * const e);
 QState bt_SPC51_BAUDRATE_e(bt_SPC51 * const me);
 extern QMState const bt_SPC51_BAUDRATE_s;
+QState bt_SPC51_PROG_VERIFICATION  (bt_SPC51 * const me, QEvt const * const e);
+QState bt_SPC51_PROG_VERIFICATION_e(bt_SPC51 * const me);
+extern QMState const bt_SPC51_PROG_VERIFICATION_s;
 QState bt_SPC51_CheckStaus  (bt_SPC51 * const me, QEvt const * const e);
 QState bt_SPC51_CheckStaus_e(bt_SPC51 * const me);
 QState bt_SPC51_CheckStaus_x(bt_SPC51 * const me);
@@ -134,7 +137,7 @@ extern bt_SPC51 bt_SPC51_inst;
 #define CONN_INTERVAL_MAX 300U
 
 //${SMs::CONN_RESPONDER_LATENCY} .............................................
-#define CONN_RESPONDER_LATENCY 1U
+#define CONN_RESPONDER_LATENCY 0U
 
 //${SMs::CONN_TIMEOUT} .......................................................
 #define CONN_TIMEOUT 500U
@@ -146,19 +149,19 @@ extern bt_SPC51 bt_SPC51_inst;
 #define CONN_MAX_CE_LENGTH 0xffff
 
 //${SMs::BSL_INVOCK_DELAY} ...................................................
-#define BSL_INVOCK_DELAY (1U * 1U* 100U)
+#define BSL_INVOCK_DELAY (1U * 1U* 50U)
 
 //${SMs::BSL_CHECK_STATUS_WAIT} ..............................................
-#define BSL_CHECK_STATUS_WAIT (1U * 1U* 100U)
+#define BSL_CHECK_STATUS_WAIT (1U * 1U* 10U)
 
 //${SMs::MASS_ERASE_DELAY} ...................................................
-#define MASS_ERASE_DELAY (1U * 1U* 100U)
+#define MASS_ERASE_DELAY (1U * 1U* 10U)
 
 //${SMs::BSL_NEXT_WRITE_DELAY} ...............................................
-#define BSL_NEXT_WRITE_DELAY (1U * 1U* 100U)
+#define BSL_NEXT_WRITE_DELAY (1U * 1U* 10U)
 
 //${SMs::CONN_RSP_WINDOW} ....................................................
-#define CONN_RSP_WINDOW (1U * 1U* 100U)
+#define CONN_RSP_WINDOW (1U * 1U* 10U)
 //$enddecl${SMs} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 //$declare(SMs::bt_SPC51)

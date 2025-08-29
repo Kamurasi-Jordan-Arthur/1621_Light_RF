@@ -14,7 +14,7 @@ uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
 uint8_t BSL_RX_buffer[32U + 2U];
 
 // A buffer to hold incoming firmware data
-uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE * 2U];
+uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE ];
 //uint8_t app_firmware_data_buffer[4080];
 
 
@@ -30,7 +30,7 @@ bool update_timer_expired = false;
 uint8_t bsl_read = OTHER;
 
 // Define the global instance of the OTA data structure
-ota_data_t g_ota_data  = {0U,0U,0U,1U,1U};
+ota_data_t g_ota_data  = {0U,0U,0U,1U,1U,0U};
 
 sl_status_t sc;
 
@@ -286,6 +286,33 @@ void Host_BSL_MassErase(void)
 //}
 
 
+void Host_BSL_CRCstandaloneVerification(void)
+{
+    uint32_t ui32CRC;
+
+    BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
+    BSL_TX_buffer[1] = LSB((CMD_BYTE + ADDRS_BYTES + CMD_VER_BYTES));
+    BSL_TX_buffer[2] = 0x00;
+    BSL_TX_buffer[3] = CMD_CRCVERIFICATION;
+
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES] = 0x00U;
+
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES] = g_ota_data.total_firmware_size ;
+
+    // Calculate CRC on the PAYLOAD (CMD + Data)
+    ui32CRC = softwareCRC(&BSL_TX_buffer[3], (CMD_BYTE + ADDRS_BYTES +  CMD_VER_BYTES));
+    // Insert the CRC into the packet
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES + CMD_VER_BYTES] = ui32CRC;
+
+    // Write the packet to the target
+    sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer, HDR_LEN_CMD_BYTES + ADDRS_BYTES + CMD_VER_BYTES + CRC_BYTES);
+    app_assert_status(sc);
+    bsl_read = BYTE_ACK;
+//    uart_ack = UART_writeBuffer(BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
+
+}
+
+
 
 
 //*****************************************************************************
@@ -323,7 +350,7 @@ void Host_BSL_StartApp(void)
 //
 //*****************************************************************************
 #define CRC32_POLY 0xEDB88320
-uint32_t softwareCRC(const uint8_t *data, uint8_t length)
+uint32_t softwareCRC(const uint8_t *data, uint32_t length)
 {
     uint32_t ii, jj, byte, crc, mask;
     ;

@@ -269,6 +269,35 @@ SL_WEAK void app_process_action(void)
           }
           break;
 
+        case VERIFICATION_RSP:
+
+          if (read_point + bytes_read  < HDR_LEN_CMD_BYTES + CMD_VER_BYTES + CRC_BYTES){
+
+              //Most times packet is not complete
+              read_point += bytes_read;
+
+          }else if(read_point + bytes_read ==  HDR_LEN_CMD_BYTES + CMD_VER_BYTES + CRC_BYTES){
+              //inform the state machine a
+               read_point = 0U;
+              sc = sl_sleeptimer_restart_timer_ms(
+                &updateTimer,
+                BSL_NEXT_WRITE_DELAY,
+                updateTimerEx_Callback,
+                NULL,
+                0,      // priority
+                0       // option_flags
+              );
+              app_assert_status(sc);
+
+          }else {
+              // case of failure
+              app_assert_s(false);
+
+          }
+
+
+        break;
+
         default:
           break;
 
