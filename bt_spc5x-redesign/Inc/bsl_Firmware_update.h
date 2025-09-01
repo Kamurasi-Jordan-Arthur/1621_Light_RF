@@ -124,7 +124,6 @@ extern uint16_t BSL_MAX_BUFFER_SIZE;
 // A buffer to hold incoming data chunks
 extern uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE ];
 
-
 void Host_BSL_entry_sequence(void);
 
 void BSL_software_trigger(void);

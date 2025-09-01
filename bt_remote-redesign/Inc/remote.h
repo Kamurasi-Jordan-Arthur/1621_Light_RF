@@ -44,7 +44,7 @@
 //$declare${SMs} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 //${SMs::INITIAL_FLAG_CONFIG} ................................................
-#define INITIAL_FLAG_CONFIG 0b00100010
+#define INITIAL_FLAG_CONFIG 1U
 
 //${SMs::CONN_INTERVAL_MIN} ..................................................
 #define CONN_INTERVAL_MIN 200U

@@ -229,6 +229,13 @@ app_assert_status(me-&gt;sc);
 
 
 
+
+// Store up to 8 bonds, overwrite the least recently used bond when full
+me-&gt;sc = sl_bt_sm_store_bonding_configuration(8U, 2U);
+
+app_assert_status(me-&gt;sc);
+
+
 //Delete any preivious bonding on start up if any
 //me-&gt;sc = sl_bt_sm_delete_bondings();
 //app_assert_status(me-&gt;sc);
@@ -314,7 +321,7 @@ g_ota_data.CorrectPassword=true;</action>
        <guard brief="INCOPLETE_UPDATE">else</guard>
        <action>
 //resetting baud rate back to 115200
-EUSART_BaudrateSet(EUART0, 0U, 115200U);</action>
+EUSART_BaudrateSet(EUART0, 0U, 1000000U);</action>
        <choice_glyph conn="97,32,4,3,4,76">
         <action box="5,2,22,2"/>
        </choice_glyph>
@@ -1148,7 +1155,7 @@ app_assert_status(me-&gt;sc);</action>
   </class>
   <attribute name="bt_SPC51_inst" type="bt_SPC51" visibility="0x01" properties="0x00"/>
   <attribute name="INITIAL_FLAG_CONFIG" type="" visibility="0x03" properties="0x00">
-   <code>0b00101010</code>
+   <code>1U</code>
   </attribute>
   <attribute name="CONN_INTERVAL_MIN" type="" visibility="0x03" properties="0x00">
    <code>200U</code>

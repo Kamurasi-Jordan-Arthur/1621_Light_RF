@@ -298,6 +298,7 @@ void Host_BSL_CRCstandaloneVerification(void)
     *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES] = 0x00U;
 
     *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES] = g_ota_data.total_firmware_size ;
+    //*(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES] = 4080U;
 
     // Calculate CRC on the PAYLOAD (CMD + Data)
     ui32CRC = softwareCRC(&BSL_TX_buffer[3], (CMD_BYTE + ADDRS_BYTES +  CMD_VER_BYTES));

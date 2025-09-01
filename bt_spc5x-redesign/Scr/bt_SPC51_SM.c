@@ -242,6 +242,13 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
 
 
 
+
+            // Store up to 8 bonds, overwrite the least recently used bond when full
+            me->sc = sl_bt_sm_store_bonding_configuration(8U, 2U);
+
+            app_assert_status(me->sc);
+
+
             //Delete any preivious bonding on start up if any
             //me->sc = sl_bt_sm_delete_bondings();
             //app_assert_status(me->sc);
@@ -378,7 +385,7 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             else {
 
                 //resetting baud rate back to 115200
-                EUSART_BaudrateSet(EUART0, 0U, 115200U);
+                EUSART_BaudrateSet(EUART0, 0U, 1000000U);
                 static struct {
                     QMState const *target;
                     QActionHandler act[2];
