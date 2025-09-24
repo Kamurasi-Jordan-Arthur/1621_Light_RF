@@ -64,7 +64,7 @@ extern QMsm * const QMsm_bt_remote_p; // opaque pointer to the remoteSM HSM
    </file>
   </directory>
   <attribute name="INITIAL_FLAG_CONFIG" type="" visibility="0x03" properties="0x00">
-   <code>1U</code>
+   <code>0b10100010</code>
   </attribute>
   <attribute name="CONN_INTERVAL_MIN" type="" visibility="0x03" properties="0x00">
    <code>200U</code>

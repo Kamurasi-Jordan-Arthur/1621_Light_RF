@@ -1155,7 +1155,7 @@ app_assert_status(me-&gt;sc);</action>
   </class>
   <attribute name="bt_SPC51_inst" type="bt_SPC51" visibility="0x01" properties="0x00"/>
   <attribute name="INITIAL_FLAG_CONFIG" type="" visibility="0x03" properties="0x00">
-   <code>1U</code>
+   <code>0b10101010</code>
   </attribute>
   <attribute name="CONN_INTERVAL_MIN" type="" visibility="0x03" properties="0x00">
    <code>200U</code>
