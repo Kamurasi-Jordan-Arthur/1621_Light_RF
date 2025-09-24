@@ -14,7 +14,10 @@ uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
 uint8_t BSL_RX_buffer[32U + 2U];
 
 // A buffer to hold incoming firmware data
-uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE * 2U];
+uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE ];
+//uint8_t app_firmware_data_buffer[4080];
+
+
 
 
 // Variable to hold the Max buffer allowed by BSL core
@@ -27,7 +30,7 @@ bool update_timer_expired = false;
 uint8_t bsl_read = OTHER;
 
 // Define the global instance of the OTA data structure
-ota_data_t g_ota_data  = {0U,0U,0U,1U,1U};
+ota_data_t g_ota_data  = {0U,0U,0U,1U,1U,0U};
 
 sl_status_t sc;
 
@@ -155,13 +158,30 @@ void Host_BSL_loadPassword(uint8_t *pPassword)
 
     bsl_read = BYTE_ACK;
 
-//    uart_ack = UART_writeBuffer(
-//        BSL_TX_buffer, HDR_LEN_CMD_BYTES + PASSWORD_SIZE + CRC_BYTES);
-//    if (uart_ack != uart_noError) {
-//        Firmware_assert_false();
-//    }
+}
 
-//    bsl_err = Host_BSL_getResponse();
+void Host_BSL_BaudrateChange(uint8_t  baudrate)
+{
+
+    uint32_t ui32CRC;
+
+    BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
+    BSL_TX_buffer[1] = LSB(CMD_BAUDRATE_SIZE);
+    BSL_TX_buffer[2] = 0x00;
+    BSL_TX_buffer[3] = CMD_BAUDRATE;
+    BSL_TX_buffer[4] = baudrate;
+
+    // Calculate CRC on the PAYLOAD (CMD + Data)
+    ui32CRC = softwareCRC(&BSL_TX_buffer[3], CMD_BAUDRATE_SIZE);
+
+    // Insert the CRC into the packet
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + 1U ] = ui32CRC;
+
+    // Write the packet to the target
+    sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer ,HDR_LEN_CMD_BYTES + 1U + CRC_BYTES);
+    app_assert_status(sc);
+
+    bsl_read = BYTE_ACK;
 
 }
 
@@ -266,6 +286,34 @@ void Host_BSL_MassErase(void)
 //}
 
 
+void Host_BSL_CRCstandaloneVerification(void)
+{
+    uint32_t ui32CRC;
+
+    BSL_TX_buffer[0] = (uint8_t) PACKET_HEADER;
+    BSL_TX_buffer[1] = LSB((CMD_BYTE + ADDRS_BYTES + CMD_VER_BYTES));
+    BSL_TX_buffer[2] = 0x00;
+    BSL_TX_buffer[3] = CMD_CRCVERIFICATION;
+
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES] = 0x00U;
+
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES] = g_ota_data.total_firmware_size ;
+    //*(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES] = 4080U;
+
+    // Calculate CRC on the PAYLOAD (CMD + Data)
+    ui32CRC = softwareCRC(&BSL_TX_buffer[3], (CMD_BYTE + ADDRS_BYTES +  CMD_VER_BYTES));
+    // Insert the CRC into the packet
+    *(uint32_t *) &BSL_TX_buffer[HDR_LEN_CMD_BYTES + ADDRS_BYTES + CMD_VER_BYTES] = ui32CRC;
+
+    // Write the packet to the target
+    sc = sl_iostream_write(SL_IOSTREAM_STDIN , BSL_TX_buffer, HDR_LEN_CMD_BYTES + ADDRS_BYTES + CMD_VER_BYTES + CRC_BYTES);
+    app_assert_status(sc);
+    bsl_read = BYTE_ACK;
+//    uart_ack = UART_writeBuffer(BSL_TX_buffer, HDR_LEN_CMD_BYTES + CRC_BYTES);
+
+}
+
+
 
 
 //*****************************************************************************
@@ -303,7 +351,7 @@ void Host_BSL_StartApp(void)
 //
 //*****************************************************************************
 #define CRC32_POLY 0xEDB88320
-uint32_t softwareCRC(const uint8_t *data, uint8_t length)
+uint32_t softwareCRC(const uint8_t *data, uint32_t length)
 {
     uint32_t ii, jj, byte, crc, mask;
     ;

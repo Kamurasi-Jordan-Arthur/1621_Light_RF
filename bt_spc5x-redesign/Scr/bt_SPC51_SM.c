@@ -36,6 +36,7 @@
 //
 //$endhead${SMs::./Scr::bt_SPC51_SM.c} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #include "em_common.h"
+#include "em_eusart.h"
 #include <stdio.h>
 
 #include "app_assert.h"
@@ -241,6 +242,13 @@ QState bt_SPC51_INITIALIZING(bt_SPC51 * const me, QEvt const * const e) {
 
 
 
+
+            // Store up to 8 bonds, overwrite the least recently used bond when full
+            me->sc = sl_bt_sm_store_bonding_configuration(8U, 2U);
+
+            app_assert_status(me->sc);
+
+
             //Delete any preivious bonding on start up if any
             //me->sc = sl_bt_sm_delete_bondings();
             //app_assert_status(me->sc);
@@ -375,6 +383,9 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
             }
             //${SMs::bt_SPC51::SM::OPERRATIONAL::NEXT_FIRMWARE_UP~::[INCOPLETE_UPDATE]}
             else {
+
+                //resetting baud rate back to 115200
+                EUSART_BaudrateSet(EUART0, 0U, 1000000U);
                 static struct {
                     QMState const *target;
                     QActionHandler act[2];
@@ -397,8 +408,8 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
 
                 //optimum connection parameter for firmware update
                 me->sc =  sl_bt_connection_set_parameters(me->update_connection ,
-                                                          30U,
-                                                          165U,
+                                                          6U,
+                                                          11U,
                                                           0U,
                                                           200U,
                                                           CONN_MIN_CE_LENGTH,
@@ -408,8 +419,11 @@ QState bt_SPC51_OPERRATIONAL(bt_SPC51 * const me, QEvt const * const e) {
 
                 g_ota_data.total_firmware_size = *(uint32_t *) (&(event->data.evt_gatt_server_user_write_request.value.data[3]));
                 g_ota_data.chunk_size = *(uint16_t *) (&(event->data.evt_gatt_server_user_write_request.value.data[1]));
+
                  // fill in the password
                 memcpy(me->bsl_pwd, (uint8_t *) &(event->data.evt_gatt_server_user_write_request.value.data[7]), 32);
+                //GET THE PROGRAM CRC
+                g_ota_data.ProgramCRC = *(uint32_t *) (&(event->data.evt_gatt_server_user_write_request.value.data[39]));
 
                 app_log_info(" The total firmware size is %lu and chunk size %u: ",g_ota_data.total_firmware_size, g_ota_data.chunk_size);
 
@@ -714,6 +728,15 @@ QState bt_SPC51_MANAGING_CONNECTION(bt_SPC51 * const me, QEvt const * const e) {
         case sl_bt_evt_sm_bonded_id: {
             app_log_info("Bonded....\n");
 
+            //Request for optimum communication parameter value
+            me->sc =  sl_bt_connection_set_parameters(event->data.evt_connection_opened.connection,
+                                                      CONN_INTERVAL_MIN,
+                                                      CONN_INTERVAL_MAX,
+                                                      CONN_RESPONDER_LATENCY,
+                                                      CONN_TIMEOUT,
+                                                      CONN_MIN_CE_LENGTH,
+                                                      CONN_MAX_CE_LENGTH);
+            app_assert_status(me->sc);
 
             static struct {
                 QMState const *target;
@@ -747,6 +770,10 @@ QMState const bt_SPC51_FIRMWARE_UPDATE_s = {
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE}
 QState bt_SPC51_FIRMWARE_UPDATE_x(bt_SPC51 * const me) {
     bsl_read = OTHER;
+
+    //revrting to default baudrate value for application
+    EUSART_BaudrateSet(EUART0, 0U, 9600U);
+
 
     (void)me; // unused parameter
     return QM_EXIT(&bt_SPC51_FIRMWARE_UPDATE_s);
@@ -838,7 +865,21 @@ QMState const bt_SPC51_SEND_CONN_s = {
 QState bt_SPC51_SEND_CONN_e(bt_SPC51 * const me) {
     Host_BSL_Connection();
     LED_DEB
-    Q_UNUSED_PAR(me);
+
+    me->sc = sl_sleeptimer_restart_timer_ms(
+      &updateTimer,
+      CONN_RSP_WINDOW,
+      updateTimerEx_Callback,
+      NULL,
+      0,      // priority
+      0       // option_flags
+    );
+
+    app_assert_status(me->sc);
+
+    //DROP A FLAG
+    BSL_RX_buffer[0] = 1U;
+
     return QM_ENTRY(&bt_SPC51_SEND_CONN_s);
 }
 //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN}
@@ -870,18 +911,45 @@ QState bt_SPC51_SEND_CONN(bt_SPC51 * const me, QEvt const * const e) {
         }
         //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UPDATE_STATE_ID}
         case NEXT_FIRMWARE_UPDATE_STATE_ID: {
-            static struct {
-                QMState const *target;
-                QActionHandler act[3];
-            } const tatbl_ = { // tran-action table
-                &bt_SPC51_CheckStaus_s, // target state
-                {
-                    Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x), // exit
-                    Q_ACTION_CAST(&bt_SPC51_CheckStaus_e), // entry
-                    Q_ACTION_NULL // zero terminator
-                }
-            };
-            status_ = QM_TRAN(&tatbl_);
+            //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UP~::[FLAGSTILLPRESENT!!!]}
+            if (BSL_RX_buffer[0] == 1U) {
+                LED_DEB
+
+                //Device is in wrong state to update
+
+                me->sc = sl_bt_gatt_server_send_user_write_response(me->update_connection,
+                                                               gattdb_firmware_update_cmd,
+                                                               (uint8_t)0x0181U);
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[5];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_OPERRATIONAL_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x), // exit
+                        Q_ACTION_CAST(&bt_SPC51_FIRMWARE_UPDATE_x), // exit
+                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_e), // entry
+                        Q_ACTION_CAST(&bt_SPC51_OPERRATIONAL_i), // initial tran.
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
+            //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::SEND_CONN::NEXT_FIRMWARE_UP~::[else]}
+            else {
+                static struct {
+                    QMState const *target;
+                    QActionHandler act[3];
+                } const tatbl_ = { // tran-action table
+                    &bt_SPC51_CheckStaus_s, // target state
+                    {
+                        Q_ACTION_CAST(&bt_SPC51_SEND_CONN_x), // exit
+                        Q_ACTION_CAST(&bt_SPC51_CheckStaus_e), // entry
+                        Q_ACTION_NULL // zero terminator
+                    }
+                };
+                status_ = QM_TRAN(&tatbl_);
+            }
             break;
         }
         default: {
@@ -1045,6 +1113,8 @@ QState bt_SPC51_UNLOCK(bt_SPC51 * const me, QEvt const * const e) {
             }
             //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCK::NEXT_FIRMWARE_UP~::[else]}
             else {
+                //revrting to default baudrate value for BSL
+                EUSART_BaudrateSet(EUART0, 0U, 9600U);
                 static struct {
                     QMState const *target;
                     QActionHandler act[3];
@@ -1083,9 +1153,9 @@ QState bt_SPC51_UNLOCKED_i(bt_SPC51 * const me) {
         QMState const *target;
         QActionHandler act[2];
     } const tatbl_ = { // tran-action table
-        &bt_SPC51_MASS_ERASE_s, // target state
+        &bt_SPC51_BAUDRATE_s, // target state
         {
-            Q_ACTION_CAST(&bt_SPC51_MASS_ERASE_e), // entry
+            Q_ACTION_CAST(&bt_SPC51_BAUDRATE_e), // entry
             Q_ACTION_NULL // zero terminator
         }
     };
@@ -1182,7 +1252,8 @@ QState bt_SPC51_PROGRAM_SECTION_e(bt_SPC51 * const me) {
     // Actions on entering the state, regardless of trigger (button or BLE)
 
     me->TargetAddress = BSL_START_ADDRESS;
-    g_ota_data.bytes_sent = 0;
+    g_ota_data.bytes_sent = 0U;
+    me->ui16BytesToWrite = 0U;
     // The total firmware size must be set here
 
 
@@ -1231,14 +1302,15 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
 
                 //copy the data into buffer
                 memcpy(&app_firmware_data_buffer[me->ui16BytesToWrite],
-                       event->data.evt_gatt_server_user_write_request.value.data,
+                      event->data.evt_gatt_server_user_write_request.value.data,
                        app_firmware_data_len);
+
 
                 // Update the total bytes sent
                 g_ota_data.bytes_sent += app_firmware_data_len;
                 me->ui16BytesToWrite  += app_firmware_data_len;
 
-                if((((MAX_PAYLOAD_DATA_SIZE * 2U) - me->ui16BytesToWrite) > g_ota_data.chunk_size)
+                if((((MAX_PAYLOAD_DATA_SIZE ) - me->ui16BytesToWrite) > g_ota_data.chunk_size)
                     && (g_ota_data.bytes_sent < g_ota_data.total_firmware_size) ){
 
                         me->sc = sl_bt_gatt_server_send_user_write_response(me->update_connection,
@@ -1246,7 +1318,9 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
                                                                            0U);
                         app_assert_status(me->sc);
 
-                } else{
+                }
+
+                 else{
 
                         me->data = app_firmware_data_buffer;
 
@@ -1304,10 +1378,10 @@ QState bt_SPC51_PROGRAM_SECTION(bt_SPC51 * const me, QEvt const * const e) {
                     QMState const *target;
                     QActionHandler act[3];
                 } const tatbl_ = { // tran-action table
-                    &bt_SPC51_START_APP_s, // target state
+                    &bt_SPC51_PROG_VERIFICATION_s, // target state
                     {
                         Q_ACTION_CAST(&bt_SPC51_PROGRAM_SECTION_x), // exit
-                        Q_ACTION_CAST(&bt_SPC51_START_APP_e), // entry
+                        Q_ACTION_CAST(&bt_SPC51_PROG_VERIFICATION_e), // entry
                         Q_ACTION_NULL // zero terminator
                     }
                 };
@@ -1415,6 +1489,106 @@ QState bt_SPC51_START_APP(bt_SPC51 * const me, QEvt const * const e) {
             break;
         }
     }
+    return status_;
+}
+
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE} ..................
+QMState const bt_SPC51_BAUDRATE_s = {
+    &bt_SPC51_UNLOCKED_s, // superstate
+    Q_STATE_CAST(&bt_SPC51_BAUDRATE),
+    Q_ACTION_CAST(&bt_SPC51_BAUDRATE_e),
+    Q_ACTION_NULL, // no exit action
+    Q_ACTION_NULL  // no initial tran.
+};
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE}
+QState bt_SPC51_BAUDRATE_e(bt_SPC51 * const me) {
+    //Requesting Baudrate to id 7 value 1000000
+    Host_BSL_BaudrateChange(7U);
+    Q_UNUSED_PAR(me);
+    return QM_ENTRY(&bt_SPC51_BAUDRATE_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE}
+QState bt_SPC51_BAUDRATE(bt_SPC51 * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::BAUDRATE::UART_ARK_ID}
+        case UART_ARK_ID: {
+            app_assert_s(BSL_RX_buffer[0] == uart_noError);
+
+            //setting baud rate to 1000000
+            EUSART_BaudrateSet(EUART0, 0U, 1000000U);
+            static struct {
+                QMState const *target;
+                QActionHandler act[2];
+            } const tatbl_ = { // tran-action table
+                &bt_SPC51_MASS_ERASE_s, // target state
+                {
+                    Q_ACTION_CAST(&bt_SPC51_MASS_ERASE_e), // entry
+                    Q_ACTION_NULL // zero terminator
+                }
+            };
+            status_ = QM_TRAN(&tatbl_);
+            break;
+        }
+        default: {
+            status_ = QM_SUPER();
+            break;
+        }
+    }
+    return status_;
+}
+
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROG_VERIFICATION} .........
+QMState const bt_SPC51_PROG_VERIFICATION_s = {
+    &bt_SPC51_UNLOCKED_s, // superstate
+    Q_STATE_CAST(&bt_SPC51_PROG_VERIFICATION),
+    Q_ACTION_CAST(&bt_SPC51_PROG_VERIFICATION_e),
+    Q_ACTION_NULL, // no exit action
+    Q_ACTION_NULL  // no initial tran.
+};
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROG_VERIFICATION}
+QState bt_SPC51_PROG_VERIFICATION_e(bt_SPC51 * const me) {
+    Host_BSL_CRCstandaloneVerification();
+
+    Q_UNUSED_PAR(me);
+    return QM_ENTRY(&bt_SPC51_PROG_VERIFICATION_s);
+}
+//${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROG_VERIFICATION}
+QState bt_SPC51_PROG_VERIFICATION(bt_SPC51 * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROG_VERIFICATIO~::NEXT_FIRMWARE_UPDATE_STATE_ID}
+        case NEXT_FIRMWARE_UPDATE_STATE_ID: {
+            app_assert_s(BSL_RX_buffer[HDR_LEN_CMD_BYTES - ACK_BYTE] == 0x32U);
+
+            //app_assert_s(*(uint32_t *)&BSL_RX_buffer[HDR_LEN_CMD_BYTES] == g_ota_data.ProgramCRC);
+
+            static struct {
+                QMState const *target;
+                QActionHandler act[2];
+            } const tatbl_ = { // tran-action table
+                &bt_SPC51_START_APP_s, // target state
+                {
+                    Q_ACTION_CAST(&bt_SPC51_START_APP_e), // entry
+                    Q_ACTION_NULL // zero terminator
+                }
+            };
+            status_ = QM_TRAN(&tatbl_);
+            break;
+        }
+        //${SMs::bt_SPC51::SM::FIRMWARE_UPDATE::UNLOCKED::PROG_VERIFICATIO~::UART_ARK_ID}
+        case UART_ARK_ID: {
+            app_assert_s(BSL_RX_buffer[0] == uart_noError);
+            bsl_read = VERIFICATION_RSP;
+            status_ = QM_HANDLED();
+            break;
+        }
+        default: {
+            status_ = QM_SUPER();
+            break;
+        }
+    }
+    Q_UNUSED_PAR(me);
     return status_;
 }
 

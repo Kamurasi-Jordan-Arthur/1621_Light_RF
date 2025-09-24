@@ -278,6 +278,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:12.2.1.20221205.761780132" name="bt_SPC51_SM.c" rcbsApplicability="disable" resourcePath="Scr/bt_SPC51_SM.c" toolsToInvoke="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.compiler.base.255235153.1010474608">
+						<tool id="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.compiler.base.255235153.1010474608" name="GNU ARM C Compiler" superClass="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.compiler.base.255235153"/>
+					</fileInfo>
 					<sourceEntries>
 						<entry excluding="bt_soc_blinky_shared_cmake|bt_soc_blinky_shared_iar_cmake|image/readme_img0.png|image/readme_img1.jpg|image/readme_img2.jpg|image/readme_img3.jpg|image/readme_img4.jpg|image/readme_img5.gif|gecko_sdk_4.4.6/protocol/bluetooth/api/sl_bt.xapi|create_bl_files.bat|create_bl_files.sh|create_bl_files.py|trashed_modified_files|bt_spc5x-redesign_cmake|bt_spc5x-redesign_iar_cmake" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>

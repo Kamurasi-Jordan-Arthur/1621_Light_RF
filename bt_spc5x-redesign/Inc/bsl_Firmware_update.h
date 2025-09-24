@@ -11,13 +11,14 @@ extern bool update_timer_expired;
 extern sl_sleeptimer_timer_handle_t updateTimer;
 
 
-#define MAX_PAYLOAD_DATA_SIZE (128U)
-//#define MAX_PAYLOAD_DATA_SIZE (512U)
+//#define MAX_PAYLOAD_DATA_SIZE (128U)
+#define MAX_PAYLOAD_DATA_SIZE (4096U)
 
 //MAX_PACKET_SIZE = MAX_PAYLOAD_DATA_SIZE + HDR_LEN_CMD_BYTES + CRC_BYTES + ADDRS_BYTES = 128 + 12 = 140
-//#define MAX_PACKET_SIZE (524U)
 
-#define MAX_PACKET_SIZE (140U)
+#define MAX_PACKET_SIZE (4108U)
+
+//#define MAX_PACKET_SIZE (260U)
 
 extern uint8_t BSL_TX_buffer[MAX_PACKET_SIZE + 2];
 //extern uint8_t BSL_RX_buffer[MAX_PACKET_SIZE + 2];
@@ -28,9 +29,11 @@ extern uint8_t BSL_RX_buffer[32U + 2U];
 // ! Define BSL CORE commands
 #define CMD_CONNECTION (0x12)
 #define CMD_GET_ID (0x19)
+#define CMD_BAUDRATE (0X52)
 #define CMD_RX_PASSWORD (0x21)
 #define CMD_MASS_ERASE (0x15)
 #define CMD_PROGRAMDATA (0x20)
+#define CMD_CRCVERIFICATION (0x26)
 #define CMD_START_APP (0x40)
 
 // ! Other useful macros
@@ -40,9 +43,12 @@ extern uint8_t BSL_RX_buffer[32U + 2U];
 #define HDR_LEN_CMD_BYTES (4U)
 #define CRC_BYTES (4U)
 #define PASSWORD_SIZE (uint8_t)(32U)
+#define CMD_BAUDRATE_SIZE (2U)
 #define ACK_BYTE (1U)
 #define ID_BACK (24U)
 #define ADDRS_BYTES (4U)
+#define CMD_VER_BYTES (4U)
+
 
 
 //================================================================================
@@ -93,6 +99,7 @@ enum{
   UNLOCK_RSP,
   MASS_ERASE_RSP,
   DATA_WRITE_RSP,
+  VERIFICATION_RSP,
 };
 
 
@@ -102,6 +109,7 @@ typedef struct {
     uint32_t total_firmware_size;
     uint8_t Ucomplete;
     uint8_t CorrectPassword;
+    uint32_t ProgramCRC;
 } ota_data_t;
 
 //Declare an extern instance of this structure
@@ -113,7 +121,8 @@ extern uint8_t bsl_read;
 
 extern uint16_t BSL_MAX_BUFFER_SIZE;
 
-extern uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE * 2U]; // A buffer to hold incoming data chunks
+// A buffer to hold incoming data chunks
+extern uint8_t app_firmware_data_buffer[MAX_PAYLOAD_DATA_SIZE ];
 
 void Host_BSL_entry_sequence(void);
 
@@ -122,12 +131,14 @@ void BSL_software_trigger(void);
 void Host_BSL_Connection(void);
 void Host_BSL_GetID(void);
 void Host_BSL_loadPassword(uint8_t* pPassword);
+void Host_BSL_BaudrateChange(uint8_t  baudrate);
 void Host_BSL_MassErase(void);
 //void Host_BSL_writeMemory(void);
+void Host_BSL_CRCstandaloneVerification(void);
 void Host_BSL_StartApp(void);
 
 // function to get the CRC of a given buffer and buffer length
-uint32_t softwareCRC(const uint8_t* data, uint8_t length);
+uint32_t softwareCRC(const uint8_t* data, uint32_t length);
 
 //
 void updateTimerEx_Callback(sl_sleeptimer_timer_handle_t *handle, void *data);
