@@ -1,39 +1,26 @@
-# Simplicity Studio generated files
-.project
-.cproject
-.settings/
-autogen/
-config/
-GNU ARM/
-IAR ARM/
-Keil ARM/
-out/
-build/
-debug/
-release/
+# Ignore directories
+*/*Debug*/
+**/*Release*/
+**/*gecko_sdk*/
 
-# Compiled object files and binaries
-*.o
-*.d
-*.elf
-*.axf
-*.bin
-*.hex
-*.map
-*.srec
 
-# Logs and temporary files
-*.log
-*.tmp
-*.bak
-*~
 
-# User-specific files
-*.swp
-*.user
-*.launch
 
-# OS-specific
+# Ignore macOS and Windows system files
 .DS_Store
 Thumbs.db
-desktop.ini
+
+# Ignore user-specific files
+*.swp
+*.swo
+*.log
+
+# Example: Ignore autogen or generated folders (if present)
+**/autogen*/
+**/GNU ARM*/
+
+
+# (Optional) Ignore other temporary or IDE-specific files#
+.metadata/
+outgoing/
+.browser/
