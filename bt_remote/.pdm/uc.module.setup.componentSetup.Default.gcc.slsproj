@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="uc.module.setup.componentSetup.Default.gcc" propertyScope="project">
   <folder name="image">
-    <file name="readme_img0.png" linked="false" uri="studio:/project/image/readme_img0.png"/>
-    <file name="readme_img1.jpg" linked="false" uri="studio:/project/image/readme_img1.jpg"/>
-    <file name="readme_img2.jpg" linked="false" uri="studio:/project/image/readme_img2.jpg"/>
-    <file name="readme_img3.jpg" linked="false" uri="studio:/project/image/readme_img3.jpg"/>
-    <file name="readme_img4.jpg" linked="false" uri="studio:/project/image/readme_img4.jpg"/>
-    <file name="readme_img5.gif" linked="false" uri="studio:/project/image/readme_img5.gif"/>
+    <file name="readme_img0.png" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/image/readme_img0.png"/>
+    <file name="readme_img1.jpg" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/image/readme_img1.jpg"/>
+    <file name="readme_img2.jpg" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/image/readme_img2.jpg"/>
+    <file name="readme_img3.jpg" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/image/readme_img3.jpg"/>
+    <file name="readme_img4.jpg" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/image/readme_img4.jpg"/>
+    <file name="readme_img5.gif" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/image/readme_img5.gif"/>
   </folder>
   <folder name="gecko_sdk_4.4.6">
     <folder name="platform">
@@ -874,10 +874,10 @@
       </folder>
     </folder>
   </folder>
-  <file name="main.c" linked="false" uri="studio:/project/main.c"/>
-  <file name="app.c" linked="false" uri="studio:/project/app.c"/>
-  <file name="app.h" linked="false" uri="studio:/project/app.h"/>
-  <file name="readme.md" linked="false" uri="studio:/project/readme.md"/>
+  <file name="main.c" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/main.c"/>
+  <file name="app.c" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/app.c"/>
+  <file name="app.h" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/app.h"/>
+  <file name="readme.md" linked="false" uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote/readme.md"/>
   <file name="create_bl_files.bat" generated="true" linked="false"/>
   <file name="create_bl_files.sh" generated="true" linked="false"/>
   <file name="create_bl_files.py" generated="true" linked="false"/>
@@ -892,7 +892,7 @@
   <excludedPath>create_bl_files.bat</excludedPath>
   <excludedPath>create_bl_files.sh</excludedPath>
   <excludedPath>create_bl_files.py</excludedPath>
-  <includePath uri="studio:/project/"/>
+  <includePath uri="file:/D:/Work/Light%20Switch/Project%20files/1621_Light_RF/bt_remote"/>
   <includePath uri="studio:/sdk/platform/Device/SiliconLabs/EFR32MG22/Include"/>
   <includePath uri="studio:/sdk/app/common/util/app_assert"/>
   <includePath uri="studio:/sdk/app/common/util/app_button_press"/>

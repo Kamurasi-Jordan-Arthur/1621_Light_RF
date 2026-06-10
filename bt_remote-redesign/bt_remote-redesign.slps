@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore">
   <descriptors name="bt_remote-redesign">
-    <properties key="projectCommon.sdkId" value="com.silabs.sdk.stack.super:4.4.6._-1655229302"/>
+    <properties key="projectCommon.sdkId" value="com.silabs.sdk.stack.super:4.4.6._2029113514"/>
     <properties key="universalConfig.relativeWorkspacePath" value="..\bt_soc_blinky_shared.slcw"/>
     <properties key="universalConfig.generationDirectory" value=""/>
     <properties key="universalConfig.toolchainCompatibility" value="iar gcc"/>
